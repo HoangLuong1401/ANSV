@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/views/layouts">
+
+
+    <!-- Trang Login -->
+    <decorator name="login_admin" page="login.jsp">
+        <pattern>/login_admin</pattern>
+    </decorator>
+    <decorator name="login_user" page="login.jsp">
+        <pattern>/login_user</pattern>
+    </decorator>
+
+    <!-- Phần khách hàng -->
+    <decorator name="web" page="web.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+
+    <decorator name="trang-chu" page="web.jsp">
+        <pattern>/trang-chu</pattern>
+    </decorator>
+
+    <decorator name="ve-chung-toi" page="about.jsp">
+        <pattern>/ve-chung-toi</pattern>
+    </decorator>
+
+    <decorator name="to-chuc" page="about.jsp">
+        <pattern>/to-chuc</pattern>
+    </decorator>
+
+    <decorator name="lich-su" page="about.jsp">
+        <pattern>/lich-su</pattern>
+    </decorator>
+
+    <decorator name="khach-hang" page="about.jsp">
+        <pattern>/khach-hang</pattern>
+    </decorator>
+
+    <decorator name="san-pham-thuong-mai" page="about.jsp">
+        <pattern>/san-pham-thuong-mai</pattern>
+    </decorator>
+
+    <decorator name="san-pham-cong-nghe-cong-nghiep"
+               page="about.jsp">
+        <pattern>/san-pham-cong-nghe-cong-nghiep</pattern>
+    </decorator>
+
+    <decorator name="du-an-tieu-bieu" page="about.jsp">
+        <pattern>/du-an-tieu-bieu</pattern>
+    </decorator>
+
+    <decorator name="chuyen-nganh-vien-thong" page="about.jsp">
+        <pattern>/chuyen-nganh-vien-thong</pattern>
+    </decorator>
+
+    <decorator name="cong-nghe-thong-tin" page="about.jsp">
+        <pattern>/cong-nghe-thong-tin</pattern>
+    </decorator>
+
+    <decorator name="chuyen-doi-so" page="about.jsp">
+        <pattern>/chuyen-doi-so</pattern>
+    </decorator>
+
+    <decorator name="dich-vu" page="about.jsp">
+        <pattern>/dich-vu</pattern>
+    </decorator>
+
+    <decorator name="chi-tiet-san-pham" page="about.jsp">
+        <pattern>/chi-tiet-san-pham</pattern>
+    </decorator>
+
+    <decorator name="noi-bo" page="about.jsp">
+        <pattern>/noi-bo</pattern>
+    </decorator>
+
+    <decorator name="lien-he" page="about.jsp">
+        <pattern>/lien-he</pattern>
+    </decorator>
+
+    <decorator name="tin-tuc" page="about.jsp">
+        <pattern>/tin-tuc</pattern>
+    </decorator>
+
+    <decorator name="thong-diep" page="about.jsp">
+        <pattern>/thong-diep</pattern>
+    </decorator>
+
+    <!-- Phần của chi tiết sản phẩm -->
+
+    <decorator name="HVIP01" page="about.jsp">
+        <pattern>/HVIP01</pattern>
+    </decorator>
+
+    <decorator name="HVOF01" page="about.jsp">
+        <pattern>/HVOF01</pattern>
+    </decorator>
+
+    <decorator name="Sm_box2" page="about.jsp">
+        <pattern>/Sm_box2</pattern>
+    </decorator>
+
+    <decorator name="Sm_box2_ATV" page="about.jsp">
+        <pattern>/Sm_box2_ATV</pattern>
+    </decorator>
+
+    <decorator name="EW12S_SG" page="about.jsp">
+        <pattern>/EW12S_SG</pattern>
+    </decorator>
+
+    <decorator name="EW12C_CG" page="about.jsp">
+        <pattern>/EW12C_CG</pattern>
+    </decorator>
+
+    <decorator name="GW020_H" page="about.jsp">
+        <pattern>/GW020_H</pattern>
+    </decorator>
+
+    <decorator name="GW040_H" page="about.jsp">
+        <pattern>/GW040_H</pattern>
+    </decorator>
+
+    <decorator name="22N_01" page="about.jsp">
+        <pattern>/22N_01</pattern>
+    </decorator>
+
+    <decorator name="MR4G_11D" page="about.jsp">
+        <pattern>/MR4G_11D</pattern>
+    </decorator>
+
+    <decorator name="GW240_H" page="about.jsp">
+        <pattern>/GW240_H</pattern>
+    </decorator>
+
+    <!-- Phần tin tức -->
+    <decorator name="mesh_vs_rep" page="about.jsp">
+        <pattern>/mesh_vs_rep</pattern>
+    </decorator>
+
+
+
+    <!-- Phần của admin -->
+    <decorator name="home" page="admin.jsp">
+        <pattern>/home</pattern>
+    </decorator>
+
+    <decorator name="admin" page="admin.jsp">
+        <pattern>/admin/*</pattern>
+    </decorator>
+
+    <decorator name="admin2" page="adminCourse.jsp">
+        <pattern>/admin/khoa-hoc/**</pattern>
+    </decorator>
+
+
+    <decorator name="fileform" page="">
+        <pattern>/fileform</pattern>
+    </decorator>
+
+    <decorator name="fileform_new" page="">
+        <pattern>/fileform_new</pattern>
+    </decorator>
+
+    <!--	Phần Của Khóa Học-->
+    <decorator name="course" page="course.jsp">
+        <pattern>/user/**</pattern>
+    </decorator>
+
+</decorators>

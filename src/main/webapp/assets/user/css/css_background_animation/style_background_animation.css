@@ -1,0 +1,25 @@
+
+
+
+/* ----- particles.js container:  Đoạn CSS hiển thị hình ảnh động ----- */
+.particles-js {
+  	position: absolute;
+  	width: 100%;
+  	height: 100%;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+  	background-position: 50% 50%;
+}
+.particles-js.particles-home-section-2 {
+  	background-color: #1c9ad6;
+}
+
+
+
+/* home-section-2 */
+.home-section-2 .container {
+  position: relative;
+  max-width: 1300px;
+  width: auto;
+  z-index: 10;
+}

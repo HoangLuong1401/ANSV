@@ -1,0 +1,114 @@
+.mo_only { display: none; }
+
+.txt_fff { color: #fff; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.6), 0 1px 5px rgba(0, 0, 0, 1), 0 1px 5px rgba(0, 0, 0, 1); }
+
+.feature { outline: none; width: 100%; max-width: 1440px; margin: 0 auto;  overflow-x: hidden;}
+
+a{ color: black; }
+
+
+.f01 hr { width: 40px; height: 5px; margin: 0 auto; background: #000; border: none; }
+
+.feature.f01 h3 { padding: 53px 0px 20px; font-family: "SamsungSharpSans", arial; font-weight: bold; font-size: 32px; letter-spacing: 0; text-align: center; }
+
+.f01 .column_ul { width: 100%; overflow: hidden; }
+
+.f01 .column_ul > li { overflow: hidden; float: left; display: block; width: 100%;}
+
+.f01 .column_ul > li:last-child { float: right; margin-right: 0; }
+
+.f01 .column_ul > li > a { overflow: hidden; position: relative; display: inline-block; width: 100%; height: 100%; }
+
+.f01 .column_ul > li > a > img { width: 100%; height: auto; transform: none;
+-webkit-transition-duration: 0.45s;
+transition-duration: 0.45s;
+-webkit-transition-property: transform;
+transition-property: transform;
+-webkit-transition-timing-function: ease;
+transition-timing-function: ease;}
+
+.f01 .column_ul > li > a > h4 {display: block;position: absolute;bottom: 22px;width: 100%;font-weight: normal;font-size: 18px;text-align: center;text-decoration: none;letter-spacing: -0.45px;overflow: hidden;height:48px;padding:0 20px;box-sizing:border-box;}
+
+
+
+<!--hover-->
+
+.f01 .column_ul > li > a:focus > img, .f01 .column_ul > li > a:hover > img { transform: scale(1.1); }
+
+.f01 .column_ul > li > a:focus > h4, .f01 .column_ul > li > a:hover > h4 { text-decoration: underline; text-underline-position: under; font-weight: bold;}
+
+.f01 .column_ul > li > a:focus, .f01 .column_ul > li > a:hover { text-decoration: underline; text-underline-position: under; font-weight: bold;}
+
+
+@media screen and (max-width: 1440px) {
+	.txt_fff { color: #fff; text-shadow: 0 1px 0.35vw rgba(0, 0, 0, 0.6), 0 1px 0.35vw rgba(0, 0, 0, 1), 0 1px 0.35vw rgba(0, 0, 0, 1); }
+
+	.f01 hr { width: 2.7777vw; height: 0.3472vw; }
+
+	.feature.f01 h3 { padding: 3.68vw 0px 1.3889vw; font-size: 2.2222vw; }
+
+	.f01 .column_ul > li > a > h4 { bottom: 1.53vw; font-size: 1.25vw; height:3.333vw;}
+}
+
+
+
+@media screen and (max-width: 1024px) {
+	.feature.f01 h3 { font-size: 23px; }
+
+	.f01 .column_ul > li > a > h4 { font-size: 13px; height:36px; height:auto;}
+	.f01 .column_ul > li > a > h4 .not-always {display:none;}
+
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+
+	.mo_only { display: block; width: 100%; margin: 4.95vw 0 6.8055vw; padding-left: 0.8333vw; text-align: center; }
+
+	.feature { max-width: 768px; }
+
+	.txt_fff {text-shadow: 0px 1px 0.69vw rgba(0, 0, 0, 0.8), 0px 1px 1.67vw rgba(0, 0, 0, 0.8);}
+
+	.f01 hr { width: 5.5555vw; height: 0.6944vw; }
+
+	.f01 { overflow: hidden; }
+
+	.feature.f01 h3 { padding: 9.86vw 0px 4.44vw; font-size: 7.5vw;}
+
+	.f01 .column_ul { position: relative; width: 100%; overflow: hidden; }
+
+	.f01 .column_ul > li { position: relative; top: 0; left: 0; overflow: hidden; float: left; display: inline-block; width: 100%; margin-right: 0; }
+
+	.f01 .column_ul > li:first-child { position: relative;}
+
+	.f01 .column_ul > li:last-child { float: left; margin-right: 0; }
+
+	.f01 .column_ul > li > a { display: inline-block; width: 100%; height: 100%; }
+
+	.f01 .column_ul > li > a > h4 { box-sizing: border-box; display: block; position: absolute; bottom: 4.3055vw; width: 100%; padding: 0 6.67vw; font-size: 4.44vw; line-height: 5.56vw; text-align: center; text-decoration: none; height:12vw; height:auto;}
+
+	.mo_only > li { display: inline-block; width: 3.125vw; min-width: 15px; height: 3.125vw; min-height: 15px; margin-right: 2.5vw; }
+	.mo_only > li:last-child {margin-right: 0;}
+	.mo_only > li > a { box-sizing: border-box; display: inline-block; width: 100%; height: 100%; border-radius: 50vh; border: 2px solid #636363; }
+	.mo_only > li > a.active { background: #636363;  }
+}
+
+@media screen and (max-width: 320px) {
+	.mo_only { margin: 16px 0 22px; padding-left: 3px; }
+
+	.feature { min-width: 320px; }
+
+	.txt_fff {text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8), 0px 1px 5px rgba(0, 0, 0, 0.8);}
+
+	.f01 hr { width: 18px; height: 2px; }
+
+	.f01 h3 { padding: 32px 0px 14px; font-size: 24px;}
+
+	.f01 .column_ul { min-height: 191px; }
+
+	.f01 .column_ul > li > a > h4 { bottom: 14px; padding: 0 21px; font-size: 14px; line-height: 18px; height:36px; height:auto;}
+
+	.mo_only > li { width: 15px; height: 15px; margin-right: 10px; }
+}

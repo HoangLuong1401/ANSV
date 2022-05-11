@@ -1,0 +1,44 @@
+.post_home{position:relative}
+.post_home .widget-title{font-size:30px;color:#fff;position:absolute;top:18%;width:100%;text-align:center;font-weight:700}
+.post_home .carousel .post_item p{font-family:roboto,sans-serif;font-size:14px;font-style:italic;color:#fff;max-width:900px;margin:0 auto}
+.post_home .carousel .post_item h2{font-family:roboto,sans-serif;font-weight:700;text-align:center}
+.post_home .carousel .post_item h2 a{color:#fff;font-size:18px}
+.post_home .carousel .post_item p:before{content:'\f10d';color:#e9e9e9;font-family:FontAwesome;font-size:22px;display:inline-block;margin-right:10px}
+.post_home .carousel .post_item p:after{content:'\f10e';color:#e9e9e9;font-family:FontAwesome;font-size:22px;display:inline-block;margin-left:10px}
+.owl-control.owl-next-1{position:absolute;right:12%;top:45%}
+.owl-control.owl-prev-1{position:absolute;left:12%;top:45%}
+.post-thumbnail-fullsize{height:500px;width:100%;margin-bottom:15px}
+.post-thumbnail-fullsize img{height:100%;width:100%;object-fit:cover}
+
+@media(min-width:992px){
+	.post_home .carousel .post_item{margin-top:10%;width:100%}
+}
+
+@media screen and (max-width:992px){
+	.post_home .widget-title{position:unset}
+	.owl-control.owl-next-1{right:10px;top:-20%}
+	.owl-control.owl-prev-1{left:10px;top:-20%}
+}
+
+.gray-covered{position:relative}
+.gray-covered:before{content:'';position:absolute;top:0;left:0;height:100%;width:100%;background:rgba(0,0,0,.7)}
+.gray-covered>div{z-index:1}
+.ow-button-base a{background:#06c!important;text-decoration:none}
+.panel-row-style a.ow-button-hover{padding:7px;font-size:12px!important;-webkit-transition:all .3s linear;-o-transition:all .3s linear;transition:all .3s linear}
+.panel-row-style a.ow-button-hover:hover{background:#007bf7!important;text-decoration:none}
+.sow-features-list .sow-features-feature{width:100%!important}
+.sow-features-list .textwidget h5{margin:.5em 0!important;font-weight:400}
+.sow-features-list .sow-features-feature .sow-icon-icomoon{border:4px solid #06c;-webkit-transition:all .3s linear;-o-transition:all .3s linear;transition:all .3s linear}
+.sow-features-list .sow-features-feature:hover .sow-icon-icomoon{background:#fff;color:#000!important}
+.fat-gallery-title h5{font-size:24px!important;font-weight:700!important}
+.fat-gallery-item .fat-hover-outer{background:rgba(255,255,255,.7)!important}
+.fat-gallery-excerpt{text-align:left;font-size:14px!important;line-height:14px!important;font-weight:500!important}
+.page-template .panel-grid-cell .so-widget-sow-editor .widget-title{font-size:2.5em;font-weight:600;padding-bottom:.4em}
+.site-footer{background-image:url(/wp-content/themes/mec/images/bg-footer.jpg);background-size:cover;background-attachment:fixed;float:left;width:100%;color:#8f8f8f!important;padding-top:60px;position:relative}
+.site-footer .textwidget{padding-bottom:15px;padding-top:20px}
+.site-footer h4{font-size:18px;color:#fff;font-weight:700}
+.site-footer h4:after{content:'';width:60px;display:block;border-bottom:2px solid #06c;border-width:2px!important;margin-top:10px}
+.footer-header{text-align:center;padding-bottom:30px}
+.footer-bottom{border-top:1px solid #ccc;padding:10px}
+.f-h-c{max-width:700px;margin:auto;padding:20px 0;font-style:italic;font-weight:700;padding:0!important;margin-top:-20px!important;margin-bottom:-20px!important}
+.f-h-c img{height:80px}

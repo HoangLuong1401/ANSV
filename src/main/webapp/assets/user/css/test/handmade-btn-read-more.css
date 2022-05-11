@@ -1,0 +1,26 @@
+.list__cont-link_new .s-default {
+	position: relative;
+	display: inline-block;
+	color: #3648ae;
+	font-size: 14px;
+	font-size: 0.97222vw;
+	font-weight: bold;
+	line-height: 2;
+	letter-spacing: .1em;
+	text-transform: uppercase
+}
+
+.list__cont-link_new .s-default:hover,
+.list__cont-link_new .s-default:focus {
+	color: #0077c8
+}
+
+.list__cont-link_new {
+	text-align: center; 
+	padding-top: 24px;
+}
+
+.list__cont-link_new .s2 {
+	font-size: 20px; 
+	color: #3648ae;
+}
