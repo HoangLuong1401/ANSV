@@ -21,7 +21,7 @@
 
 
     <http>
-        <intercept-url pattern="/user/khoa-hoc/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_WEB','ROLE_ADMIN_COURSE')" />
+        <intercept-url pattern="/user/khoa-hoc/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_WEB','ROLE_ADMIN_COURSE,ROLE_DF')" />
         <form-login
                 login-page="/login_user"
                 login-processing-url="/j_spring_security_login"
