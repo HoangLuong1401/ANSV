@@ -41,7 +41,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form id="admin-form" action="<c:url value='/admin/j_spring_security_login' />" method='POST'>
+                        <form action="<c:url value='/admin/j_spring_security_login' />" method='POST' id="form_login">
+                            <input type='hidden' name='status' id="login_status" value="1" class="form-control" />
 
                             <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card card-hidden">
@@ -49,15 +50,16 @@
                                 <div class="content">
                                     <div class="form-group">
                                         <label>Tài khoản</label>
-                                        <input type='text' name='username' class="form-control" />
+                                        <input type='text' name='username' id="usn" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <label>Mật khẩu</label>
-                                        <input type='password' name='password' class="form-control" />
+                                        <input type='password' name='password_main' id="psw_main" class="form-control" />
+                                        <input type='hidden' name='password' id="psw" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="footer text-center">
-                                    <input  id="btn_form" type="submit" value="Đăng nhập" class="btn btn-fill btn-warning btn-wd" />
+                                    <input type="button" id="btn_form" value="Đăng nhập" class="btn btn-fill btn-primary btn-wd" />
                                     <c:if test="${ not empty message }">
                                         <br><font color="red">${ message }</font>
                                     </c:if>
@@ -87,53 +89,7 @@
         </footer>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<%--<script>--%>
 
-<%--    $("#btn_form").click(function() {--%>
-<%--        var form = $("#admin-form");--%>
-<%--        console.log("1. Form on submit!");--%>
-<%--        $.ajax({--%>
-<%--            type: "POST",--%>
-<%--            url: "http://10.1.3.10:3001/login",--%>
-<%--            data: form.serialize(),--%>
-<%--            success: function(data) {--%>
-<%--                console.log("2. LDAP Authentication Success!");--%>
-<%--                console.log(data);--%>
-<%--                check_data_ajax(data);--%>
-<%--            },--%>
-<%--            error: function(e) {--%>
-<%--                console.log("2. LDAP Authentication Error!");--%>
-<%--                alert("TÊN ĐĂNG NHẬP hoặc MẬT KHẨU không đúng!");--%>
-<%--            }--%>
-<%--        });--%>
-<%--        return false;--%>
-<%--    });--%>
-
-<%--    function myFunction() {--%>
-<%--        document.getElementById("admin-form").submit();--%>
-<%--    }--%>
-
-
-<%--    function check_data_ajax(data_ajax) {--%>
-<%--        var data = "";--%>
-<%--        data += "&display_name=" + data_ajax.data.displayName;--%>
-<%--        data += "&" + $("#admin-form").serialize(); // Dữ liệu truyềnv vào ajax--%>
-
-<%--        $.ajax({--%>
-<%--            type: "POST",--%>
-<%--            url: "compare_role_user",--%>
-<%--            data: data,--%>
-<%--            success: function(data) {--%>
-<%--                if (data >= 0) {--%>
-<%--                    console.log("3. Simple Authorization - " + data);--%>
-<%--                    $("#admin-form").submit();--%>
-<%--                }--%>
-<%--            },--%>
-<%--            error: function(e) {--%>
-<%--                console.log("ERROR: ", e);--%>
-<%--            }--%>
-<%--        });--%>
-<%--    }--%>
-<%--</script>--%>
+<script src="<c:url value='/assets/user/vendor/jquery/jquery.min.js' />"></script>
+<script src="<c:url value='/assets/user/js/LdapAuthenticate.js' />" type="text/javascript"></script>
 </body>

@@ -29,6 +29,26 @@ public class LoginController {
     @Autowired
     private UserService usersService;
 
+    private ArrayList<String> role_accept = new ArrayList<>();
+    //Change compare_user
+    public LoginController() {
+        role_accept.add("ROLE_CEO");
+        role_accept.add("ROLE_ADMIN_COURSE");
+        role_accept.add("ROLE_ADMIN_WEB");
+        role_accept.add("ROLE_DF");
+    }
+
+    protected void addNewAccount(String username, String display_name, String role){
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword("{noop}");
+        user.setDisplay_name(display_name);
+        user.setEnabled(1);
+        user.setCreated_by("system");
+        usersService.saveLogin(user);
+        usersService.saveRoleLogin(username, role);
+    }
+
 //     Hàm check tài khoản login tương ứng trên LDAP
     public String ldapAuthentication(String username, String password) {
         String result = "1";
@@ -64,49 +84,117 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/compare_role_user", method = RequestMethod.POST)
-    public @ResponseBody
-    String compareRole(HttpServletRequest request) {
-
-        ArrayList<String> role_special = new ArrayList<String>();
-        role_special.add("ROLE_ADMIN_COURSE");
-        role_special.add("ROLE_ADMIN_WEB");
-        role_special.add("ROLE_DF");
-        role_special.add("ROLE_USER");
-        role_special.add("ROLE_ADMIN");
-
+    public @ResponseBody String compareRole(HttpServletRequest request) {
+        String login_status = request.getParameter("login_status");
 
         String result = "0";
         String username = request.getParameter("username");
-
         String display_name = request.getParameter("display_name");
-        int check = 0;
+        String role = "";
+        String size_role = request.getParameter("size_role");
+        int status = 0, role_df = 0;
 
-        if (usersService.checkUserExist(username) == 1) {
-                String role_database = usersService.findRoleByUser(username);
-                if(role_special.contains(role_database)){
-                    System.out.println(role_special.contains(role_database));
-                    result = "1";
+        if (login_status.contains("1")) {
+            String[] role_accept;
+            role_accept = new String[3];
+            // Nếu Quản trị login
+            role_accept[0] = "ROLE_CEO"; // Tổng giám đốc login
+            role_accept[1] = "ROLE_ADMIN_COURSE"; // Quản trị nội bộ
+            role_accept[2] = "ROLE_ADMIN_WEB"; // Quản trị dữ liệu
+
+            //Check role admin login
+            for (int i = 0; i < role_accept.length; i++) {
+                // Vòng lặp kiểm tra role lớn nhất user có, so sánh với role được cấp trên database => Nếu khác, thực hiện update role mới trên database
+                for (int j = 1; j <= Integer.parseInt(size_role); j++) {
+                    role = request.getParameter("role" + j);
+
+                    if (role.equals(role_accept[i]) && status == 0) {
+
+                        if (usersService.checkUserExist(username) != 0) {
+                            // Nếu tồn tại user trên DB
+                            if (usersService.checkUsersRoleExist(username, role) == 0) {
+                                // Nếu ko tồn tại role user trên DB = role LDAP -> update role
+                                usersService.updateRoleByUser(username, role);
+                            }
+                        } else {
+                            // Nếu ko tồn tại user -> insert user + insert role
+                            addNewAccount(username,display_name,role);
+                        }
+                        result = "1";
+                        status = 1;
+                    }
                 }
+            }
+        } else if (login_status.contains("2")) {
+            String[] role_accept;
+            role_accept = new String[3];
+            // Nếu Quản trị login
+            role_accept[0] = "ROLE_CEO"; // Tổng giám đốc login
+            role_accept[1] = "ROLE_ADMIN_COURSE"; // Quản trị nội bộ
+            role_accept[2] = "ROLE_ADMIN_WEB"; // Quản trị dữ liệu
 
-        } else {
-                System.out.println("OK  for j - 2");
-                System.out.println("Insert new User");
-                // Nếu chưa tồn tại => Tạo mới user và role cho user đó
-                User data_user_insert = new User();
-                data_user_insert.setId((usersService.count() + 1));
-                data_user_insert.setUsername(username);
-                data_user_insert.setPassword("{noop}");
-                data_user_insert.setDisplay_name(display_name);
-                data_user_insert.setEnabled(1);
-                data_user_insert.setCreated_by("System");
-
-                usersService.save(data_user_insert); // Lưu user
-                usersService.saveRoleForUser(username); // Cấp role cho user
+            //Check role user login
+            for (int i = 1; i <= Integer.parseInt(size_role); i++) {
+                role = request.getParameter("role"+i);
+                if (role.contains("ROLE_DF")) {
+                    System.out.println("User has ROLE_DF");
+                    role_df = 1;
+                }
             }
 
+            if (role_df == 1) {
+                if (usersService.checkUserExist(username) != 0) {
+                    // Nếu tồn tại user trên DB
+                    if (usersService.checkUsersRoleExist(username, "ROLE_DF") == 0) {
+                        // Nếu ko tồn tại role user trên DB = role LDAP -> update role
+                        usersService.updateRoleByUser(username, "ROLE_DF");
+                    } else {
+                        return "1"; // Đã tồn tại user và role đúng => trả về thành công
+                    }
+                } else {
+                    // Nếu ko tồn tại user -> insert user + insert role
+                    addNewAccount(username,display_name,"ROLE_DF");
+                    return "1"; // Tạo mới user và add role => trả về thành công
+                }
+            }else{
+                int userInt = 0;
+                for (int i = 0; i < role_accept.length; i++) {
+                    // Vòng lặp kiểm tra role lớn nhất user có, so sánh với role được cấp trên database => Nếu khác, thực hiện update role mới trên database
+                    for (int j = 1; j <= Integer.parseInt(size_role); j++) {
 
-        if (check != 0) {
-            result = "1";
+                        role = request.getParameter("role" + j);
+
+                        if (role.equals(role_accept[i]) && status == 0) {
+                            if (usersService.checkUserExist(username) != 0) {
+                                // Nếu tồn tại user trên DB
+                                if (usersService.checkUsersRoleExist(username, role) == 0) {
+                                    // Nếu ko tồn tại role user trên DB = role LDAP -> update role
+                                    usersService.updateRoleByUser(username, role);
+                                }
+                            } else {
+                                // Nếu ko tồn tại user -> insert user + insert role
+                                addNewAccount(username,display_name,role);
+                            }
+                            result = "1";
+                            status = 1;
+                            userInt = 1;
+                        }
+                    }
+                }
+                if(userInt == 0){
+                    if (usersService.checkUserExist(username) != 0) {
+                        // Nếu tồn tại user trên DB
+                        if (usersService.checkUsersRoleExist(username, "ROLE_USER") == 0) {
+                            // Nếu ko tồn tại role user trên DB = role LDAP -> update role
+                            usersService.updateRoleByUser(username, "ROLE_USER");
+                        }
+                    } else {
+                        // Nếu ko tồn tại user -> insert user + insert role
+                        addNewAccount(username,display_name,"ROLE_USER");
+                    }
+                    result = "1";
+                }
+            }
         }
 
         return result;

@@ -24,14 +24,14 @@ public class UserDao {
 
     }
 
-    // Kiểm tra username đã tồn tại trên database chưa
+    // Kiá»ƒm tra username Ä‘Ã£ tá»“n táº¡i trÃªn database chÆ°a
     public int checkUserExist(String username) {
         String sql = "SELECT count(*) FROM users WHERE username = ?";
         int result = jdbcTemplate.queryForObject(sql, Integer.class, username);
         return result;
     }
 
-    // Kiểm tra role trên LDAP với role sãn có trên database
+    // Kiá»ƒm tra role trÃªn LDAP vá»›i role sÃ£n cÃ³ trÃªn database
     public int checkUsersRoleExist(String username, String role) {
         String sql = "SELECT count(*) FROM role "
                 + "INNER JOIN users_roles ON role.id = users_roles.role "
@@ -41,7 +41,7 @@ public class UserDao {
         return result;
     }
 
-    // Cập nhật role của user
+    // Cáº­p nháº­t role cá»§a user
     public void updateRoleByUser(String username, String role) {
         String sql = "UPDATE users_roles "
                 + "SET users_roles.role = (SELECT role.id FROM role WHERE role.name = ?) "
@@ -49,9 +49,9 @@ public class UserDao {
         jdbcTemplate.update(sql, role, username);
     }
 
-    // lấy về role database
+    // láº¥y vá»� role database
 
-    // Truy vấn role của user
+    // Truy váº¥n role cá»§a user
     public String findRoleByUser(String username) {
         String sql = "SELECT role.name FROM role "
                 + "INNER JOIN users_roles ON role.id = users_roles.role "
@@ -75,9 +75,22 @@ public class UserDao {
                 users.getEnabled(), _now, users.getCreated_by());
     }
 
+    // Insert user
+    public void saveLogin(User users) {
+        String sql = "INSERT INTO users (username, password, display_name, enabled, created_at, created_by) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, users.getUsername(), users.getPassword(), users.getDisplay_name(),
+                users.getEnabled(), _now, users.getCreated_by());
+    }
+
     // Thêm role cho user
     public void saveRoleForUser(String username) {
         String sql = "INSERT INTO users_roles (user, role) VALUES ((SELECT users.id FROM users WHERE users.username = ?),2)";
         jdbcTemplate.update(sql, username);
+    }
+
+    public void saveRoleLogin(String username, String role) {
+        String sql = "INSERT INTO users_roles (user, role) VALUES ((SELECT users.id FROM users WHERE users.username = ?), (SELECT role.id FROM role WHERE role.name = ?))";
+        jdbcTemplate.update(sql, username, role);
     }
 }

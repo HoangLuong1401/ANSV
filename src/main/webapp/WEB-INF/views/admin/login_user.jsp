@@ -46,7 +46,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form name='loginForm' action="<c:url value='/j_spring_security_login' />" method='POST'>
+                        <form name='loginForm' action="<c:url value='/j_spring_security_login' />" method='POST' id="form_login">
+                            <input type='hidden' name='status' id="login_status" value="2" class="form-control" />
 
                             <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card card-hidden">
@@ -54,15 +55,16 @@
                                 <div class="content">
                                     <div class="form-group">
                                         <label>Tài khoản</label>
-                                        <input type='text' name='username' class="form-control" />
+                                        <input type='text' name='username' id="usn" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <label>Mật khẩu</label>
-                                        <input type='password' name='password' class="form-control" />
+                                        <input type='password' name='password_main' id="psw_main" class="form-control" />
+                                        <input type='hidden' name='password' id="psw" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="footer text-center">
-                                    <input name="submit" type="submit" value="Đăng nhập" class="btn btn-fill btn-primary btn-wd" />
+                                    <input type="button" id="btn_form" value="Đăng nhập" class="btn btn-fill btn-primary btn-wd" />
                                     <c:if test="${ not empty message }">
                                         <br><font color="red">${ message }</font>
                                     </c:if>
@@ -94,5 +96,8 @@
         </footer>
     </div>
 </div>
+
+<script src="<c:url value='/assets/user/vendor/jquery/jquery.min.js' />"></script>
+<script src="<c:url value='/assets/user/js/LdapAuthenticate.js' />" type="text/javascript"></script>
 
 </body>

@@ -18,7 +18,7 @@ public class UserService {
     public String findRoleByUser(String username){
         return userDao.findRoleByUser(username);
     }
-//
+    //
     public int checkUserExist(String username){
         return userDao.checkUserExist(username);
     }
@@ -31,13 +31,20 @@ public class UserService {
         userDao.updateRoleByUser(username, role);
     }
 
-
     public void save(User users) {
         userDao.save(users);
     }
 
+    public void saveLogin(User users) {
+        userDao.saveLogin(users);
+    }
+
     public void saveRoleForUser(String username) {
         userDao.saveRoleForUser(username);
+    }
+
+    public void saveRoleLogin(String username, String role) {
+        userDao.saveRoleLogin(username, role);
     }
 
     public int count(){
