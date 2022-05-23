@@ -10,8 +10,8 @@
 --------------------------------------------------------------*/
 body {
   font-family:"Open Sans", sans-serif;
-  color: #4d4643;
-  font-size: 14px;
+  color: #000;
+  font-size: 15px;
 }
 
 a {
@@ -21,6 +21,26 @@ a {
 a:hover {
   color: #f27700;
   text-decoration: none;
+}
+
+#arrow{
+	color: #939393;
+	padding-left: 2%;
+	padding-right: 2%;
+}
+#p-n-date{
+	right: 0;
+}
+
+a#link{
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+a#link:hover{
+	color: #007bff;
+	text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -552,7 +572,7 @@ ul.nav-pills a:hover::after{
 
 @media (min-width: 1024px){
 	body {
-	font-size: 14px;
+	font-size: 15px;
 }
 }
 
@@ -2511,6 +2531,13 @@ figcaption {
 .about-right img{
 	max-width: 100%
 }
+
+/*--------------------------------------------------------------
+#slick
+--------------------------------------------------------------*/
+
+
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/

@@ -57,7 +57,7 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="${urlDetails}/${news.id}">${news.title}</a>
+                                                        <a id="title_news" href="${urlDetails}/${news.id}">${news.title}</a>
                                                     </td>
                                                     <td>${news.url}</td>
                                                     <td>
