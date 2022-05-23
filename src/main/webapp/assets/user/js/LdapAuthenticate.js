@@ -1,8 +1,7 @@
 $(document).ready(function() {
 
 	$("#btn_form").click(function() {
-		$( "#form_login" ).submit();
-		
+
 		var form = $("#form_login");
 		console.log("1. Form on submit!");
 		var usn = $('#usn').val();
