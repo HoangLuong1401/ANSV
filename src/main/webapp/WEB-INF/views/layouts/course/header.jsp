@@ -23,7 +23,7 @@
             <div class="nav__right">
 
                 <div class="nav__avt">
-                    <img src="<c:url value="/assets/course/img/avt.jpg"/>" alt="avatar" />
+                    <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" />
                 </div>
 
                 <div class="nav__user-name"><span>${display_name}</span></div>
@@ -51,15 +51,11 @@
 
                                 <c:forEach items="${history}" var="h">
                                 <li class="course">
-
-                                           <div class="course__img">
-                                               <img src="<c:url value="${h.url_img}" />" alt="" />
-                                           </div>
-
-                                           <div class="course-desc">
-                                               <div class="
-                                                            course-desc__title
-                                                        ">
+                                    <div class="course__img">
+                                        <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" />
+                                    </div>
+                                    <div class="course-desc">
+                                               <div class="course-desc__title">
                                                    ${h.name}
                                                </div>
 <%--                                               <div class="--%>
@@ -72,6 +68,29 @@
                                 </c:forEach>
                             </div>
                         </ul>
+                        </c:if>
+                        <c:if test="${empty history}">
+                            <ul class="nav-right-dropdown">
+                                <h6 class="nav-right-dropdown__heading">
+                                    Khóa học của tôi
+                                </h6>
+                                <div class="nav-mobile btn__close">
+                                    <img src="./assets/img/close-black.svg" alt="" />
+                                </div>
+
+                                <div class="nav-right-dropdown__scroll">
+                                    <li class="course">
+<%--                                        <div class="course__img">--%>
+<%--                                            <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" />--%>
+<%--                                        </div>--%>
+                                        <div class="course-desc">
+                                            <div class="course-desc__title">
+                                                    Hiện bạn chưa tham gia khóa học nào !!
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
                         </c:if>
                     </div>
                     <div class="nav-notify-btn js-notify">

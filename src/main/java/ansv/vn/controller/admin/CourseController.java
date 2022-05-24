@@ -45,41 +45,6 @@ public class CourseController {
         arrRole.add("[ROLE_ADMIN_COURSE]");
     }
 
-    public void processNotification(int idu, Model model){
-
-        List<Notification> notifications = notificationService.getAllDataNotificationCourse();
-        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idu);
-        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
-
-        if(noDtoId.size() != 0){
-            List<Notification> isRead = new ArrayList<>();
-            List<Notification> unRead = new ArrayList<>();
-
-            for( Integer integer : notifi){
-                boolean check = noDtoId.contains(integer);
-                if(check == true){
-                    isRead.add(notificationService.getDataNotificationById(integer));
-                }else{
-                    unRead.add(notificationService.getDataNotificationById(integer));
-                }
-            }
-            model.addAttribute("notificationUnR", unRead);
-            model.addAttribute("notification", isRead);
-        }else{
-            model.addAttribute("notificationUnR", notifications);
-        }
-    }
-
-    public void processHistory(int id, Model model){
-        if(courseService.getAllHistory(id).size() != 0) {
-            List<Course> listc = new ArrayList<>();
-            for (History h : courseService.getAllHistory(id)) {
-                listc.add(courseService.getCourseById(h.getIdc()));
-            }
-            model.addAttribute("history",listc);
-        }
-    }
-
     public List<Department> processDepartment(List<Department> listdep){
         List<Department> listd = new ArrayList<>();
         for (Department departments : listdep) {
@@ -213,8 +178,37 @@ public class CourseController {
 
             int id = userService.getByUser(userName).getId();
             //get in table user-notification
-            processNotification(id,model);
-            processHistory(id,model);
+
+            List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
+            List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+
+            if(noDtoId.size() != 0){
+                List<Notification> isRead = new ArrayList<>();
+                List<Notification> unRead = new ArrayList<>();
+
+                for( Integer integer : notifi){
+                    boolean check = noDtoId.contains(integer);
+                    if(check == true){
+                        isRead.add(notificationService.getDataNotificationById(integer));
+                    }else{
+                        unRead.add(notificationService.getDataNotificationById(integer));
+                    }
+                }
+                model.addAttribute("notificationUnR", unRead);
+                model.addAttribute("notification", isRead);
+            }else{
+                List<Notification> notifications = notificationService.getAllDataNotificationCourse();
+                model.addAttribute("notificationUnR", notifications);
+            }
+
+            if(courseService.getAllHistory(id).size() != 0) {
+                List<Course> listc = new ArrayList<>();
+                for (History h : courseService.getAllHistory(id)) {
+                    listc.add(courseService.getCourseById(h.getIdc()));
+                }
+                model.addAttribute("history",listc);
+            }
+
             checkRoleSep = checkRoleUser(userDetails.getAuthorities().toString());
         }
 
@@ -236,8 +230,35 @@ public class CourseController {
         String username = (String) session.getAttribute("username");
         int id = userService.getByUser(username).getId();
 
-        processNotification(id,model);
-        processHistory(id,model);
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
+        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+
+        if(noDtoId.size() != 0){
+            List<Notification> isRead = new ArrayList<>();
+            List<Notification> unRead = new ArrayList<>();
+
+            for( Integer integer : notifi){
+                boolean check = noDtoId.contains(integer);
+                if(check == true){
+                    isRead.add(notificationService.getDataNotificationById(integer));
+                }else{
+                    unRead.add(notificationService.getDataNotificationById(integer));
+                }
+            }
+            model.addAttribute("notificationUnR", unRead);
+            model.addAttribute("notification", isRead);
+        }else{
+            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
+            model.addAttribute("notificationUnR", notifications);
+        }
+
+        if(courseService.getAllHistory(id).size() != 0) {
+            List<Course> listc = new ArrayList<>();
+            for (History h : courseService.getAllHistory(id)) {
+                listc.add(courseService.getCourseById(h.getIdc()));
+            }
+            model.addAttribute("history",listc);
+        }
 
         List<Department> listdep;
         if(checkRoleSep){
@@ -259,9 +280,35 @@ public class CourseController {
         String username = (String) session.getAttribute("username");
         int id_u = userService.getByUser(username).getId();
         //get in table user-notification
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id_u);
+        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
 
-        processNotification(id_u,model);
-        processHistory(id_u,model);
+        if(noDtoId.size() != 0){
+            List<Notification> isRead = new ArrayList<>();
+            List<Notification> unRead = new ArrayList<>();
+
+            for( Integer integer : notifi){
+                boolean check = noDtoId.contains(integer);
+                if(check == true){
+                    isRead.add(notificationService.getDataNotificationById(integer));
+                }else{
+                    unRead.add(notificationService.getDataNotificationById(integer));
+                }
+            }
+            model.addAttribute("notificationUnR", unRead);
+            model.addAttribute("notification", isRead);
+        }else{
+            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
+            model.addAttribute("notificationUnR", notifications);
+        }
+
+        if(courseService.getAllHistory(id).size() != 0) {
+            List<Course> listc = new ArrayList<>();
+            for (History h : courseService.getAllHistory(id)) {
+                listc.add(courseService.getCourseById(h.getIdc()));
+            }
+            model.addAttribute("history",listc);
+        }
 
         List<Course> listc = new ArrayList<>();
         for (Course c : courseService.getAllDataCourseOfDepId(id)) {
@@ -283,8 +330,40 @@ public class CourseController {
         String username = (String) session.getAttribute("username");
         int id_u = userService.getByUser(username).getId();
 
-        processNotification(id_u,model);
-        processHistory(id_u,model);
+        boolean flag = courseService.checkHistoryIsExsit(id,id_u);
+        if(!flag){
+            courseService.addNewHistory(id,id_u);
+        }
+
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id_u);
+        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+
+        if(noDtoId.size() != 0){
+            List<Notification> isRead = new ArrayList<>();
+            List<Notification> unRead = new ArrayList<>();
+
+            for( Integer integer : notifi){
+                boolean check = noDtoId.contains(integer);
+                if(check == true){
+                    isRead.add(notificationService.getDataNotificationById(integer));
+                }else{
+                    unRead.add(notificationService.getDataNotificationById(integer));
+                }
+            }
+            model.addAttribute("notificationUnR", unRead);
+            model.addAttribute("notification", isRead);
+        }else{
+            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
+            model.addAttribute("notificationUnR", notifications);
+        }
+
+        if(courseService.getAllHistory(id_u).size() != 0) {
+            List<Course> listc = new ArrayList<>();
+            for (History h : courseService.getAllHistory(id_u)) {
+                listc.add(courseService.getCourseById(h.getIdc()));
+            }
+            model.addAttribute("history",listc);
+        }
 
         if(documentService.getAllDocByIdCou(id).size() != 0){
             model.addAttribute("docs", documentService.getAllDocByIdCou(id));
@@ -295,11 +374,6 @@ public class CourseController {
             Video videof = videoService.getFirtsVideo(id);
             model.addAttribute("videof",videof);
             System.out.println(videof.getUrl());
-        }
-
-        boolean flag = courseService.checkHistoryIsExsit(id,id_u);
-        if(!flag){
-            courseService.addNewHistory(id,id_u);
         }
 
         Course course = courseService.getCourseById(id);
@@ -329,8 +403,35 @@ public class CourseController {
         String username = (String) session.getAttribute("username");
         int id = userService.getByUser(username).getId();
         //get in table user-notification
-        processNotification(id,model);
-        processHistory(id,model);
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
+        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+
+        if(noDtoId.size() != 0){
+            List<Notification> isRead = new ArrayList<>();
+            List<Notification> unRead = new ArrayList<>();
+
+            for( Integer integer : notifi){
+                boolean check = noDtoId.contains(integer);
+                if(check == true){
+                    isRead.add(notificationService.getDataNotificationById(integer));
+                }else{
+                    unRead.add(notificationService.getDataNotificationById(integer));
+                }
+            }
+            model.addAttribute("notificationUnR", unRead);
+            model.addAttribute("notification", isRead);
+        }else{
+            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
+            model.addAttribute("notificationUnR", notifications);
+        }
+
+        if(courseService.getAllHistory(id).size() != 0) {
+            List<Course> listc = new ArrayList<>();
+            for (History h : courseService.getAllHistory(id)) {
+                listc.add(courseService.getCourseById(h.getIdc()));
+            }
+            model.addAttribute("history",listc);
+        }
 
         List<Course> listc;
         if(checkRoleSep){

@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http pattern="/admin/**">
-        <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ADMIN_WEB','ROLE_ADMIN_COURSE')" />
+        <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_CEO','ROLE_ADMIN_WEB','ROLE_ADMIN_COURSE')" />
         <form-login
                 login-page="/login_admin"
                 login-processing-url="/admin/j_spring_security_login"
@@ -21,7 +21,7 @@
 
 
     <http>
-        <intercept-url pattern="/user/khoa-hoc/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_ADMIN_WEB','ROLE_ADMIN_COURSE','ROLE_DF')" />
+        <intercept-url pattern="/user/khoa-hoc/**" access="hasAnyRole('ROLE_CEO','ROLE_USER','ROLE_ADMIN_WEB','ROLE_ADMIN_COURSE','ROLE_DF')" />
         <form-login
                 login-page="/login_user"
                 login-processing-url="/j_spring_security_login"

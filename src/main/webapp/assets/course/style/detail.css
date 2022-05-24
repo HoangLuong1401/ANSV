@@ -286,7 +286,7 @@ nav {
 
 .course__img img {
     flex: 0;
-    width: 90px;
+    width: 30px;
 }
 
 .course-desc {
@@ -386,7 +386,7 @@ nav {
 }
 
 .nav-mobile {
-    display: none;
+    display: none !important;
 }
 
 .user-dropdown ul {

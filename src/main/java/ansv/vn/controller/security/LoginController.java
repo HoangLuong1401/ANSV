@@ -29,13 +29,18 @@ public class LoginController {
     @Autowired
     private UserService usersService;
 
-    private ArrayList<String> role_accept = new ArrayList<>();
+    private ArrayList<String> role_accept_for_admin = new ArrayList<>();
+    private ArrayList<String> role_accept_for_user = new ArrayList<>();
     //Change compare_user
     public LoginController() {
-        role_accept.add("ROLE_CEO");
-        role_accept.add("ROLE_ADMIN_COURSE");
-        role_accept.add("ROLE_ADMIN_WEB");
-        role_accept.add("ROLE_DF");
+        role_accept_for_admin.add("ROLE_CEO");
+        role_accept_for_admin.add("ROLE_ADMIN_COURSE");
+        role_accept_for_admin.add("ROLE_ADMIN_WEB");
+
+        role_accept_for_user.add("ROLE_CEO");
+        role_accept_for_user.add("ROLE_ADMIN_COURSE");
+        role_accept_for_user.add("ROLE_ADMIN_WEB");
+        role_accept_for_user.add("ROLE_DF");
     }
 
     protected void addNewAccount(String username, String display_name, String role){
@@ -95,20 +100,13 @@ public class LoginController {
         int status = 0, role_df = 0;
 
         if (login_status.contains("1")) {
-            String[] role_accept;
-            role_accept = new String[3];
-            // Nếu Quản trị login
-            role_accept[0] = "ROLE_CEO"; // Tổng giám đốc login
-            role_accept[1] = "ROLE_ADMIN_COURSE"; // Quản trị nội bộ
-            role_accept[2] = "ROLE_ADMIN_WEB"; // Quản trị dữ liệu
-
-            //Check role admin login
-            for (int i = 0; i < role_accept.length; i++) {
+            int index_df = 0;
+                //Check role admin login
                 // Vòng lặp kiểm tra role lớn nhất user có, so sánh với role được cấp trên database => Nếu khác, thực hiện update role mới trên database
                 for (int j = 1; j <= Integer.parseInt(size_role); j++) {
                     role = request.getParameter("role" + j);
 
-                    if (role.equals(role_accept[i]) && status == 0) {
+                    if (role_accept_for_admin.contains(role.trim()) && status == 0) {
 
                         if (usersService.checkUserExist(username) != 0) {
                             // Nếu tồn tại user trên DB
@@ -123,80 +121,55 @@ public class LoginController {
                         result = "1";
                         status = 1;
                     }
-                }
-            }
-        } else if (login_status.contains("2")) {
-            String[] role_accept;
-            role_accept = new String[3];
-            // Nếu Quản trị login
-            role_accept[0] = "ROLE_CEO"; // Tổng giám đốc login
-            role_accept[1] = "ROLE_ADMIN_COURSE"; // Quản trị nội bộ
-            role_accept[2] = "ROLE_ADMIN_WEB"; // Quản trị dữ liệu
 
-            //Check role user login
-            for (int i = 1; i <= Integer.parseInt(size_role); i++) {
-                role = request.getParameter("role"+i);
-                if (role.contains("ROLE_DF")) {
-                    System.out.println("User has ROLE_DF");
-                    role_df = 1;
-                }
-            }
-
-            if (role_df == 1) {
-                if (usersService.checkUserExist(username) != 0) {
-                    // Nếu tồn tại user trên DB
-                    if (usersService.checkUsersRoleExist(username, "ROLE_DF") == 0) {
-                        // Nếu ko tồn tại role user trên DB = role LDAP -> update role
-                        usersService.updateRoleByUser(username, "ROLE_DF");
-                    } else {
-                        return "1"; // Đã tồn tại user và role đúng => trả về thành công
+                    if(role.contains("ROLE_DF")){
+                        index_df = 1;
                     }
-                } else {
-                    // Nếu ko tồn tại user -> insert user + insert role
-                    addNewAccount(username,display_name,"ROLE_DF");
-                    return "1"; // Tạo mới user và add role => trả về thành công
+                }
+
+            if (usersService.checkUserExist(username) != 0){
+                if (usersService.checkUsersRoleExist(username, "ROLE_DF") != 0 ||
+                        usersService.checkUsersRoleExist(username, "ROLE_USER") != 0) {
+                    result = "1";
                 }
             }else{
-                int userInt = 0;
-                for (int i = 0; i < role_accept.length; i++) {
-                    // Vòng lặp kiểm tra role lớn nhất user có, so sánh với role được cấp trên database => Nếu khác, thực hiện update role mới trên database
-                    for (int j = 1; j <= Integer.parseInt(size_role); j++) {
-
-                        role = request.getParameter("role" + j);
-
-                        if (role.equals(role_accept[i]) && status == 0) {
-                            if (usersService.checkUserExist(username) != 0) {
-                                // Nếu tồn tại user trên DB
-                                if (usersService.checkUsersRoleExist(username, role) == 0) {
-                                    // Nếu ko tồn tại role user trên DB = role LDAP -> update role
-                                    usersService.updateRoleByUser(username, role);
-                                }
-                            } else {
-                                // Nếu ko tồn tại user -> insert user + insert role
-                                addNewAccount(username,display_name,role);
-                            }
-                            result = "1";
-                            status = 1;
-                            userInt = 1;
-                        }
-                    }
+                if(index_df == 1){
+                    addNewAccount(username,display_name,"ROLE_DF");
+                }else {
+                    addNewAccount(username,display_name,"ROLE_USER");
                 }
-                if(userInt == 0){
+
+            }
+        }else if(login_status.contains("2")){
+            int index_df = 0;
+            for (int j = 1; j <= Integer.parseInt(size_role); j++) {
+                role = request.getParameter("role" + j);
+
+                if (role_accept_for_user.contains(role.trim()) && status == 0) {
+
                     if (usersService.checkUserExist(username) != 0) {
                         // Nếu tồn tại user trên DB
-                        if (usersService.checkUsersRoleExist(username, "ROLE_USER") == 0) {
+                        if (usersService.checkUsersRoleExist(username, role) == 0) {
                             // Nếu ko tồn tại role user trên DB = role LDAP -> update role
-                            usersService.updateRoleByUser(username, "ROLE_USER");
+                            usersService.updateRoleByUser(username, role);
+                            return "1";
                         }
                     } else {
                         // Nếu ko tồn tại user -> insert user + insert role
-                        addNewAccount(username,display_name,"ROLE_USER");
+                        addNewAccount(username,display_name,role);
+                        return "1";
                     }
-                    result = "1";
+                    status = 1;
                 }
             }
+            if (usersService.checkUserExist(username) != 0){
+                if (usersService.checkUsersRoleExist(username, "ROLE_USER") != 0) {
+                    result = "1";
+                }
+            }else{
+                addNewAccount(username,display_name,"ROLE_USER");
+            }
         }
-
         return result;
     }
 
@@ -227,7 +200,7 @@ public class LoginController {
     }
 
     @RequestMapping("/login_success_admin")
-    public String loginSuccess(HttpServletRequest request, HttpSession session, Authentication authentication) {
+    public String loginSuccess(HttpServletRequest request, HttpSession session, Authentication authentication, Model model) {
         System.out.println("ss");
         String userName = "- (*)Chưa đăng nhập!";
         if (authentication != null) {
@@ -245,13 +218,14 @@ public class LoginController {
                 return "redirect:/admin/khoa-hoc/quan-ly/ban";
             }
 
-            if (request.isUserInRole("ROLE_ADMIN")) {
+            if (request.isUserInRole("ROLE_CEO")) {
                 session.setAttribute("show",1);
                 return "redirect:/admin/redircet";
             }
             // End: Check user's role and then redirect
         }
-        return "redirect:/somthingwrong";
+        model.addAttribute("message", "Bạn không có quyền login vào trang này!!!");
+        return "redirect:/login_admin";
     }
 
     @RequestMapping("/admin/redircet")

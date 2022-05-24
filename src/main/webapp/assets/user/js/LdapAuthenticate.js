@@ -38,6 +38,46 @@ $(document).ready(function() {
 	});
 });
 
+$('#usn , #psw_main').keypress(function (e) {
+	var key = e.which;
+	if(key == 13)  // the enter key code
+	{
+
+		var form = $("#form_login");
+		console.log("1. Form on submit!");
+		var usn = $('#usn').val();
+		var psw_test = $('#psw').val();
+		var psw = $('#psw_main').val();
+
+		if (psw_test != "") {
+			alert("Có lỗi! Vui lòng load lại trang.");
+			return false;
+		}
+
+		if (usn == "" || psw == "") {
+			alert("TÊN ĐĂNG NHẬP hoặc MẬT KHẨU không được để trống!");
+			return false;
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "http://10.1.3.10:3000/login",
+			data: form.serialize(),
+			success: function(data) {
+				console.log("2. LDAP Authentication Success!");
+				console.log(data);
+				check_data_ajax(data);
+			},
+			error: function(e) {
+				/*console.log("ERROR: ", e);*/
+				console.log("2. LDAP Authentication Error!");
+				alert("TÊN ĐĂNG NHẬP hoặc MẬT KHẨU không đúng!");
+			}
+		});
+		return false;
+	}
+});
+
 /* Hàm check role của user*/
 function check_data_ajax(data_ajax) {
 	array_role = data_ajax.data.memberOf;

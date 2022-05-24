@@ -229,27 +229,4 @@ public class HomeController {
 		
 		return _mvShare;
 	}
-    
-    
-
-    @RequestMapping(value = { "/chao-gia" }, method = RequestMethod.GET)
-    public ModelAndView chao_gia() {
-        ModelAndView mav = new ModelAndView("web/chao-gia");
-        return mav;
-    }
-
-    @RequestMapping(value = { "/tuyen_dung" }, method = RequestMethod.GET)
-    public ModelAndView tuyen_dung() {
-        ModelAndView mav = new ModelAndView("web/tuyen_dung");
-        return mav;
-    }
-
-    @RequestMapping(value = { "detail_{id}" }, method = RequestMethod.GET)
-    public ModelAndView detail(@PathVariable int id) {
-        _mvShare.addObject("get_new",newsService.findByID(id));
-        _mvShare.setViewName("web/detail");
-
-        return _mvShare;
-    }
-
 }
