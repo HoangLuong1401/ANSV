@@ -6,6 +6,7 @@ import ansv.vn.service.admin.NewsTypeService;
 import ansv.vn.service.admin.SlideShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -208,5 +209,27 @@ public class HomeController {
         _mvShare.setViewName("web/news/mesh_vs_rep");
         return _mvShare;
     }
+    
+    @RequestMapping(value = { "/chao-gia" }, method = RequestMethod.GET)
+	public ModelAndView chao_gia() {
+		ModelAndView mav = new ModelAndView("web/chao-gia");
+		return mav;
+	}
+    
+    @RequestMapping(value = { "/tuyen_dung" }, method = RequestMethod.GET)
+	public ModelAndView tuyen_dung() {
+		ModelAndView mav = new ModelAndView("web/tuyen_dung");
+		return mav;
+	}
+    
+    @RequestMapping(value = { "detail_{id}" }, method = RequestMethod.GET)
+	public ModelAndView detail(@PathVariable int id) {
+		_mvShare.addObject("get_new",newsService.findByID(id));
+		_mvShare.setViewName("web/detail");
+		
+		return _mvShare;
+	}
+    
+    
 
 }

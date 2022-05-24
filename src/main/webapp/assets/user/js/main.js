@@ -55,7 +55,7 @@
       var owl = $("#owl-demo");
  
 	  owl.owlCarousel({
-	 	autoPlay : 4000,
+	 	autoPlay : 5000,
 	 	items : 3, //10 items above 1000px browser width
 		itemsDesktop : [1199,3], //5 items between 1000px and 901px
 		itemsDesktopSmall : [980,2], // betweem 900px and 601px

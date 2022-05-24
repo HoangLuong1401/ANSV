@@ -55,7 +55,7 @@
                                                     </form:select>
                                                 </td>
                                                 <td style="width: 50%">
-                                                    <form:input path="url" class="form-control" placeholder="Link đến bài viết chi tiết..." required="required" />
+                                                    <form:hidden path="url" class="form-control" placeholder="Link đến bài viết chi tiết..." required="required" />
                                                 </td>
                                             </tr>
                                         </table>
