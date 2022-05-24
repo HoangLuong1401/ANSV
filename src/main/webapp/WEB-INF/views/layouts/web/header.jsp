@@ -78,12 +78,12 @@
                     </ul>
                 </li>
                 <li class="drop-down">
-                    <a href="javascript:void(0)">Tin tức</a>
-                    <ul>
-                        <li><a href="tin-tuc">Tin tức & sự kiện</a></li>
-                        <li><a href="tuyen_dung">Tin tức tuyển dụng</a></li>
-                    </ul>
-                </li>
+					<a href="javascript:void(0)">Tin tức</a>
+					<ul>
+						<li><a href="tin-tuc">Tin tức & sự kiện</a></li> 
+						<li><a href="tuyen_dung">Tin tức tuyển dụng</a></li>
+					</ul>
+				</li>
                 <li><a href="noi-bo">Nội bộ</a></li>
                 <li><a href="lien-he">Liên hệ</a></li>
 

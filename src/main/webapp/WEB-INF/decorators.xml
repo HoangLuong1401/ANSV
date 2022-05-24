@@ -134,6 +134,18 @@
     <decorator name="mesh_vs_rep" page="about.jsp">
         <pattern>/mesh_vs_rep</pattern>
     </decorator>
+    
+    <decorator name="chao-gia" page="about.jsp">
+		<pattern>/chao-gia</pattern>
+	</decorator>
+	
+	<decorator name="detail" page="about.jsp">
+		<pattern>/detail_*</pattern>
+	</decorator>
+	
+	<decorator name="tuyen_dung" page="about.jsp">
+		<pattern>/tuyen_dung</pattern>
+	</decorator>
 
     <decorator name="chao-gia" page="about.jsp">
         <pattern>/chao-gia</pattern>
