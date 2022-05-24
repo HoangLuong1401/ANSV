@@ -3,11 +3,100 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 
-<html>
-<dec:head>
-</dec:head>
-<body style="background: lightblue;">
+<head>
+    <title><dec:title default="Master-Layout" /></title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="<c:url value="/assets/course/style/bootstrap.min.css"/>" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="<c:url value="/assets/course/style/formtest.css"/>" />
+    <link href="<c:url value="/assets/user/img/logo/logo_ansv_big_new-removebg-preview.png" />" rel="icon">
+    <link href="<c:url value="/assets/user/img/logo_ansv.png" />" rel="apple-touch-icon">
+
+    <style>
+        #myBtn {
+            position: fixed; /* Fixed/sticky position */
+            bottom: 20px; /* Place the button at the bottom of the page */
+            left: 30px; /* Place the button 30px from the right */
+            z-index: 1; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            font-size: 18px; /* Increase font size */
+            width: 175px;
+            background: transparent;
+        }
+
+        .btn{
+            margin: 0px;
+        }
+        .search-model {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: #000;
+            z-index: 99999;
+        }
+
+        .search-model-form {
+            padding: 0 15px;
+        }
+
+        .search-model-form input {
+            width: 500px;
+            font-size: 25px;
+            border: none;
+            border-bottom: 2px solid #333;
+            background: 0 0;
+            color: #999;
+        }
+
+        .search-close-switch {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 28px;
+            line-height: 28px;
+            top: 30px;
+            cursor: pointer;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+        #backBtn{
+            position: fixed; /* Fixed/sticky position */
+            bottom: 58px; /* Place the button at the bottom of the page */
+            left: 30px; /* Place the button 30px from the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            font-size: 18px; /* Increase font size */
+            width: 175px;
+            background: transparent;
+        }
+    </style>
+</head>
+<body style="background: lightblue;">
 <div id="app">
     <%@include file="/WEB-INF/views/layouts/course/header.jsp"%>
 
@@ -29,7 +118,7 @@
         <form class="search-model-form" >
             <input type="text" id="search-input" placeholder="Search here....." onchange="doSearch()">
             <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}" id="token" />
-            <div class="btn" id="search_button" onclick="goSearch()"><i class="fas fa-search"></i></div>
+            <div class="btn" id="search_button" onclick="goSearch()" style="margin: 0;"><i class="fas fa-search"></i></div>
 
             <div>
                 <p style="color: white" id="out-search"></p>
@@ -39,8 +128,6 @@
     </div>
 </div>
 
-
-</body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
@@ -72,25 +159,25 @@
     function doSearch(){
         jQuery(document).ready(
             function($) {
-              var query = $("#search-input").val();
+                var query = $("#search-input").val();
 
-              if(query.length >=2){
-                $.ajax({
-                    type : "GET",
-                    url: "${url_search}",
-                    method: 'GET',
-                    data: {query:query},
-                    success: function(data){
-                        document.getElementById("out-search").innerHTML = "Kết quả tìm kiếm khóa học: " + data;
-                        $("#search_button").show();
-                        if(data == 0){
-                            $("#search_button").hide();
+                if(query.length >=2){
+                    $.ajax({
+                        type : "GET",
+                        url: "${url_search}",
+                        method: 'GET',
+                        data: {query:query},
+                        success: function(data){
+                            document.getElementById("out-search").innerHTML = "Kết quả tìm kiếm khóa học: " + data;
+                            $("#search_button").show();
+                            if(data == 0){
+                                $("#search_button").hide();
+                            }
                         }
-                    }
-                });
-              }else {
-                  $("#search_button").hide();
-              }
+                    });
+                }else {
+                    $("#search_button").hide();
+                }
             }
         );
     }
@@ -106,19 +193,20 @@
     }
 
     jQuery(document).ready(
-    function ($) {
-        $('.search-switch').on('click', function () {
-            $('.search-model').fadeIn(400);
-        });
+        function ($) {
+            $('.search-switch').on('click', function () {
+                $('.search-model').fadeIn(400);
+            });
 
-        $('.search-close-switch').on('click', function () {
-            $('.search-model').fadeOut(400, function () {
-                $('#search-input').val('');
+            $('.search-close-switch').on('click', function () {
+                $('.search-model').fadeOut(400, function () {
+                    $('#search-input').val('');
+                });
             });
         });
-    });
     // Search model
     // Search model
 
 </script>
-</html>
+
+</body>

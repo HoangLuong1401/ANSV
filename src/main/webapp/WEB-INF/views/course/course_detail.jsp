@@ -1,101 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/flatly/bootstrap.min.css">
-    <link rel="stylesheet" href="<c:url value="/assets/video/css/main.css"/>" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel2@2.2.2/dist/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="<c:url value="/assets/course/style/detail.css"/>" />
-    <link href="<c:url value="/assets/user/img/logo/logo_ansv_big_new-removebg-preview.png" />" rel="icon">
-    <link href="<c:url value="/assets/user/img/logo_ansv.png" />" rel="apple-touch-icon">
+<title>ANSV | Khóa Học</title>
+<link rel="stylesheet" href="<c:url value="/assets/course/style/detail.css"/>" />
 
-    <style>
-        #myBtn {
-            position: fixed; /* Fixed/sticky position */
-            bottom: 20px; /* Place the button at the bottom of the page */
-            left: 30px; /* Place the button 30px from the right */
-            z-index: 99; /* Make sure it does not overlap */
-            border: none; /* Remove borders */
-            outline: none; /* Remove outline */
-            color: white; /* Text color */
-            cursor: pointer; /* Add a mouse pointer on hover */
-            font-size: 18px; /* Increase font size */
-            width: 175px;
-            background: transparent;
-        }
-
-        .btn{
-            margin: 0px;
-        }
-        .search-model {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            background: #000;
-            z-index: 99999;
-        }
-
-        .search-model-form {
-            padding: 0 15px;
-        }
-
-        .search-model-form input {
-            width: 500px;
-            font-size: 25px;
-            border: none;
-            border-bottom: 2px solid #333;
-            background: 0 0;
-            color: #999;
-        }
-
-        .search-close-switch {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 50%;
-            font-size: 28px;
-            line-height: 28px;
-            top: 30px;
-            cursor: pointer;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-        }
-
-        #backBtn{
-            position: fixed; /* Fixed/sticky position */
-            bottom: 58px; /* Place the button at the bottom of the page */
-            left: 30px; /* Place the button 30px from the right */
-            z-index: 99; /* Make sure it does not overlap */
-            border: none; /* Remove borders */
-            outline: none; /* Remove outline */
-            color: white; /* Text color */
-            cursor: pointer; /* Add a mouse pointer on hover */
-            font-size: 18px; /* Increase font size */
-            width: 175px;
-            background: transparent;
-        }
-    </style>
-</head>
-<body>
 <video style="min-width: 100%; min-height: 100%;position: fixed;right: 0;bottom: 0;" playsinline autoplay muted loop>
     <source class="h-100" src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
 </video>
@@ -221,5 +129,4 @@
     );
 
 </script>
-</body>
-</html>
+

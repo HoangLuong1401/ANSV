@@ -23,7 +23,7 @@
             <div class="nav__right">
 
                 <div class="nav__avt">
-                    <img src="<c:url value="/assets/course/img/avt.jpg"/>" alt="avatar" />
+                    <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" />
                 </div>
 
                 <div class="nav__user-name"><span>${display_name}</span></div>
@@ -53,7 +53,7 @@
                                 <li class="course">
 
                                            <div class="course__img">
-                                               <img src="<c:url value="${h.url_img}" />" alt="" />
+                                               <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" />
                                            </div>
 
                                            <div class="course-desc">
