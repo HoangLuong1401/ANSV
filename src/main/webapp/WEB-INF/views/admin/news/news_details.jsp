@@ -57,17 +57,17 @@
                                     </div>
                                 </div>
 
-                                <div class="row news_pt">
-                                    <div class="col-md-12">
-                                        ${ newDetails.summary }
-                                    </div>
-                                </div>
+<%--                                <div class="row news_pt">--%>
+<%--                                    <div class="col-md-12">--%>
+<%--                                        ${ newDetails.summary }--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
 
-                                <div class="row news_pt">
-                                    <div class="col-md-12">
-                                        <img src="<c:url value='/assets/user/img/news/${newDetails.img}' />" class="news_image" />
-                                    </div>
-                                </div>
+<%--                                <div class="row news_pt">--%>
+<%--                                    <div class="col-md-12">--%>
+<%--                                        <img src="<c:url value='/assets/user/img/news/${newDetails.img}' />" class="news_image" />--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
 
                                 <div class="row news_pt">
                                     <div class="col-md-12">

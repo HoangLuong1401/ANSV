@@ -72,7 +72,9 @@ notifyBtn.onclick = function (event) {
 
 userBtn.onclick = function (event) {
     event.stopPropagation();
-    progressDropdown.style.display = 'none';
+    if (progressDropdown) {
+        progressDropdown.style.display = 'none';
+    }
     notifyDropdown.style.display = 'none';
     if (userDropdown.style.display == 'block') {
         userDropdown.style.display = 'none';
@@ -87,9 +89,12 @@ document.onclick = function () {
     userDropdown.style.display = 'none';
 };
 
-progressDropdown.onclick = function (event) {
-    event.stopPropagation();
-};
+if (progressDropdown) {
+    progressDropdown.onclick = function (event) {
+        event.stopPropagation();
+    };
+}
+
 notifyDropdown.onclick = function (event) {
     event.stopPropagation();
 };
@@ -98,40 +103,57 @@ userDropdown.onclick = function (event) {
 };
 
 // Handle Video
-pauseBtn.classList.add('hidden');
-
-playBtn.onclick = function () {
-    console.log('click');
-    bannerVideo.muted = false;
-    bannerVideo.audio = 1;
-    bannerOverlay.style.visibility = 'hidden';
-    bannerContent.style.visibility = 'hidden';
-    playBtn.classList.add('hidden');
-    pauseBtn.classList.remove('hidden');
-};
-pauseBtn.onclick = function () {
-    console.log('click');
-    bannerVideo.muted = true;
-    bannerVideo.audio = 0;
-    bannerOverlay.style.visibility = 'hidden';
-    bannerContent.style.visibility = 'hidden';
+if (pauseBtn) {
     pauseBtn.classList.add('hidden');
-    playBtn.classList.remove('hidden');
-};
+
+    pauseBtn.onclick = function () {
+        console.log('click');
+        bannerVideo.muted = true;
+        bannerVideo.audio = 0;
+        bannerOverlay.style.visibility = 'hidden';
+        bannerContent.style.visibility = 'hidden';
+        pauseBtn.classList.add('hidden');
+        playBtn.classList.remove('hidden');
+    };
+}
+
+if (playBtn) {
+    playBtn.onclick = function () {
+        console.log('click');
+        bannerVideo.muted = false;
+        bannerVideo.audio = 1;
+        bannerOverlay.style.visibility = 'hidden';
+        bannerContent.style.visibility = 'hidden';
+        playBtn.classList.add('hidden');
+        pauseBtn.classList.remove('hidden');
+    };
+}
 
 // bannerOverlay.onmouseover = function (event) {
 //     event.stopPropagation();
 // }
 
 bannerVideo.onmouseover = function () {
-    bannerContent.style.visibility = 'visible';
-    bannerOverlay.style.visibility = 'visible';
-    bannerContent.style.opacity = 1;
-    bannerOverlay.style.opacity = 1;
+    if (bannerContent) {
+        bannerContent.style.visibility = 'visible';
+        bannerContent.style.opacity = 1;
+    }
+
+    if (bannerOverlay) {
+        bannerOverlay.style.visibility = 'visible';
+        bannerOverlay.style.opacity = 1;
+    }
+
     setTimeout(() => {
-        bannerOverlay.style.visibility = 'hidden';
-        bannerContent.style.visibility = 'hidden';
-        bannerContent.style.opacity = 0;
-        bannerOverlay.style.opacity = 0;
+        if (bannerContent) {
+            bannerContent.style.visibility = 'hidden';
+            bannerContent.style.opacity = 0;
+        }
+
+        if (bannerOverlay) {
+            bannerOverlay.style.visibility = 'hidden';
+            bannerOverlay.style.opacity = 0;
+        }
+
     }, 2000);
 };

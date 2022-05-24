@@ -16,8 +16,7 @@
 
 </head>
 <body>
-<script
-        src="<c:url value="/assets/user/vendor/jquery.easing/jquery.easing.min.js" />"></script>
+<script src="<c:url value="/assets/user/vendor/jquery.easing/jquery.easing.min.js" />"></script>
 
 <section id="about-content">
     <div id="particles-js" class="particles-js particles-home-section-2"></div>
@@ -165,10 +164,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
+    </div>
 </section>
 <script type="text/javascript">
     jQuery(document).ready(function($) {

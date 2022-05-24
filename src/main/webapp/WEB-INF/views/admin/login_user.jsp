@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="footer text-center">
-                                    <input type="button" id="btn_form" value="Đăng nhập" class="btn btn-fill btn-primary btn-wd" />
+                                    <input type="submit" id="btn_form" value="Đăng nhập" class="btn btn-fill btn-primary btn-wd" />
                                     <c:if test="${ not empty message }">
                                         <br><font color="red">${ message }</font>
                                     </c:if>
