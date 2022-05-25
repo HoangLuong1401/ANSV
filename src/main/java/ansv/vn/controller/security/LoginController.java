@@ -29,18 +29,12 @@ public class LoginController {
     @Autowired
     private UserService usersService;
 
-    private ArrayList<String> role_accept_for_admin = new ArrayList<>();
-    private ArrayList<String> role_accept_for_user = new ArrayList<>();
+    private ArrayList<String> role_accept = new ArrayList<>();
     //Change compare_user
     public LoginController() {
-        role_accept_for_admin.add("ROLE_CEO");
-        role_accept_for_admin.add("ROLE_ADMIN_COURSE");
-        role_accept_for_admin.add("ROLE_ADMIN_WEB");
-
-        role_accept_for_user.add("ROLE_CEO");
-        role_accept_for_user.add("ROLE_ADMIN_COURSE");
-        role_accept_for_user.add("ROLE_ADMIN_WEB");
-        role_accept_for_user.add("ROLE_DF");
+        role_accept.add("ROLE_CEO");
+        role_accept.add("ROLE_ADMIN_COURSE");
+        role_accept.add("ROLE_ADMIN_WEB");
     }
 
     protected void addNewAccount(String username, String display_name, String role){
@@ -97,7 +91,7 @@ public class LoginController {
         String display_name = request.getParameter("display_name");
         String role = "";
         String size_role = request.getParameter("size_role");
-        int status = 0, role_df = 0;
+        int status = 0;
 
         if (login_status.contains("1")) {
             int index_df = 0;
@@ -106,7 +100,7 @@ public class LoginController {
                 for (int j = 1; j <= Integer.parseInt(size_role); j++) {
                     role = request.getParameter("role" + j);
 
-                    if (role_accept_for_admin.contains(role.trim()) && status == 0) {
+                    if (role_accept.contains(role.trim()) && status == 0) {
 
                         if (usersService.checkUserExist(username) != 0) {
                             // Nếu tồn tại user trên DB
@@ -138,27 +132,29 @@ public class LoginController {
                 }else {
                     addNewAccount(username,display_name,"ROLE_USER");
                 }
-
+                result = "1";
             }
         }else if(login_status.contains("2")){
-            int index_df = 0;
+
+            role_accept.add("ROLE_DF");
+
             for (int j = 1; j <= Integer.parseInt(size_role); j++) {
+
                 role = request.getParameter("role" + j);
 
-                if (role_accept_for_user.contains(role.trim()) && status == 0) {
+                if (role_accept.contains(role.trim()) && status == 0) {
 
                     if (usersService.checkUserExist(username) != 0) {
                         // Nếu tồn tại user trên DB
                         if (usersService.checkUsersRoleExist(username, role) == 0) {
                             // Nếu ko tồn tại role user trên DB = role LDAP -> update role
                             usersService.updateRoleByUser(username, role);
-                            return "1";
                         }
                     } else {
                         // Nếu ko tồn tại user -> insert user + insert role
                         addNewAccount(username,display_name,role);
-                        return "1";
                     }
+                    result = "1";
                     status = 1;
                 }
             }
@@ -168,6 +164,7 @@ public class LoginController {
                 }
             }else{
                 addNewAccount(username,display_name,"ROLE_USER");
+                result = "1";
             }
         }
         return result;
