@@ -41,7 +41,7 @@ public class CourseController {
 
     public CourseController() {
         arrRole.add("[ROLE_DF]");
-        arrRole.add("[ROLE_ADMIN]");
+        arrRole.add("[ROLE_CEO]");
         arrRole.add("[ROLE_ADMIN_COURSE]");
     }
 
