@@ -44,7 +44,7 @@
                                 Khóa học của tôi
                             </h6>
                             <div class="nav-mobile btn__close">
-                                <img src="./assets/img/close-black.svg" alt="" />
+                                <img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" />
                             </div>
 
                             <div class="nav-right-dropdown__scroll">
@@ -75,7 +75,7 @@
                                     Khóa học của tôi
                                 </h6>
                                 <div class="nav-mobile btn__close">
-                                    <img src="./assets/img/close-black.svg" alt="" />
+                                    <img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" />
                                 </div>
 
                                 <div class="nav-right-dropdown__scroll">
@@ -152,12 +152,12 @@
                         <div class="user-dropdown">
                             <div class="nav-mobile user-info">
                                 <div class="user-info__main">
-                                    <img src="<c:url value="/assets/course/img/avt.jpg"/>" alt="avt" />
+                                    <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" />
                                     <span>${display_name}</span>
                                 </div>
                             </div>
                             <div class="nav-mobile btn__close">
-                                <img src="./assets/img/close-black.svg" alt="" />
+                                <img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" />
                             </div>
                             <ul>
                                 <li class="nav-mobile">

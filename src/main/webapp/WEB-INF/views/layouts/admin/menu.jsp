@@ -26,6 +26,18 @@
         </div>
 
         <ul class="nav" id="phu_luc">
+            <c:if test="${ceo == 1}">
+                <li>
+                    <a href="<c:url value="/admin/web/quan-ly/slideshow"/>">
+                        <i class="pe-7s-film"></i><p>Quản Lý ANSV</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value="/admin/khoa-hoc/quan-ly/ban"/>">
+                        <i class="pe-7s-film"></i><p>Quản Lý Khóa Học</p>
+                    </a>
+                </li>
+            </c:if>
             <c:if test="${redirect == 1}">
                 <li>
                     <a href="<c:url value="/admin/web/quan-ly/slideshow" />">

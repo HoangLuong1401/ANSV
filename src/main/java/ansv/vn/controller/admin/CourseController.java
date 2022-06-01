@@ -3,9 +3,11 @@ package ansv.vn.controller.admin;
 import ansv.vn.dto.History;
 import ansv.vn.entity.*;
 import ansv.vn.service.admin.*;
+import org.codehaus.jackson.io.UTF8Writer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +38,12 @@ public class CourseController {
     private DocumentService documentService;
 
     private ArrayList<String> arrRole = new ArrayList<>();
+
     private boolean checkRoleSep;
+
+    private Authentication authentication;
+    private UserDetails userDetails;
+    private String username;
 
 
     public CourseController() {
@@ -132,7 +139,7 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/course/update/{id}")
-    public String editCousrse(@PathVariable int id, Model model){
+    public String editCourse(@PathVariable int id, Model model){
         model.addAttribute("redirect", 1);
 
         model.addAttribute("course",courseService.getCourseById(id));
@@ -143,13 +150,13 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/updateCourse")
-    public String editCousrse(@ModelAttribute("course") Course course){
+    public String editCourse(@ModelAttribute("course") Course course){
         courseService.updateCourseByIdCourse(course);
         return "redirect:/admin/khoa-hoc/quan-ly/course";
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/course/delete/{id}")
-    public String deleteCousrse(@PathVariable int id){
+    public String deleteCourse(@PathVariable int id){
 
         courseService.deleteHistoryByIdCourse(id);
         documentService.deleteADocByIdCou(id);
@@ -171,12 +178,14 @@ public class CourseController {
     public String goCoursePage(Model model, Authentication authentication, HttpSession session){
 
         if (authentication != null) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String userName = userDetails.getUsername();
-            session.setAttribute("display_name", userService.getByUser(userName).getDisplay_name());
-            session.setAttribute("username", userName);
+            this.authentication = authentication;
+            this.userDetails = (UserDetails) authentication.getPrincipal();
 
-            int id = userService.getByUser(userName).getId();
+            username = userDetails.getUsername();
+            session.setAttribute("display_name", userService.getByUser(username).getDisplay_name());
+            session.setAttribute("username", username);
+
+            int id = userService.getByUser(username).getId();
             //get in table user-notification
 
             List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
@@ -226,8 +235,7 @@ public class CourseController {
     }
 
     @RequestMapping("/user/khoa-hoc/tat-ca")
-    public String goAllCourse(Model model, HttpSession session) {
-        String username = (String) session.getAttribute("username");
+    public String goAllCourse(Model model) {
         int id = userService.getByUser(username).getId();
 
         List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
@@ -275,9 +283,8 @@ public class CourseController {
     }
 
     @RequestMapping("/user/khoa-hoc/tat-ca/{id}")
-    public String goAllCourse(@PathVariable int id , Model model, HttpSession session) {
+    public String goAllCourse(@PathVariable int id , Model model) {
 
-        String username = (String) session.getAttribute("username");
         int id_u = userService.getByUser(username).getId();
         //get in table user-notification
         List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id_u);
@@ -325,9 +332,7 @@ public class CourseController {
     }
 
     @RequestMapping("/user/khoa-hoc/{id}")
-    public String goDetailcousePage(@PathVariable int id ,Model model, HttpSession session) {
-
-        String username = (String) session.getAttribute("username");
+    public String goDetailCoursePage(@PathVariable int id ,Model model) {
         int id_u = userService.getByUser(username).getId();
 
         boolean flag = courseService.checkHistoryIsExsit(id,id_u);
@@ -387,20 +392,24 @@ public class CourseController {
     @ResponseBody
     public String goSearchCouse(@RequestParam("query") String query) {
         List<Course> listc;
+        String result = "";
         if(checkRoleSep){
             listc = checkCourse(courseService.searchCourseForSepRole(query));
         }else{
             listc = checkCourse(courseService.searchCourseUser(query));
         }
-        int numb = listc.size();
-        return String.valueOf(numb);
+        for(Course c: listc){
+
+            result += "<li onclick=\"select(this)\">"+c.getName()+"</li>";
+        }
+        System.out.println(result);
+        return result;
     }
 
 
     @RequestMapping(value = "/user/khoa-hoc/search/{query}",method = RequestMethod.GET)
-    public String goSearchCousePage(@PathVariable String query , Model model, HttpSession session) {
+    public String goSearchCousePage(@PathVariable String query , Model model) {
 
-        String username = (String) session.getAttribute("username");
         int id = userService.getByUser(username).getId();
         //get in table user-notification
         List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);

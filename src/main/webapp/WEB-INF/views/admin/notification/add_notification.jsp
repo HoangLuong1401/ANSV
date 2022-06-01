@@ -93,7 +93,7 @@
                     <div class="header">
                         <div class="col-md-8">
                             <h3 class="title">
-                                Admin: <b>Adding Notificaiton</b>
+                                Admin: <b>Adding Notification</b>
                             </h3>
                             <p class="category">Thêm mới thông báo</p>
                         </div>

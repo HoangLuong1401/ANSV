@@ -1,6 +1,5 @@
 $(document).ready(function() {
-
-	$("#btn_form").click(function() {
+	$("#btn_form").click(function(){
 
 		var form = $("#form_login");
 		console.log("1. Form on submit!");
@@ -42,7 +41,6 @@ $('#usn , #psw_main').keypress(function (e) {
 	var key = e.which;
 	if(key == 13)  // the enter key code
 	{
-
 		var form = $("#form_login");
 		console.log("1. Form on submit!");
 		var usn = $('#usn').val();

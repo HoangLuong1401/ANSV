@@ -174,10 +174,12 @@ public class LoginController {
     public String login1(@RequestParam(required = false) String message, final Model model) {
         if (message != null && !message.isEmpty()) {
             if (message.equals("logout")) {
-                model.addAttribute("message", "Logout!");
-            }
+                model.addAttribute("message", "Đăng xuất thành công!");
+            }else
             if (message.equals("error")) {
-                model.addAttribute("message", "Login Failed!");
+                model.addAttribute("message", "Đăng nhập lỗi vui lòng thử lại!!!");
+            }else {
+                model.addAttribute("message", "Bạn không có quyền login vào trang này!!!");
             }
         }
         return "admin/login_admin";
@@ -187,18 +189,17 @@ public class LoginController {
     public String login2(@RequestParam(required = false) String message, final Model model) {
         if (message != null && !message.isEmpty()) {
             if (message.equals("logout")) {
-                model.addAttribute("message", "Logout!");
+                model.addAttribute("message", "Đăng xuất thành công!");
             }
             if (message.equals("error")) {
-                model.addAttribute("message", "Login Failed!");
+                model.addAttribute("message", "Đăng nhập lỗi vui lòng thử lại!!!");
             }
         }
         return "admin/login_user";
     }
 
     @RequestMapping("/login_success_admin")
-    public String loginSuccess(HttpServletRequest request, HttpSession session, Authentication authentication, Model model) {
-        System.out.println("ss");
+    public String loginSuccess(HttpServletRequest request, HttpSession session, Authentication authentication, Model model) { System.out.println("ss");
         String userName = "- (*)Chưa đăng nhập!";
         if (authentication != null) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -228,6 +229,7 @@ public class LoginController {
     @RequestMapping("/admin/redircet")
     public String redirectOfAdmin(Model model)  {
         model.addAttribute("redircet",0);
+        model.addAttribute("ceo",1);
         return "admin/redirectPage";
     }
 

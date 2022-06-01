@@ -7,16 +7,18 @@
     <title><dec:title default="Master-Layout" /></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<c:url value="/assets/course/style/bootstrap.min.css"/>" />
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="<c:url value="/assets/course/style/formtest.css"/>" />
+    <link rel="stylesheet" href="<c:url value="/assets/course/style/search.css"/>" />
     <link href="<c:url value="/assets/user/img/logo/logo_ansv_big_new-removebg-preview.png" />" rel="icon">
     <link href="<c:url value="/assets/user/img/logo_ansv.png" />" rel="apple-touch-icon">
     <link rel="stylesheet" href="<c:url value="/assets/video/css/main.css"/>" />
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         #myBtn {
             position: fixed; /* Fixed/sticky position */
@@ -42,7 +44,7 @@
             height: 100%;
             left: 0;
             top: 0;
-            background: #000;
+            background: linear-gradient(to right bottom, #6a3079, #485daa, #029fb8, #02b18e, #32b47c);
             z-index: 99999;
         }
 
@@ -60,7 +62,7 @@
         }
 
         .search-close-switch {
-            position: absolute;
+            margin: 20px auto;
             width: 50px;
             height: 50px;
             background: #333;
@@ -114,30 +116,37 @@
 
 <!-- Search model Begin -->
 <div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch"><i class="fa fa-times"></i></div>
-        <form class="search-model-form" >
-            <input type="text" id="search-input" placeholder="Search here....." onchange="doSearch()">
-            <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}" id="token" />
-            <div class="btn" style="margin: 0" id="search_button" onclick="goSearch()"><i class="fas fa-search"></i></div>
+    <div class="search-close-switch"><i class="fa fa-times"></i></div>
+    <div class="wrapper">
 
-            <div>
-                <p style="color: white" id="out-search"></p>
+        <div class="search-input">
+            <a href="" target="_blank" hidden></a>
+            <input class="input_search" type="text" placeholder="Type to search..">
+            <div class="icon"><i class="fas fa-search"></i></div>
+            <div class="autocom-box">
+                <!-- here list are inserted from javascript -->
             </div>
-        </form>
-
+        </div>
     </div>
+
+<%--    <div class="h-100 d-flex align-items-center justify-content-center">--%>
+<%--        <div class="search-close-switch"><i class="fa fa-times"></i></div>--%>
+<%--        <form class="search-model-form" >--%>
+<%--            <input type="text" id="search-input" placeholder="Search here.....">--%>
+<%--            <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}" id="token" />--%>
+<%--            <div class="btn" style="margin: 0" id="search_button" onclick="goSearch()"><i class="fas fa-search"></i></div>--%>
+
+<%--            <div>--%>
+<%--                <p style="color: white" id="out-search"></p>--%>
+<%--            </div>--%>
+<%--        </form>--%>
+
+<%--    </div>--%>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
+<script src="<c:url value="/assets/course/js/search.js"/>" charset="utf-8"></script>
 
-    jQuery(document).ready(
-        function($) {
-            $("#search_button").hide();
-        }
-    );
+<script>
 
     function doRead(id){
         jQuery(document).ready(
@@ -156,55 +165,6 @@
             });
     }
 
-    <c:url value="/user/khoa-hoc/search/" var="url_search" />
-    function doSearch(){
-        jQuery(document).ready(
-            function($) {
-                var query = $("#search-input").val();
-
-                if(query.length >=2){
-                    $.ajax({
-                        type : "GET",
-                        url: "${url_search}",
-                        method: 'GET',
-                        data: {query:query},
-                        success: function(data){
-                            document.getElementById("out-search").innerHTML = "Kết quả tìm kiếm khóa học: " + data;
-                            $("#search_button").show();
-                            if(data == 0){
-                                $("#search_button").hide();
-                            }
-                        }
-                    });
-                }else {
-                    $("#search_button").hide();
-                }
-            }
-        );
-    }
-
-
-    function goSearch(){
-        jQuery(document).ready(
-            function($) {
-                var query = $("#search-input").val();
-                location.href = '${url_search}'+query;
-            }
-        );
-    }
-
-    jQuery(document).ready(
-        function ($) {
-            $('.search-switch').on('click', function () {
-                $('.search-model').fadeIn(400);
-            });
-
-            $('.search-close-switch').on('click', function () {
-                $('.search-model').fadeOut(400, function () {
-                    $('#search-input').val('');
-                });
-            });
-        });
 </script>
 
 </body>

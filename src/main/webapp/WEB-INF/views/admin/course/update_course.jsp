@@ -94,7 +94,7 @@
                     <div class="header">
                         <div class="col-md-8">
                             <h3 class="title">
-                                Admin: <b>Eidit Course</b>
+                                Admin: <b>Edit Course</b>
                             </h3>
                             <p class="category">Chỉnh sửa khóa học</p>
                         </div>

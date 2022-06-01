@@ -11,22 +11,8 @@
 </head>
 <body>
 
-<div class="container" style="  text-align: center; padding-top: 10px;">
-    <img src="<c:url value="/assets/admin/img/imgredir.png"/>" alt="Avatar" class="image" style="width:75%;height: 275px;">
-    <div class="middle centered">
-        <div class="text ">
-            <a href="<c:url value="/admin/web/quan-ly/slideshow"/>" >Quản Lý Web ANSV</a>
-        </div>
-
-    </div>
-</div>
-<div class="container" style="text-align: center; padding-top: 10px;">
-    <img src="<c:url value="/assets/admin/img/imgCos.jpg"/>" alt="Avatar" class="image" style="width:75%;height: 275px;">
-    <div class="middle">
-        <div class="text">
-            <a href="<c:url value="/admin/khoa-hoc/quan-ly/ban"/>" >Quản Lý Khóa Học</a>
-        </div>
-    </div>
+<div style="text-align: center; margin: 8vh auto; width: 100%; text-align: center">
+    <img src="<c:url value="/assets/user/img/slider/our_company.jpg"/>" alt="Avatar" class="image" style="width:100%;height: 100%;">
 </div>
 
 </body>

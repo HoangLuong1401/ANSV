@@ -6,9 +6,7 @@ import ansv.vn.service.admin.NewsTypeService;
 import ansv.vn.service.admin.SlideShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -221,7 +219,7 @@ public class HomeController {
 		ModelAndView mav = new ModelAndView("web/tuyen_dung");
 		return mav;
 	}
-    
+
     @RequestMapping(value = { "detail_{id}" }, method = RequestMethod.GET)
 	public ModelAndView detail(@PathVariable int id) {
 		_mvShare.addObject("get_new",newsService.findByID(id));
