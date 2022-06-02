@@ -75,4 +75,13 @@ public class Course {
     public void setUrl_img(String url_img) {
         this.url_img = url_img;
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Course{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

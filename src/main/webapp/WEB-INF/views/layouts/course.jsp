@@ -7,7 +7,7 @@
     <title><dec:title default="Master-Layout" /></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -116,36 +116,20 @@
 
 <!-- Search model Begin -->
 <div class="search-model">
+    <form accept-charset="utf-8">
     <div class="search-close-switch"><i class="fa fa-times"></i></div>
     <div class="wrapper">
-
         <div class="search-input">
             <a href="" target="_blank" hidden></a>
             <input class="input_search" type="text" placeholder="Type to search..">
+
             <div class="icon"><i class="fas fa-search"></i></div>
-            <div class="autocom-box">
-                <!-- here list are inserted from javascript -->
-            </div>
+            <div class="autocom-box"></div>
         </div>
     </div>
-
-<%--    <div class="h-100 d-flex align-items-center justify-content-center">--%>
-<%--        <div class="search-close-switch"><i class="fa fa-times"></i></div>--%>
-<%--        <form class="search-model-form" >--%>
-<%--            <input type="text" id="search-input" placeholder="Search here.....">--%>
-<%--            <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}" id="token" />--%>
-<%--            <div class="btn" style="margin: 0" id="search_button" onclick="goSearch()"><i class="fas fa-search"></i></div>--%>
-
-<%--            <div>--%>
-<%--                <p style="color: white" id="out-search"></p>--%>
-<%--            </div>--%>
-<%--        </form>--%>
-
-<%--    </div>--%>
+    </form>
 </div>
-
 <script src="<c:url value="/assets/course/js/search.js"/>" charset="utf-8"></script>
-
 <script>
 
     function doRead(id){

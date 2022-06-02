@@ -100,6 +100,13 @@ public class CourseDao {
         return jdbcTemplate.query(sql, new CourseMapper());
     }
 
+    //Tim kiem khoa hoc
+    public List<Course> searchCourse(){
+        String sql = "SELECT * FROM cousera WHERE id_dep <> 3 ORDER BY created_date DESC;";
+        return jdbcTemplate.query(sql, new CourseMapper());
+    }
+
+
     //Tim kiem khoa hoc for Admin
     public List<Course> searchCourseForSepRole(String text){
         String sql = "SELECT * FROM cousera WHERE search_text LIKE '%"+text+"%' ORDER BY created_date DESC;";

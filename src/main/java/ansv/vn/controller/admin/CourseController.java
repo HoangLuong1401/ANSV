@@ -3,50 +3,54 @@ package ansv.vn.controller.admin;
 import ansv.vn.dto.History;
 import ansv.vn.entity.*;
 import ansv.vn.service.admin.*;
-import org.codehaus.jackson.io.UTF8Writer;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CourseController {
 
-    @Autowired
-    private CourseService courseService;
+    private final CourseService courseService;
 
-    @Autowired
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
-    @Autowired
-    private VideoService videoService;
+    private final VideoService videoService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
 
-    @Autowired
-    private DocumentService documentService;
+    private final DocumentService documentService;
 
-    private ArrayList<String> arrRole = new ArrayList<>();
+    private final ArrayList<String> arrRole = new ArrayList<>();
+    private ArrayList<Course> search = new ArrayList<>();
 
-    private boolean checkRoleSep;
 
     private Authentication authentication;
     private UserDetails userDetails;
     private String username;
+    private int idUser;
+    private List<Integer> notifi;
 
+    private boolean checkRoleSep;
 
-    public CourseController() {
+    public CourseController(CourseService courseService, DepartmentService departmentService, VideoService videoService,
+                            UserService userService, NotificationService notificationService, DocumentService documentService) {
+        this.courseService = courseService;
+        this.departmentService = departmentService;
+        this.videoService = videoService;
+        this.userService = userService;
+        this.notificationService = notificationService;
+        this.documentService = documentService;
+
         arrRole.add("[ROLE_DF]");
         arrRole.add("[ROLE_CEO]");
         arrRole.add("[ROLE_ADMIN_COURSE]");
@@ -68,29 +72,54 @@ public class CourseController {
     }
 
     public boolean checkRoleUser(String role){
-        if(arrRole.contains(role.trim())){
-            return true;
-        } else{
-            return false;
-        }
+        return arrRole.contains(role.trim());
     }
 
     public List<Course> checkCourse(List<Course> listCou){
-        List<Course> listc = new ArrayList<>();
+        List<Course> list = new ArrayList<>();
         for (Course c : listCou){
             List<Video> listv = videoService.getAllVideoByIdCourse(c.getId());
             List<Document> listdoc = documentService.getAllDocByIdCou(c.getId());
 
             if(listv.size() != 0 || listdoc.size() != 0 ){
-                listc.add(c);
+                list.add(c);
             }
         }
-        return listc;
+        return list;
+    }
+
+    private void processNotification(Model model, List<Integer> noDtoId, int idUser) {
+        if(noDtoId.size() != 0){
+            List<Notification> isRead = new ArrayList<>();
+            List<Notification> unRead = new ArrayList<>();
+
+            for( Integer integer : notifi){
+                boolean check = noDtoId.contains(integer);
+                if(check){
+                    isRead.add(notificationService.getDataNotificationById(integer));
+                }else{
+                    unRead.add(notificationService.getDataNotificationById(integer));
+                }
+            }
+            model.addAttribute("notificationUnR", unRead);
+            model.addAttribute("notification", isRead);
+        }else{
+            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
+            model.addAttribute("notificationUnR", notifications);
+        }
+
+        if(courseService.getAllHistory(idUser).size() != 0) {
+            List<Course> listc = new ArrayList<>();
+            for (History h : courseService.getAllHistory(idUser)) {
+                listc.add(courseService.getCourseById(h.getIdc()));
+            }
+            model.addAttribute("history",listc);
+        }
     }
 
     //Admin
     @RequestMapping("/admin/khoa-hoc/quan-ly/course")
-    public String goProcessCousrse(Model model){
+    public String goProcessCourse(Model model){
         model.addAttribute("redirect", 1);
 
         model.addAttribute("type_course",courseService.getAllDataCourseType());
@@ -182,41 +211,17 @@ public class CourseController {
             this.userDetails = (UserDetails) authentication.getPrincipal();
 
             username = userDetails.getUsername();
+            idUser = userService.getByUser(username).getId();
             session.setAttribute("display_name", userService.getByUser(username).getDisplay_name());
             session.setAttribute("username", username);
 
-            int id = userService.getByUser(username).getId();
+
             //get in table user-notification
 
-            List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
-            List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+            List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
+            notifi = notificationService.getAllIdNotificationCourse();
 
-            if(noDtoId.size() != 0){
-                List<Notification> isRead = new ArrayList<>();
-                List<Notification> unRead = new ArrayList<>();
-
-                for( Integer integer : notifi){
-                    boolean check = noDtoId.contains(integer);
-                    if(check == true){
-                        isRead.add(notificationService.getDataNotificationById(integer));
-                    }else{
-                        unRead.add(notificationService.getDataNotificationById(integer));
-                    }
-                }
-                model.addAttribute("notificationUnR", unRead);
-                model.addAttribute("notification", isRead);
-            }else{
-                List<Notification> notifications = notificationService.getAllDataNotificationCourse();
-                model.addAttribute("notificationUnR", notifications);
-            }
-
-            if(courseService.getAllHistory(id).size() != 0) {
-                List<Course> listc = new ArrayList<>();
-                for (History h : courseService.getAllHistory(id)) {
-                    listc.add(courseService.getCourseById(h.getIdc()));
-                }
-                model.addAttribute("history",listc);
-            }
+            processNotification(model, noDtoId, idUser);
 
             checkRoleSep = checkRoleUser(userDetails.getAuthorities().toString());
         }
@@ -234,39 +239,13 @@ public class CourseController {
         return "course/course_home";
     }
 
+
+
     @RequestMapping("/user/khoa-hoc/tat-ca")
     public String goAllCourse(Model model) {
-        int id = userService.getByUser(username).getId();
 
-        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
-        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
-
-        if(noDtoId.size() != 0){
-            List<Notification> isRead = new ArrayList<>();
-            List<Notification> unRead = new ArrayList<>();
-
-            for( Integer integer : notifi){
-                boolean check = noDtoId.contains(integer);
-                if(check == true){
-                    isRead.add(notificationService.getDataNotificationById(integer));
-                }else{
-                    unRead.add(notificationService.getDataNotificationById(integer));
-                }
-            }
-            model.addAttribute("notificationUnR", unRead);
-            model.addAttribute("notification", isRead);
-        }else{
-            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
-            model.addAttribute("notificationUnR", notifications);
-        }
-
-        if(courseService.getAllHistory(id).size() != 0) {
-            List<Course> listc = new ArrayList<>();
-            for (History h : courseService.getAllHistory(id)) {
-                listc.add(courseService.getCourseById(h.getIdc()));
-            }
-            model.addAttribute("history",listc);
-        }
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
+        processNotification(model,noDtoId,idUser);
 
         List<Department> listdep;
         if(checkRoleSep){
@@ -285,37 +264,10 @@ public class CourseController {
     @RequestMapping("/user/khoa-hoc/tat-ca/{id}")
     public String goAllCourse(@PathVariable int id , Model model) {
 
-        int id_u = userService.getByUser(username).getId();
         //get in table user-notification
-        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id_u);
-        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
 
-        if(noDtoId.size() != 0){
-            List<Notification> isRead = new ArrayList<>();
-            List<Notification> unRead = new ArrayList<>();
-
-            for( Integer integer : notifi){
-                boolean check = noDtoId.contains(integer);
-                if(check == true){
-                    isRead.add(notificationService.getDataNotificationById(integer));
-                }else{
-                    unRead.add(notificationService.getDataNotificationById(integer));
-                }
-            }
-            model.addAttribute("notificationUnR", unRead);
-            model.addAttribute("notification", isRead);
-        }else{
-            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
-            model.addAttribute("notificationUnR", notifications);
-        }
-
-        if(courseService.getAllHistory(id).size() != 0) {
-            List<Course> listc = new ArrayList<>();
-            for (History h : courseService.getAllHistory(id)) {
-                listc.add(courseService.getCourseById(h.getIdc()));
-            }
-            model.addAttribute("history",listc);
-        }
+        processNotification(model, noDtoId, idUser);
 
         List<Course> listc = new ArrayList<>();
         for (Course c : courseService.getAllDataCourseOfDepId(id)) {
@@ -333,42 +285,15 @@ public class CourseController {
 
     @RequestMapping("/user/khoa-hoc/{id}")
     public String goDetailCoursePage(@PathVariable int id ,Model model) {
-        int id_u = userService.getByUser(username).getId();
 
-        boolean flag = courseService.checkHistoryIsExsit(id,id_u);
+        boolean flag = courseService.checkHistoryIsExsit(id,idUser);
         if(!flag){
-            courseService.addNewHistory(id,id_u);
+            courseService.addNewHistory(id,idUser);
         }
 
-        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id_u);
-        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
 
-        if(noDtoId.size() != 0){
-            List<Notification> isRead = new ArrayList<>();
-            List<Notification> unRead = new ArrayList<>();
-
-            for( Integer integer : notifi){
-                boolean check = noDtoId.contains(integer);
-                if(check == true){
-                    isRead.add(notificationService.getDataNotificationById(integer));
-                }else{
-                    unRead.add(notificationService.getDataNotificationById(integer));
-                }
-            }
-            model.addAttribute("notificationUnR", unRead);
-            model.addAttribute("notification", isRead);
-        }else{
-            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
-            model.addAttribute("notificationUnR", notifications);
-        }
-
-        if(courseService.getAllHistory(id_u).size() != 0) {
-            List<Course> listc = new ArrayList<>();
-            for (History h : courseService.getAllHistory(id_u)) {
-                listc.add(courseService.getCourseById(h.getIdc()));
-            }
-            model.addAttribute("history",listc);
-        }
+        processNotification(model,noDtoId,idUser);
 
         if(documentService.getAllDocByIdCou(id).size() != 0){
             model.addAttribute("docs", documentService.getAllDocByIdCou(id));
@@ -388,21 +313,23 @@ public class CourseController {
         return "course/course_detail";
     }
 
-    @RequestMapping(value = "/user/khoa-hoc/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/khoa-hoc/search",method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String goSearchCouse(@RequestParam("query") String query) {
+    public String goSearchCourse(@RequestParam("query") String query){
         List<Course> listc;
         String result = "";
+
         if(checkRoleSep){
             listc = checkCourse(courseService.searchCourseForSepRole(query));
         }else{
             listc = checkCourse(courseService.searchCourseUser(query));
         }
-        for(Course c: listc){
 
-            result += "<li onclick=\"select(this)\">"+c.getName()+"</li>";
+        if(listc.size() != 0) {
+            for (Course c : listc) {
+                result += "<li onclick=\"select(this)\">" + c.getName() + "</li>";
+            }
         }
-        System.out.println(result);
         return result;
     }
 
@@ -410,37 +337,10 @@ public class CourseController {
     @RequestMapping(value = "/user/khoa-hoc/search/{query}",method = RequestMethod.GET)
     public String goSearchCousePage(@PathVariable String query , Model model) {
 
-        int id = userService.getByUser(username).getId();
         //get in table user-notification
-        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(id);
-        List<Integer> notifi = notificationService.getAllIdNotificationCourse();
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
 
-        if(noDtoId.size() != 0){
-            List<Notification> isRead = new ArrayList<>();
-            List<Notification> unRead = new ArrayList<>();
-
-            for( Integer integer : notifi){
-                boolean check = noDtoId.contains(integer);
-                if(check == true){
-                    isRead.add(notificationService.getDataNotificationById(integer));
-                }else{
-                    unRead.add(notificationService.getDataNotificationById(integer));
-                }
-            }
-            model.addAttribute("notificationUnR", unRead);
-            model.addAttribute("notification", isRead);
-        }else{
-            List<Notification> notifications = notificationService.getAllDataNotificationCourse();
-            model.addAttribute("notificationUnR", notifications);
-        }
-
-        if(courseService.getAllHistory(id).size() != 0) {
-            List<Course> listc = new ArrayList<>();
-            for (History h : courseService.getAllHistory(id)) {
-                listc.add(courseService.getCourseById(h.getIdc()));
-            }
-            model.addAttribute("history",listc);
-        }
+        processNotification(model,noDtoId,idUser);
 
         List<Course> listc;
         if(checkRoleSep){

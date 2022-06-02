@@ -64,6 +64,10 @@ public class CourseService {
         return _couseDao.searchCourse(text);
     }
 
+    public List<Course> searchCourseUser(){
+        return _couseDao.searchCourse();
+    }
+
     public List<Course> searchCourseForSepRole(String text){
         return _couseDao.searchCourseForSepRole(text);
     }
