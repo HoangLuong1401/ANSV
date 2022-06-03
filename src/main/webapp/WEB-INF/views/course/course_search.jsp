@@ -21,14 +21,14 @@
                                                                                                                    -webkit-line-clamp: 1; /* number of lines to show */
                                                                                                                            line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
-                                        ${c.name}
+                                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="color: black;text-decoration: none">   ${c.name} </a>
                                 </div>
                                 <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;
                                                                                                                    display: -webkit-box;
                                                                                                                    -webkit-line-clamp: 1; /* number of lines to show */
                                                                                                                            line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
-                                        ${c.description}
+                                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="color: black;text-decoration: none">   ${c.description} </a>
                                 </div>
                                 <div class="course-item-body__user">
                                     <i class="fas fa-users"></i>
