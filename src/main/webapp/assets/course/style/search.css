@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+:root {
+    --star-size: 30px;
+    --star-color: #f1f1f1;
+    --star-background: #fc0;
+}
+
 ::selection{
     color: #fff;
     background: #664AFF;
@@ -73,4 +79,21 @@
     font-size: 20px;
     color: #644bff;
     cursor: pointer;
+}
+
+
+.stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times;
+    line-height: 1;
+}
+
+.stars::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

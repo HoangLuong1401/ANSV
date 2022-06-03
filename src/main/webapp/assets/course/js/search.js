@@ -2,7 +2,6 @@ const searchWrapper = document.querySelector(".search-input");
 const inputBox = document.querySelector(".input_search");
 const values = document.querySelector(".autocom-box");
 const icon = searchWrapper.querySelector(".icon");
-const input = document.querySelector(".test");
 
 jQuery(document).ready(
     function ($) {

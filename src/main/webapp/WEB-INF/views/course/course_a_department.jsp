@@ -18,15 +18,15 @@
                             <div class="course-item-body">
                                 <div class="course-item-body__heading texth1" title="${c.name}" style="overflow: hidden;text-overflow: ellipsis;
                                                                                                                    display: -webkit-box;
-                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */
+                                                                                                                   -webkit-line-clamp: 1;/* number of lines to show */
                                                                                                                            line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
                                     <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="color: black;text-decoration: none">   ${c.name} </a>
                                 </div>
                                 <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;
                                                                                                                    display: -webkit-box;
-                                                                                                                   -webkit-line-clamp: 2; /* number of lines to show */
-                                                                                                                           line-clamp: 2;
+                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */
+                                                                                                                           line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
                                     <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="color: black;text-decoration: none">   ${c.description} </a>
                                 </div>

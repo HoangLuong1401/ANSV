@@ -34,8 +34,8 @@
                         </div>
                         <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;
                                                                                                                    display: -webkit-box;
-                                                                                                                   -webkit-line-clamp: 2; /* number of lines to show */
-                                                                                                                           line-clamp: 2;
+                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */
+                                                                                                                           line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
                             <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>
                         </div>

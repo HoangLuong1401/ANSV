@@ -17,7 +17,6 @@
     <link href="<c:url value="/assets/user/img/logo/logo_ansv_big_new-removebg-preview.png" />" rel="icon">
     <link href="<c:url value="/assets/user/img/logo_ansv.png" />" rel="apple-touch-icon">
     <link rel="stylesheet" href="<c:url value="/assets/video/css/main.css"/>" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         #myBtn {
@@ -122,7 +121,6 @@
         <div class="search-input">
             <a href="" target="_blank" hidden></a>
             <input class="input_search" type="text" placeholder="Type to search..">
-
             <div class="icon"><i class="fas fa-search"></i></div>
             <div class="autocom-box"></div>
         </div>
