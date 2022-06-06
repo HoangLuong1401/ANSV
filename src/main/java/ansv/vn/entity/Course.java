@@ -9,8 +9,28 @@ public class Course {
     private String url_img;
     private String create_by;
     private String create_date;
+    private int countUser;
 
     public Course() { }
+
+    public Course(int id, String name, String description, int id_depenment, int id_type, String url_img, String create_by, String create_date) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.id_depenment = id_depenment;
+        this.id_type = id_type;
+        this.url_img = url_img;
+        this.create_by = create_by;
+        this.create_date = create_date;
+    }
+
+    public int getCountUser() {
+        return countUser;
+    }
+
+    public void setCountUser(int countUser) {
+        this.countUser = countUser;
+    }
 
     public String getCreate_date() {
         return create_date;

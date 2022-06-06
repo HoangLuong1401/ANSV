@@ -58,6 +58,7 @@ public class CourseController {
 
     public List<Department> processDepartment(List<Department> listdep){
         List<Department> listd = new ArrayList<>();
+
         for (Department departments : listdep) {
             List<Course> listCou = courseService.getDataCouseraByIdDep(departments.getId());
             List<Course> listc = checkCourse(listCou);
@@ -82,6 +83,8 @@ public class CourseController {
             List<Document> listdoc = documentService.getAllDocByIdCou(c.getId());
 
             if(listv.size() != 0 || listdoc.size() != 0 ){
+                int countU = courseService.getNumberUserByCourse(c.getId());
+                c.setCountUser(countU);
                 list.add(c);
             }
         }
@@ -129,7 +132,7 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/course/save")
-    public String goAddCousrse(Model model){
+    public String goAddCourse(Model model){
         model.addAttribute("redirect", 1);
 
         model.addAttribute("typeC", new CourseType());
@@ -141,7 +144,7 @@ public class CourseController {
     }
 
     @RequestMapping({"/admin/khoa-hoc/quan-ly/course/detail/{id}"})
-    public String goDetailCousrse(@PathVariable int id, Model model) {
+    public String goDetailCourse(@PathVariable int id, Model model) {
         model.addAttribute("redirect", 1);
 
         model.addAttribute("course", courseService.getCourseById(id));
@@ -158,7 +161,7 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/saveCourse")
-    public String addCousrse(@ModelAttribute("course") Course course){
+    public String addCourse(@ModelAttribute("course") Course course){
         //set image default
         course.setUrl_img("/ANSV/assets/course/img/ANSV.png");
 
@@ -197,7 +200,7 @@ public class CourseController {
 
     @RequestMapping(value = "/admin/khoa-hoc/quan-ly/search",method = RequestMethod.GET)
     @ResponseBody
-    public String goSearchCouseAdmin(@RequestParam("query") String query) {
+    public String goSearchCourseAdmin(@RequestParam("query") String query) {
         int numb = courseService.searchCourseForSepRole(query).size();
         return String.valueOf(numb);
     }

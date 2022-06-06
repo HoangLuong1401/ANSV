@@ -41,7 +41,7 @@
                         </div>
                         <div class="course-item-body__user">
                             <i class="fas fa-users"></i>
-                            100
+                            ${c.countUser}
                         </div>
                     </div>
                 </div>

@@ -88,6 +88,14 @@ public class CourseDao {
     }
 
     //Get number video of type
+    public int getNumberUserByCourse(int id) {
+        String sql = "SELECT COUNT(id_c) FROM history WHERE id_c = ?;";
+        int result = jdbcTemplate.queryForObject(sql, Integer.class ,id);
+        return result;
+    }
+
+
+    //Get number video of type
     public int getCourseByTypeId(int id) {
         String sql = "SELECT COUNT(*) FROM cousera WHERE id_type = ?;";
         int result = jdbcTemplate.queryForObject(sql, Integer.class ,id);

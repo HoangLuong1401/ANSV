@@ -52,6 +52,11 @@
     </div>
 </div>
 </div>
+
+<!--comment and vote -->
+<section>
+
+</section>
 <button id="backBtn" onclick="window.history.back()">
     <div class="btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 </button>

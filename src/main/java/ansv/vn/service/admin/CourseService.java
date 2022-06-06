@@ -98,6 +98,9 @@ public class CourseService {
         }
         return false;
     }
+    public int getNumberUserByCourse(int id){
+        return _couseDao.getNumberUserByCourse(id);
+    }
 
     public List<History> getAllHistory(int idu){
         return historyDao.getAllHistoryByUserId(idu);
