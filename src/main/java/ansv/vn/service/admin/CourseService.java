@@ -102,6 +102,10 @@ public class CourseService {
         return _couseDao.getNumberUserByCourse(id);
     }
 
+    public int getNumberUserBySystem(){
+        return _couseDao.getNumberUserBySystem();
+    }
+
     public List<History> getAllHistory(int idu){
         return historyDao.getAllHistoryByUserId(idu);
     }

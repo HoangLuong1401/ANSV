@@ -129,7 +129,7 @@ body {
 
 .post-module .thumbnail img {
 	display: block;
-	width: 120%;
+	width: 100%;
 	-webkit-transition: all 0.3s linear 0s;
 	-moz-transition: all 0.3s linear 0s;
 	-ms-transition: all 0.3s linear 0s;

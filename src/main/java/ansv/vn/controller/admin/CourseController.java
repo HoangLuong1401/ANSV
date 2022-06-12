@@ -236,8 +236,10 @@ public class CourseController {
             listdep = departmentService.getDepartmentForUser();
         }
 
+        int numberUser = courseService.getNumberUserBySystem();
         List<Department> listd = processDepartment(listdep);
         model.addAttribute("department", listd);
+        model.addAttribute("numberUser", numberUser);
         model.addAttribute("show",1);
         return "course/course_home";
     }

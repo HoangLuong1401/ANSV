@@ -17,36 +17,78 @@
         <div class="container">
         <h2 class="public-course__heading">Khóa học ban ${dep.name}</h2>
         <div class="row">
-        <c:forEach var="c" items="${dep.courseList}">
-            <div class="col-12 col-lg-4 col-sm-6">
-                <div class="course-item" style="--progress: 75%">
-                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>">
-                        <div class="course-item__img" style="background-image: url(${c.url_img})"></div>
-                    </a>
-                    <div class="course-item-body">
 
-                        <div class="course-item-body__heading texth1" title="${c.name}" style="overflow: hidden;text-overflow: ellipsis;
+        <div class="swiper-container">
+
+            <div class="swiper-wrapper">
+
+                <c:forEach var="c" items="${dep.courseList}">
+                <div class="swiper-slide">
+
+                        <div class="course-item" style="--progress: 75%">
+                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>">
+                                <div class="course-item__img" style="background-image: url(${c.url_img})"></div>
+                            </a>
+                            <div class="course-item-body">
+
+                                <div class="course-item-body__heading texth1" title="${c.name}" style="overflow: hidden;text-overflow: ellipsis;
                                                                                                                    display: -webkit-box;
                                                                                                                    -webkit-line-clamp: 1; /* number of lines to show */
                                                                                                                            line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
-                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black"> ${c.name}</a>
-                        </div>
-                        <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;
+                                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black"> ${c.name}</a>
+                                </div>
+                                <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;
                                                                                                                    display: -webkit-box;
                                                                                                                    -webkit-line-clamp: 1; /* number of lines to show */
                                                                                                                            line-clamp: 1;
                                                                                                                    -webkit-box-orient: vertical;">
-                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>
+                                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>
+                                </div>
+                                <div class="course-item-body__user">
+                                    <i class="fas fa-users"></i>
+                                        ${c.countUser}
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="course-item-body__user">
-                            <i class="fas fa-users"></i>
-                            ${c.countUser}
-                        </div>
-                    </div>
+
                 </div>
+                </c:forEach>
             </div>
-        </c:forEach>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+<%--        <c:forEach var="c" items="${dep.courseList}">--%>
+<%--            <div class="col-12 col-lg-4 col-sm-6">--%>
+<%--                <div class="course-item" style="--progress: 75%">--%>
+<%--                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>">--%>
+<%--                        <div class="course-item__img" style="background-image: url(${c.url_img})"></div>--%>
+<%--                    </a>--%>
+<%--                    <div class="course-item-body">--%>
+
+<%--                        <div class="course-item-body__heading texth1" title="${c.name}" style="overflow: hidden;text-overflow: ellipsis;--%>
+<%--                                                                                                                   display: -webkit-box;--%>
+<%--                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */--%>
+<%--                                                                                                                           line-clamp: 1;--%>
+<%--                                                                                                                   -webkit-box-orient: vertical;">--%>
+<%--                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black"> ${c.name}</a>--%>
+<%--                        </div>--%>
+<%--                        <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;--%>
+<%--                                                                                                                   display: -webkit-box;--%>
+<%--                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */--%>
+<%--                                                                                                                           line-clamp: 1;--%>
+<%--                                                                                                                   -webkit-box-orient: vertical;">--%>
+<%--                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>--%>
+<%--                        </div>--%>
+<%--                        <div class="course-item-body__user">--%>
+<%--                            <i class="fas fa-users"></i>--%>
+<%--                            ${c.countUser}--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </c:forEach>--%>
     </c:if>
     </div>
     </div>
@@ -65,7 +107,7 @@
     <div class="down-banner__bkg"></div>
     <div class="down-content container">
         <div class="down-content__heading">
-            1000+ người khác đã học. Còn bạn?
+            ${numberUser}+ người khác đã học. Còn bạn?
         </div>
         <div class="down-content__desc">
             "Học nào bạn. Mê đấy!”

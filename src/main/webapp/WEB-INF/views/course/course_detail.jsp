@@ -6,6 +6,47 @@
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel2@2.2.2/dist/assets/owl.carousel.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<style>
+    /* Three column layout */
+    .side {
+        float: left;
+        width: 15%;
+        margin-top: 10px;
+    }
+
+    .middle {
+        float: left;
+        width: 70%;
+        margin-top: 10px;
+    }
+
+    /* Place text to the right */
+    .right {
+        text-align: right;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* The bar container */
+    .bar-container {
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        color: white;
+    }
+
+    /* Individual bars */
+    .bar-5 {width: 60%; height: 18px; background-color: #04AA6D;}
+    .bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+    .bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+    .bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+    .bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+</style>
 
 <video style="min-width: 100%; min-height: 100%;position: fixed;right: 0;bottom: 0;" playsinline autoplay muted loop>
     <source class="h-100" src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
@@ -50,13 +91,73 @@
             </div>
         </div>
     </div>
+<%--        <!--comment and vote -->--%>
+<%--        <section>--%>
+
+<%--            <div class="row" style="width: max-content;margin: 0 auto;">--%>
+<%--                <div class="side">--%>
+<%--                    <div>5 star</div>--%>
+<%--                </div>--%>
+<%--                <div class="middle">--%>
+<%--                    <div class="bar-container">--%>
+<%--                        <div class="bar-5"></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="side right">--%>
+<%--                    <div>150</div>--%>
+<%--                </div>--%>
+<%--                <div class="side">--%>
+<%--                    <div>4 star</div>--%>
+<%--                </div>--%>
+<%--                <div class="middle">--%>
+<%--                    <div class="bar-container">--%>
+<%--                        <div class="bar-4"></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="side right">--%>
+<%--                    <div>63</div>--%>
+<%--                </div>--%>
+<%--                <div class="side">--%>
+<%--                    <div>3 star</div>--%>
+<%--                </div>--%>
+<%--                <div class="middle">--%>
+<%--                    <div class="bar-container">--%>
+<%--                        <div class="bar-3"></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="side right">--%>
+<%--                    <div>15</div>--%>
+<%--                </div>--%>
+<%--                <div class="side">--%>
+<%--                    <div>2 star</div>--%>
+<%--                </div>--%>
+<%--                <div class="middle">--%>
+<%--                    <div class="bar-container">--%>
+<%--                        <div class="bar-2"></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="side right">--%>
+<%--                    <div>6</div>--%>
+<%--                </div>--%>
+<%--                <div class="side">--%>
+<%--                    <div>1 star</div>--%>
+<%--                </div>--%>
+<%--                <div class="middle">--%>
+<%--                    <div class="bar-container">--%>
+<%--                        <div class="bar-1"></div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="side right">--%>
+<%--                    <div>20</div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+
+
+<%--        </section>--%>
 </div>
 </div>
 
-<!--comment and vote -->
-<section>
 
-</section>
 <button id="backBtn" onclick="window.history.back()">
     <div class="btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 </button>
@@ -81,10 +182,15 @@
                 modestbranding: 1,
                 showinfo: 0,
                 ecver: 2,
+                autohide:1,
             },
             events: {
                 onStateChange: onPlayerStateChange,
                 onReady: function () {
+                    $('.ytp-title').css(
+                        'display',
+                        'none'
+                    );
                     $('.ytp-expand-pause-overlay .ytp-pause-overlay').css(
                         'display',
                         'none'
