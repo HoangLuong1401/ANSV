@@ -113,4 +113,8 @@ public class CourseService {
     public void deleteHistoryByIdCourse(int idc){
         historyDao.deleteHistory(idc);
     }
+
+    public float getAverageVoteOfCourse(int id_c){
+     return _couseDao.getAverageVoteOfCourse(id_c);
+    }
 }

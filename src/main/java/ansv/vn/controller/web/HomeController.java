@@ -4,7 +4,6 @@ import ansv.vn.service.admin.HighlightService;
 import ansv.vn.service.admin.NewsService;
 import ansv.vn.service.admin.NewsTypeService;
 import ansv.vn.service.admin.SlideShowService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,19 +11,22 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private SlideShowService slideshowService;
+    private final SlideShowService slideshowService;
 
-    @Autowired
-    private HighlightService highlightService;
+    private final HighlightService highlightService;
 
-    @Autowired
-    private NewsService newsService;
+    private final NewsService newsService;
 
-    @Autowired
-    private NewsTypeService newsTypeService;
+    private final NewsTypeService newsTypeService;
 
     private ModelAndView _mvShare = new ModelAndView();
+
+    public HomeController(SlideShowService slideshowService, HighlightService highlightService, NewsService newsService, NewsTypeService newsTypeService) {
+        this.slideshowService = slideshowService;
+        this.highlightService = highlightService;
+        this.newsService = newsService;
+        this.newsTypeService = newsTypeService;
+    }
 
     @RequestMapping(value = { "/", "/trang-chu" }, method = RequestMethod.GET)
     public ModelAndView indexWeb() {
@@ -224,7 +226,6 @@ public class HomeController {
 	public ModelAndView detail(@PathVariable int id) {
 		_mvShare.addObject("get_new",newsService.findByID(id));
 		_mvShare.setViewName("web/detail");
-		
 		return _mvShare;
 	}
 }

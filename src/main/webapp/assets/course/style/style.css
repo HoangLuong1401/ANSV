@@ -569,13 +569,12 @@ nav {
     flex-direction: column;
     transition: background-color 0.3s linear;
     background-color: var(--white-color);
-    border-radius: 12px;
     margin-bottom: 32px;
     overflow: hidden;
     text-decoration: none;
     color: var(--text-color);
-    border-radius: 12px;
-    text-align: left;
+    border-radius: 0px;
+    text-align: center;
     cursor: pointer;
 }
 

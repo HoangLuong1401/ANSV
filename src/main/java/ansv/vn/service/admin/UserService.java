@@ -15,6 +15,10 @@ public class UserService {
         return userDao.getByUser(username);
     }
 
+    public String getDisplayById(int id_u){
+        return userDao.getDisplayById(id_u);
+    }
+
     public String findRoleByUser(String username){
         return userDao.findRoleByUser(username);
     }

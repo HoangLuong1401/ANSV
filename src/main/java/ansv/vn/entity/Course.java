@@ -10,6 +10,7 @@ public class Course {
     private String create_by;
     private String create_date;
     private int countUser;
+    private float startVote;
 
     public Course() { }
 
@@ -96,12 +97,11 @@ public class Course {
         this.url_img = url_img;
     }
 
+    public float getStartVote() {
+        return startVote;
+    }
 
-    @Override
-    public String toString() {
-
-        return "Course{" +
-                "name='" + name + '\'' +
-                '}';
+    public void setStartVote(float startVote) {
+        this.startVote = startVote;
     }
 }

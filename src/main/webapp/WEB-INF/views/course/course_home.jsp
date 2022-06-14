@@ -46,8 +46,8 @@
                                     <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>
                                 </div>
                                 <div class="course-item-body__user">
-                                    <i class="fas fa-users"></i>
-                                        ${c.countUser}
+                                    <i class="fas fa-users"></i>${c.countUser}
+                                    <p class="stars" style="--rating: ${c.startVote};"></p>
                                 </div>
                             </div>
 

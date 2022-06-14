@@ -93,4 +93,9 @@ public class UserDao {
         String sql = "INSERT INTO users_roles (user, role) VALUES ((SELECT users.id FROM users WHERE users.username = ?), (SELECT role.id FROM role WHERE role.name = ?))";
         jdbcTemplate.update(sql, username, role);
     }
+
+    public String getDisplayById(int id_u) {
+        String sql = "SELECT display_name FROM users WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql,String.class,id_u);
+    }
 }

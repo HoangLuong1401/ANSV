@@ -1,22 +1,22 @@
 package ansv.vn.controller.admin;
 
-import ansv.vn.entity.Course;
+
 import ansv.vn.entity.Video;
-import ansv.vn.service.admin.CourseService;
+
 import ansv.vn.service.admin.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 public class VideoController {
 
-    @Autowired
-    private VideoService videoService;
+    private final VideoService videoService;
+
+    public VideoController(VideoService videoService) {
+        this.videoService = videoService;
+    }
 
 
     //Admin
@@ -32,7 +32,4 @@ public class VideoController {
         videoService.deleteVideoById(idv);
         return "redirect:/admin/khoa-hoc/quan-ly/course/detail/"+idc;
     }
-
-    //User
-
 }

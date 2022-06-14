@@ -8,16 +8,15 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
     <link rel="stylesheet" href="<c:url value="/assets/course/style/bootstrap.min.css"/>" />
     <link rel="stylesheet" href="<c:url value="/assets/course/style/search.css"/>" />
     <link href="<c:url value="/assets/user/img/logo/logo_ansv_big_new-removebg-preview.png" />" rel="icon">
     <link href="<c:url value="/assets/user/img/logo_ansv.png" />" rel="apple-touch-icon">
     <link rel="stylesheet" href="<c:url value="/assets/video/css/main.css"/>" />
     <link rel="stylesheet" href="<c:url value="/assets/course/style/swiper.min.css"/>">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<c:url value="/assets/course/js/jQuery-3.6.0.min.js"/>" charset="utf-8"></script>
+
     <style>
         #myBtn {
             position: fixed; /* Fixed/sticky position */
@@ -129,6 +128,8 @@
 </div>
 <script src="<c:url value="/assets/course/js/search.js"/>" charset="utf-8"></script>
 <script src="<c:url value="/assets/course/js/swiper.min.js"/>" charset="utf-8"></script>
+
+
 <script>
     var swiper = new Swiper('.swiper-container', {
         effect: 'coverflow',

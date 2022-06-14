@@ -1,5 +1,7 @@
 package ansv.vn.dao;
 
+import ansv.vn.dto.Vote;
+import ansv.vn.dto.VoteMapper;
 import ansv.vn.entity.Video;
 import ansv.vn.entity.VideoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,15 @@ public class VideoDao {
         jdbcTemplate.update(sql,id);
     }
 
+    //Process comment
+    public void addNewCommandAndVote(Vote v, int id_c){
+        String sql = "UPDATE history SET vote_mark = ?, vote_cmt = ?, vote_time = ? WHERE id_u = ? AND id_c = ?";
+        jdbcTemplate.update(sql,v.getMarks_vote(),v.getCmt(),v.getDate_cmt(),v.getId_user(), id_c);
+    }
+
+    public List<Vote> getCommentOfACourse(int id_c){
+        String sql = "SELECT id_u, vote_time, vote_mark, vote_cmt FROM history WHERE id_c = ? ORDER BY vote_time DESC";
+        return jdbcTemplate.query(sql, new VoteMapper(),id_c);
+    }
 
 }

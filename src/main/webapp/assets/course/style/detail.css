@@ -31,7 +31,23 @@ body {
     background-position: center;
     background-size: cover;
     width: 418px;
-    height: 377.8px;
+    height: 361.8px;
+}
+
+.course-item {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    transition: background-color 0.3s linear;
+    background-color: var(--white-color);
+    margin-bottom: 32px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+    border-radius: 0px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .dropdown-notify__scroll::-webkit-scrollbar,
@@ -86,7 +102,7 @@ nav {
 }
 
 .nav__left .nav-list__item:hover a {
-    color: #000;
+    color: deepskyblue;
 }
 
 .nav__left img {
@@ -108,7 +124,7 @@ nav {
 }
 
 .nav-list__item a {
-    color: #b3b3b3;
+    color: black;
     font-weight: 700;
     line-height: 16px;
     letter-spacing: 1.1px;
@@ -179,7 +195,7 @@ nav {
 
 .nav__user-name {
     margin-left: 10px;
-    color: #b3b3b3;
+    color: black;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
@@ -345,7 +361,7 @@ nav {
 }
 .nav-notify-btn__icon {
     display: inline-block;
-    color: #b3b3b3;
+    color: black;
     margin-left: 20px;
     font-size: 18.25px;
 }
@@ -557,23 +573,6 @@ nav {
     font-weight: 600;
 }
 
-.course-item {
-    position: relative;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    transition: background-color 0.3s linear;
-    background-color: var(--white-color);
-    border-radius: 12px;
-    margin-bottom: 32px;
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text-color);
-    border-radius: 12px;
-    text-align: left;
-    cursor: pointer;
-    padding-bottom: 1rem;
-}
 
 .course-item__img {
     display: block;

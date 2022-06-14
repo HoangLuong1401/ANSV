@@ -1,6 +1,7 @@
 package ansv.vn.service.admin;
 
 import ansv.vn.dao.VideoDao;
+import ansv.vn.dto.Vote;
 import ansv.vn.entity.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,11 @@ public class VideoService {
         videoDao.deleteByIdCourse(id);
     }
 
+    public List<Vote> getCommandOfAVideo(int id){
+        return videoDao.getCommentOfACourse(id);
+    }
 
-
-
+    public void addNewCommandAndVote(Vote v,int id_c){
+        videoDao.addNewCommandAndVote(v,id_c);
+    }
 }

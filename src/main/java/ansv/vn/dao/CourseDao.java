@@ -148,4 +148,9 @@ public class CourseDao {
         String sql = "DELETE FROM course_category WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+    public float getAverageVoteOfCourse(int id_c) {
+        String sql = "SELECT AVG(vote_mark) FROM history WHERE id_c = ?";
+        return jdbcTemplate.queryForObject(sql,Float.class,id_c);
+    }
 }

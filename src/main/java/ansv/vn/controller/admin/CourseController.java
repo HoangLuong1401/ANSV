@@ -1,17 +1,26 @@
 package ansv.vn.controller.admin;
 
 import ansv.vn.dto.History;
+import ansv.vn.dto.Vote;
 import ansv.vn.entity.*;
 import ansv.vn.service.admin.*;
 
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +41,10 @@ public class CourseController {
 
     private final ArrayList<String> arrRole = new ArrayList<>();
     private ArrayList<Course> search = new ArrayList<>();
+
+    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+    final ZonedDateTime now = ZonedDateTime.now();
+    final ZonedDateTime dateTime = now.withZoneSameInstant(ZoneId.of("Asia/Ho_Chi_Minh"));
 
 
     private Authentication authentication;
@@ -84,6 +97,8 @@ public class CourseController {
 
             if(listv.size() != 0 || listdoc.size() != 0 ){
                 int countU = courseService.getNumberUserByCourse(c.getId());
+                float startVote = courseService.getAverageVoteOfCourse(c.getId());
+                c.setStartVote(startVote);
                 c.setCountUser(countU);
                 list.add(c);
             }
@@ -308,7 +323,19 @@ public class CourseController {
             model.addAttribute("listVideo",videoService.getAllVideoByIdCourse(id));
             Video videof = videoService.getFirtsVideo(id);
             model.addAttribute("videof",videof);
-            System.out.println(videof.getUrl());
+        }
+
+        if(videoService.getCommandOfAVideo(id).size() != 0){
+            List<Vote> listVote  = new ArrayList<>();
+
+            for(Vote v : videoService.getCommandOfAVideo(id)){
+                v.setUsername(userService.getDisplayById(v.getId_user()));
+                if(v.getDate_cmt() != null && v.getMarks_vote() != 0 && v.getCmt() !=null){
+                    listVote.add(v);
+                }
+
+            }
+            model.addAttribute("listVote",listVote);
         }
 
         Course course = courseService.getCourseById(id);
@@ -358,5 +385,38 @@ public class CourseController {
         model.addAttribute("show",0);
         return "course/course_search";
     }
+
+
+    @RequestMapping(value = "/user/khoa-hoc/comment",method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+    public @ResponseBody String addNewCommnet(HttpServletRequest request) {
+
+        String marks = request.getParameter("marks");
+        String comments = request.getParameter("comments");
+        int id = Integer.parseInt(request.getParameter("id_c"));
+
+        float masksValue = Float.valueOf(marks) * 5 /100;
+
+        Vote vote = new Vote();
+        vote.setId_user(idUser);
+        vote.setUsername(userService.getDisplayById(idUser));
+        vote.setDate_cmt(dtf.format(dateTime));
+        vote.setMarks_vote(masksValue);
+        vote.setCmt(comments);
+        String test = " ve den day r, anh mog em qua hihi trang anh!!";
+
+        videoService.addNewCommandAndVote(vote,id);
+        ObjectMapper mapper = new ObjectMapper();
+        String ajaxResponse = "";
+        try {
+            ajaxResponse = mapper.writeValueAsString(vote);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ajaxResponse;
+    }
+
 
 }
