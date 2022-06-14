@@ -97,7 +97,13 @@ public class CourseController {
 
             if(listv.size() != 0 || listdoc.size() != 0 ){
                 int countU = courseService.getNumberUserByCourse(c.getId());
-                float startVote = courseService.getAverageVoteOfCourse(c.getId());
+                float startVote;
+                try{
+                    startVote = courseService.getAverageVoteOfCourse(c.getId());
+                }catch (Exception ex){
+                     startVote = 0;
+                }
+
                 c.setStartVote(startVote);
                 c.setCountUser(countU);
                 list.add(c);
