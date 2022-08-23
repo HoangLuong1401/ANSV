@@ -1715,25 +1715,25 @@ a
 .zlogin a:hover {
     text-decoration: underline;
 }
-.block-item .info-detail a:hover,
-.c-list-item .dropdown ul a:hover,
-.comment-item .comment-name,
-.comment-item .nonchange a,
-.comment-noti .button:hover,
-.filter-content .col a,
-.filter-tabs li a,
-.filters .dropdown li a:hover,
-.last-item .view-all:hover,
-.login-form .button-list a:hover,
-.nmr .c-list-item a:hover,
-.paging li .active,
-.paging li a:hover,
-.sidebar a:hover,
-.subcribe a:hover,
-.title-bar h3 a:hover,
-.user-area .popup_inner_cont a {
-    text-decoration: none;
-}
+/*.block-item .info-detail a:hover,*/
+/*.c-list-item .dropdown ul a:hover,*/
+/*.comment-item .comment-name,*/
+/*.comment-item .nonchange a,*/
+/*.comment-noti .button:hover,*/
+/*.filter-content .col a,*/
+/*.filter-tabs li a,*/
+/*.filters .dropdown li a:hover,*/
+/*.last-item .view-all:hover,*/
+/*.login-form .button-list a:hover,*/
+/*.nmr .c-list-item a:hover,*/
+/*.paging li .active,*/
+/*.paging li a:hover,*/
+/*.sidebar a:hover,*/
+/*.subcribe a:hover,*/
+/*.title-bar h3 a:hover,*/
+/*.user-area .popup_inner_cont a {*/
+    /*text-decoration: none;*/
+/*}*/
 .user-avatar {
     display: block;
     float: left;
@@ -3166,11 +3166,10 @@ a
     white-space: nowrap;
 }
 .video-item .item {
-    height: 126px;
+    height: 170px;
 }
 .video-item .item h2,
 .video-item .item h3 {
-    margin: 10px 43px 5px 0;
     overflow: hidden;
     max-height: 2.8em;
 }

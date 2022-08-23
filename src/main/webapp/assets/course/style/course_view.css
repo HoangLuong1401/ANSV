@@ -319,7 +319,6 @@ a:hover {
     color: #555;
 }
 .btn-default,
-.button-green,
 .description .title a,
 .dropdown li a,
 .flex-des .description .date,
@@ -340,6 +339,10 @@ a:hover {
 .user-area .nav-profile a,
 .user-area h3 a{
     color: #fc9404;
+}
+
+.button-green{
+    color: white;
 }
 .box-news .news-feature h4 a,
 .register h3,
@@ -774,16 +777,7 @@ a:hover {
     border-left: 1px solid #dfdfdf;
     background-color: #f2f2f2;
 }
-.top-wrap
-.header
-.fluid
-.search
-.search-autocomplete
-.search-item
-.zme-autocomplete-activeItem,
-.top-wrap .header .fluid .search .search-autocomplete .search-item a:hover {
-    background-color: #72a114;
-}
+
 .top-wrap .header .fluid .search .search-autocomplete .search-item a {
     display: block;
     padding: 5px;
@@ -1385,36 +1379,6 @@ a:hover {
     display: block;
     overflow: hidden;
     margin: 0 20px 20px 0;
-}
-.special-item .item {
-    width: 470px;
-    height: 272px;
-}
-.artist-item .item {
-    width: 225px;
-    height: 100px;
-    overflow: visible;
-    -webkit-border-radius: 50px 0 0 50px;
-    -moz-border-radius: 50px 0 0 50px;
-    -o-border-radius: 50px 0 0 50px;
-    border-radius: 50px 0 0 50px;
-}
-.has-intro img,
-.special-item img {
-    float: left;
-    margin-right: 20px;
-}
-.artist-item .item > a {
-    display: block;
-    float: left;
-    margin: -6px 10px 0 0;
-    width: 112px;
-    height: 112px;
-    -webkit-border-radius: 56px;
-    -moz-border-radius: 56px;
-    border-radius: 56px;
-    -o-border-radius: 56px;
-    background: #e5e5e5;
 }
 .artist-item img {
     float: left;

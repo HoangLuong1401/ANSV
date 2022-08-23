@@ -31,6 +31,7 @@
         position: relative;
         padding-top: 56.25%;
         top: 60px;
+        margin-bottom: 75px;
     }
 
     .video-frame {
@@ -60,6 +61,7 @@
 </style>
 <section style="background-color: #f2f2f2;">
     <div class="container" style="width: 80%">
+        <c:if test="${not empty listVideo}">
         <div class="flex-wrapper">
             <div class="video-wrapper">
                 <div class="ratio-keeper">
@@ -72,6 +74,7 @@
                 </div>
             </div>
         </div>
+        </c:if>
         <div class="section info-play info-program">
             <div class="section-content">
                 <div class="outside-des">
@@ -84,9 +87,9 @@
                                 <c:forEach items="${listVideo}" var="video" varStatus="index"><a href="<c:url value="/user/khoa-hoc/${departments}/${course.id}/${video.url}"/>"><img src="https://img.youtube.com/vi/${video.url}/hqdefault.jpg" style="width: 200px;height: 180px"/></a></c:forEach>
                             </div>
                         </c:if>
-                        <strong>Phòng ban: </strong>
+                        <strong style="font-size: 25px;">Phòng ban: </strong>
 
-                        <h3><a href="<c:url value="/user/khoa-hoc/${departments}"/>" >${departments}</a></h3>
+                        <h3 style="font-size: 25px;"><a href="<c:url value="/user/khoa-hoc/${departments}"/>" >${departments}</a></h3>
                         <div>
                             <c:if test="${not empty docs}">
                                 <div class="carousel__wrap mt-3" style="text-align: -webkit-center;">
@@ -107,28 +110,28 @@
                 <div class="user-rate _rating " style="float: left; position: relative">
                     <div class="star-widget" style="float: inherit">
                         <input type="radio" name="rate" id="rate-5">
-                        <label for="rate-5" class="fas fa-star"></label>
+                        <label style="font-size: 35px" for="rate-5" class="fas fa-star"></label>
                         <input type="radio" name="rate" id="rate-4">
-                        <label for="rate-4" class="fas fa-star"></label>
+                        <label style="font-size: 35px" for="rate-4" class="fas fa-star"></label>
                         <input type="radio" name="rate" id="rate-3">
-                        <label for="rate-3" class="fas fa-star"></label>
+                        <label style="font-size: 35px" for="rate-3" class="fas fa-star"></label>
                         <input type="radio" name="rate" id="rate-2">
-                        <label for="rate-2" class="fas fa-star"></label>
+                        <label style="font-size: 35px" for="rate-2" class="fas fa-star"></label>
                         <input type="radio" name="rate" id="rate-1">
-                        <label for="rate-1" class="fas fa-star"></label>
+                        <label style="font-size: 35px" for="rate-1" class="fas fa-star"></label>
                     </div>
                     <br>
                     <c:if test="${not empty markss}">
-                        <strong class="user-vote _uservote">(${markss}/5)</strong>
+                        <strong style="font-size: 15px;" class="user-vote _uservote">(${markss}/5)</strong>
                     </c:if>
                     <c:if test="${empty markss}">
-                        <strong class="user-vote _uservote">(0/5)</strong>
+                        <strong style="font-size: 15px;" class="user-vote _uservote">(0/5)</strong>
                     </c:if>
                     <c:if test="${not empty numberVote}">
-                        <strong class="vote-count _votecount" itemprop="reviewCount">${numberVote} lượt đánh giá</strong>
+                        <strong style="font-size: 15px;" class="vote-count _votecount" itemprop="reviewCount">${numberVote} lượt đánh giá</strong>
                     </c:if>
                     <c:if test="${empty numberVote}">
-                        <strong class="vote-count _votecount" itemprop="reviewCount">0 lượt đánh giá</strong>
+                        <strong style="font-size: 15px;" class="vote-count _votecount" itemprop="reviewCount">0 lượt đánh giá</strong>
                     </c:if>
                 </div><!-- END .user-rate -->
             </div><!-- END .section-content fluid -->
@@ -150,7 +153,7 @@
                                         <p class="comment-noti">
                                             <span>Nhấn Shift + Enter để xuống dòng. Bình luận phải dài hơn 50 ký tự.</span>
                                             <a href="javascript:void(0);" id="_btnCommentSubmit"
-                                               class="button button-green" href="#">Bình luận</a>
+                                               class="button button-green">Bình luận</a>
                                         </p>
                                     </div>
                                 <!-- END .comment-form -->

@@ -20,56 +20,32 @@
             </div>
 
             <div class="nav__right">
-                <div class="nav__avt">
-                    <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" />
-                </div>
-
+                <div class="nav__avt"><img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" /></div>
                 <div class="nav__user-name"><span>${display_name}</span></div>
                 <span class="nav_separate"></span>
                 <div class="nav-notify">
                     <div class="nav-notify-btn js-progress">
                         <i class="nav-notify-btn__icon fas fa-bookmark"></i>
-                        <div class="nav-notify-btn__tooltip">
-                            Khóa học của tôi
-                        </div>
+                        <div class="nav-notify-btn__tooltip">Khóa học của tôi</div>
                         <c:if test="${not empty history}">
                         <ul class="nav-right-dropdown">
-                            <h6 class="nav-right-dropdown__heading">
-                                Khóa học của tôi
-                            </h6>
-                            <div class="nav-mobile btn__close">
-                                <img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" />
-                            </div>
-
+                            <h6 class="nav-right-dropdown__heading">Khóa học của tôi</h6>
+                            <div class="nav-mobile btn__close"><img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" /></div>
                             <div class="nav-right-dropdown__scroll">
-
                                 <c:forEach items="${history}" var="h">
                                 <li class="course"><div class="course__img">
                                         <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" /></div>
-                                    <div class="course-desc"><div class="course-desc__title">${h.name}
-                                               </div><%--div class="course-desc__time">${h.name}</div>--%></div>
-                                </li>
-                                </c:forEach>
+                                    <div class="course-desc"><div class="course-desc__title" style="width: 400px;">${h.name}
+                                               </div></div><%--div class="course-desc__time">${h.name}</div>--%></li></c:forEach>
                             </div>
                         </ul>
                         </c:if>
                         <c:if test="${empty history}">
                             <ul class="nav-right-dropdown">
                                 <h6 class="nav-right-dropdown__heading">Khóa học của tôi</h6>
-                                <div class="nav-mobile btn__close">
-                                    <img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" />
-                                </div>
+                                <div class="nav-mobile btn__close"><img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" /></div>
                                 <div class="nav-right-dropdown__scroll">
-                                    <li class="course">
-<%--                                        <div class="course__img">--%>
-<%--                                            <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" />--%>
-<%--                                        </div>--%>
-                                        <div class="course-desc"><div class="course-desc__title">
-                                                    Hiện bạn chưa tham gia khóa học nào !!
-                                            </div>
-                                        </div>
-                                    </li>
-                                </div>
+                                    <li class="course"><div class="course-desc"><div class="course-desc__title">Hiện bạn chưa tham gia khóa học nào !!</div></div></li></div>
                             </ul>
                         </c:if>
                     </div>
