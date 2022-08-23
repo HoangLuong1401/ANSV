@@ -9,12 +9,6 @@ const notifyBtn = $('.js-notify');
 const notifyDropdown = $('.dropdown-notify');
 const userBtn = $('.js-user');
 const userDropdown = $('.user-dropdown');
-const playBtn = $('.banner__play');
-const pauseBtn = $('.banner__pause');
-const bannerOverlay = $('.banner__overlay');
-const bannerVideo = $('.banner__video');
-const bannerStop = $('.banner__stop');
-const bannerContent = $('.banner-content');
 
 progressBtn.onclick = function (event) {
     event.stopPropagation();
@@ -73,3 +67,4 @@ notifyDropdown.onclick = function (event) {
 userDropdown.onclick = function (event) {
     event.stopPropagation();
 };
+

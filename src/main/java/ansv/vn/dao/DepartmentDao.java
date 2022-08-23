@@ -18,12 +18,12 @@ public class DepartmentDao {
     private LocalDateTime _now = LocalDateTime.now();
 
     public List<Department> getDepartmentForSepRole() {
-        String sql = "SELECT * FROM departments ORDER BY RAND() LIMIT 3";
+        String sql = "SELECT * FROM departments ORDER BY id";
         return jdbcTemplate.query(sql, new DepartmentMapper());
     }
 
     public List<Department> getDepartmentForUser() {
-        String sql = "SELECT * FROM departments WHERE name <> 'DF' ORDER BY RAND() LIMIT 3;";
+        String sql = "SELECT * FROM departments WHERE name <> 'DF';";
         return jdbcTemplate.query(sql, new DepartmentMapper());
     }
 
@@ -55,6 +55,11 @@ public class DepartmentDao {
     public void deleteDepartment(int id) {
         String sql = "DELETE FROM departments WHERE id = " + id;
         jdbcTemplate.update(sql);
+    }
+
+    public Department getDepartmentByName(String name) {
+        String sql = "SELECT * FROM departments WHERE name = ?";
+        return jdbcTemplate.queryForObject(sql, new DepartmentMapper(), name);
     }
 
 

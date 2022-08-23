@@ -52,7 +52,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="${urlDetails}/${c.id}">
-                                                        <img src="${c.url_img}" width="150px" />
+                                                        <img src="<c:url value="/assets/course/img/course/${c.url_img}"/>" width="150px" />
                                                     </a>
 
                                                 </td>

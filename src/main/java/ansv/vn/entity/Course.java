@@ -5,6 +5,7 @@ public class Course {
     private String name;
     private String description;
     private int id_depenment;
+    private String departmentName;
     private int id_type;
     private String url_img;
     private String create_by;
@@ -103,5 +104,13 @@ public class Course {
 
     public void setStartVote(float startVote) {
         this.startVote = startVote;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
-    <title>User - Login</title>
+    <title>User - Register</title>
 </head>
 <body>
 
@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="<c:url value='/dang-ky' />"  class="btn btn-fill btn-primary btn-wd">Đăng ký</a>
+                    <a href="<c:url value='/login_user' />"  class="btn btn-fill btn-primary btn-wd" style="background: cornflowerblue;">Đăng nhập</a>
                 </li>
             </ul>
         </div>
@@ -46,35 +46,37 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                        <form name='loginForm' action="<c:url value='/j_spring_security_login' />" method='POST' id="form_login">
-                            <input type='hidden' name='status' id="login_status" value="2" class="form-control" />
+                        <form name='loginForm' action="<c:url value='/register' />" method='POST' modelAttribute="user">
+                            <%--<input type='hidden' name='status' id="login_status" value="2" class="form-control" />--%>
 
                             <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
                             <div class="card card-hidden">
-                                <div class="header text-center"><b>Đăng nhập</b></div>
+                                <div class="header text-center"><b>Đăng ký</b></div>
                                 <div class="content">
                                     <div class="form-group">
-                                        <label>Tài khoản</label>
-                                        <input type='text' name='username' id="usn" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Mật khẩu</label>
-                                        <input type='password' name='password' class="form-control" />
+                                        <label>Email</label>
+                                        <input type='email' name='username' class="form-control" required/>
                                         <%--<input type='hidden' name='password' id="psw" class="form-control" />--%>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Mật khẩu</label>
+                                        <input type='password' name='password' class="form-control" required/>
+                                        <%--<input type='hidden' name='password' id="psw" class="form-control" />--%>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Tên hiển thị</label>
+                                        <input type='text' name='display_name' id="usn" class="form-control" required/>
+                                    </div>
+
                                 </div>
                                 <div class="footer text-center">
-                                    <input type="submit" id="btn_form" value="Đăng nhập" class="btn btn-fill btn-primary btn-wd" />
+                                    <input type="submit" id="btn_form" value="Đăng ký" class="btn btn-fill btn-primary btn-wd" />
                                     <c:if test="${ not empty message }">
                                         <br><font color="red">${ message }</font>
                                     </c:if>
-                                    <br>
-
-
                                 </div>
-                                <%--<div class="text-center" style="padding: 10px;">--%>
-                                    <%--<p><a href="<c:url value='/dang-ky' />" style="color: #888888">Chưa có tài khoản, hay click tại đây để đăng ký</a></p>--%>
-                                <%--</div>--%>
                             </div>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
@@ -104,6 +106,6 @@
 </div>
 
 <script src="<c:url value='/assets/user/vendor/jquery/jquery.min.js' />"></script>
-<script src="<c:url value='/assets/user/js/LdapAuthenticate.js' />" type="text/javascript"></script>
+<%--<script src="<c:url value='/assets/user/js/LdapAuthenticate.js' />" type="text/javascript"></script>--%>
 
 </body>

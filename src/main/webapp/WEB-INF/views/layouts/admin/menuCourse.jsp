@@ -42,6 +42,11 @@
                         <i class="pe-7s-photo-gallery"></i><p>Thông Báo</p>
                     </a>
                 </li>
+                <li>
+                    <a href="<c:url value="/admin/khoa-hoc/quan-ly/user"/>">
+                        <i class="pe-7s-user"></i><p>Thành Viên</p>
+                    </a>
+                </li>
                 <%--				<li>--%>
                 <%--					<a href="<c:url value="/admin/news/list" />">--%>
                 <%--						<i class="pe-7s-photo-gallery"></i><p>Quản Lý User</p>--%>

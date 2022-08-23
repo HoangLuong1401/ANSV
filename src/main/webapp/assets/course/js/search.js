@@ -4,13 +4,6 @@ const values = document.querySelector(".autocom-box");
 const icon = searchWrapper.querySelector(".icon");
 
 
-const slideValue = document.querySelector(".spanValue");
-const inputSilde = document.querySelector(".inputPenge");
-const inputBoxx = document.querySelector("#inputBoxs");
-
-
-const summitCmt = document.querySelector("#summitCmt");
-
 jQuery(document).ready(
     function ($) {
         $('.search-switch').on('click', function () {
@@ -59,7 +52,7 @@ jQuery(document).ready(function($) {
                     "                    </div>\n" +
                     "                </div>";
                 $(".course_review").html(result);
-                console.log(data)
+
             },
             error: function(e) {
                console.log(e);
@@ -70,7 +63,7 @@ jQuery(document).ready(function($) {
 
 
 inputBox.onkeyup = (e)=>{
-    let userData = e.target.value; //user enetered data
+    let userData = e.target.value;
         if (userData.length >= 2) {
             jQuery.ajax({
                 type: "GET",
@@ -93,10 +86,9 @@ inputBox.onkeyup = (e)=>{
         }
 
         if(e.which === 13){
-
-        let values =  inputBox.value;
-        if(values.length >= 2){
-            location.href = '/ANSV/user/khoa-hoc/search/'+values;
+            let values =  inputBox.value;
+            if(values.length >= 2){
+                location.href = '/ANSV/user/khoa-hoc/search/'+values;
         }
     }
 }
@@ -120,32 +112,7 @@ jQuery(document).ready(
     }
 );
 
-jQuery(document).ready(
-    function($) {
-        $('.video-thumb').click(function () {
-            const $this = $(this);
-            if (!$this.hasClass('active')) {
-                player.loadVideoById($this.attr('data-video'));
-                $('.video-thumb').removeClass('active');
-                $this.addClass('active');
-            }
-        });
-    }
-);
 
-
-
-inputSilde.oninput = (() => {
-    let value = inputSilde.value;
-    slideValue.textContent = value;
-    inputBoxx.value = value;
-    slideValue.style.left = (value) + "%";
-    slideValue.classList.add("show");
-});
-
-inputSilde.onblur = (() => {
-    slideValue.classList.remove("show");
-});
 
 
 

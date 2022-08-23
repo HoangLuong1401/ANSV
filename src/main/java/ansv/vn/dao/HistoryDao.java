@@ -24,7 +24,7 @@ public class HistoryDao {
     final ZonedDateTime dateTime = now.withZoneSameInstant(ZoneId.of("Asia/Ho_Chi_Minh"));
 
     public void insertNewHistory(int idc, int idu){
-    String sql = "INSERT INTO history (id_u,id_c,create_time) VALUES (?,?,?)";
+    String sql = "INSERT INTO history (id_u,id_c,create_time,vote_mark) VALUES (?,?,?,0)";
     jdbcTemplate.update(sql,idu,idc, dtf.format(dateTime));
     }
 
@@ -34,15 +34,8 @@ public class HistoryDao {
     }
 
     public int checkHistoryIsExsit(int id_c, int id_u) {
-        int row = 0;
-        try {
-            String sql = "SELECT * FROM history WHERE id_u = ? AND id_c = ?;";
-            List<History> list = jdbcTemplate.query(sql, new HistoryMapper(),id_u,id_c);
-            row = list.size();
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        return row;
+        String sql = "SELECT COUNT(*) FROM history WHERE id_u = ? AND id_c = ?;";
+        return jdbcTemplate.queryForObject(sql, Integer.class ,id_u,id_c);
     }
 
     public List<History> getAllHistoryByUserId(int id){

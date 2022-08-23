@@ -1,22 +1,26 @@
 package ansv.vn.controller.admin;
 
+import ansv.vn.dto.Comments;
 import ansv.vn.dto.History;
-import ansv.vn.dto.Vote;
 import ansv.vn.entity.*;
 import ansv.vn.service.admin.*;
 
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.util.JSONPObject;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -42,9 +46,9 @@ public class CourseController {
     private final ArrayList<String> arrRole = new ArrayList<>();
     private ArrayList<Course> search = new ArrayList<>();
 
-    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
-    final ZonedDateTime now = ZonedDateTime.now();
-    final ZonedDateTime dateTime = now.withZoneSameInstant(ZoneId.of("Asia/Ho_Chi_Minh"));
+    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+    private final ZonedDateTime now = ZonedDateTime.now();
+    private final ZonedDateTime dateTime = now.withZoneSameInstant(ZoneId.of("Asia/Ho_Chi_Minh"));
 
 
     private Authentication authentication;
@@ -69,7 +73,7 @@ public class CourseController {
         arrRole.add("[ROLE_ADMIN_COURSE]");
     }
 
-    public List<Department> processDepartment(List<Department> listdep){
+    private List<Department> processDepartment(List<Department> listdep){
         List<Department> listd = new ArrayList<>();
 
         for (Department departments : listdep) {
@@ -85,11 +89,11 @@ public class CourseController {
         return listd;
     }
 
-    public boolean checkRoleUser(String role){
+    private boolean checkRoleUser(String role){
         return arrRole.contains(role.trim());
     }
 
-    public List<Course> checkCourse(List<Course> listCou){
+    private List<Course> checkCourse(List<Course> listCou){
         List<Course> list = new ArrayList<>();
         for (Course c : listCou){
             List<Video> listv = videoService.getAllVideoByIdCourse(c.getId());
@@ -153,14 +157,19 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/course/save")
-    public String goAddCourse(Model model){
+    public String goAddCourse(@RequestParam(required = false) String message, Model model){
         model.addAttribute("redirect", 1);
 
         model.addAttribute("typeC", new CourseType());
         model.addAttribute("course", new Course());
         model.addAttribute("department",departmentService.getAllDepartmentForAdmin());
         model.addAttribute("type_course",courseService.getAllDataCourseType());
+        if (message != null && !message.isEmpty()) {
 
+            if (message.equals("reject")) {
+                model.addAttribute("message", "Mục này không thể xóa!!\nDO CÓ LIÊN QUAN ĐẾN NHIỀU KHÓA HỌC KHÁC");
+            }
+        }
         return "admin/course/add_course";
     }
 
@@ -182,12 +191,22 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/saveCourse")
-    public String addCourse(@ModelAttribute("course") Course course){
-        //set image default
-        course.setUrl_img("/ANSV/assets/course/img/ANSV.png");
+    public String addCourse(@RequestParam("fileup") CommonsMultipartFile file,
+                            @ModelAttribute("course") Course course,
+                            HttpSession s){
+
+        byte[] data = file.getBytes();
+        String path = s.getServletContext().getRealPath("/") + "assets" + File.separator + "course" + File.separator
+                + "img" + File.separator + "course" + File.separator + file.getOriginalFilename();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            fos.write(data);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         courseService.insertCourse(course);
-
         return "redirect:/admin/khoa-hoc/quan-ly/course";
     }
 
@@ -203,13 +222,33 @@ public class CourseController {
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/updateCourse")
-    public String editCourse(@ModelAttribute("course") Course course){
+    public String editCourse(@RequestParam("fileup") CommonsMultipartFile file,
+                             @ModelAttribute("course") Course course, HttpSession s){
+        byte[] data = file.getBytes();
+        String path = s.getServletContext().getRealPath("/") + "assets" + File.separator + "course" + File.separator
+                + "img" + File.separator + "course" + File.separator + file.getOriginalFilename();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            fos.write(data);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         courseService.updateCourseByIdCourse(course);
         return "redirect:/admin/khoa-hoc/quan-ly/course";
     }
 
     @RequestMapping("/admin/khoa-hoc/quan-ly/course/delete/{id}")
-    public String deleteCourse(@PathVariable int id){
+    public String deleteCourse(@PathVariable int id, HttpSession s){
+
+        Course course = courseService.getCourseById(id);
+        String path = s.getServletContext().getRealPath("/") + "assets" + File.separator + "course" + File.separator
+                + "img" + File.separator + "course" + File.separator + course.getUrl_img();
+
+        File file = new File(path);
+        if(file.exists()){
+            file.delete();
+        }
 
         courseService.deleteHistoryByIdCourse(id);
         documentService.deleteADocByIdCou(id);
@@ -219,12 +258,12 @@ public class CourseController {
         return "redirect:/admin/khoa-hoc/quan-ly/course";
     }
 
-    @RequestMapping(value = "/admin/khoa-hoc/quan-ly/search",method = RequestMethod.GET)
-    @ResponseBody
-    public String goSearchCourseAdmin(@RequestParam("query") String query) {
-        int numb = courseService.searchCourseForSepRole(query).size();
-        return String.valueOf(numb);
-    }
+//    @RequestMapping(value = "/admin/khoa-hoc/quan-ly/search",method = RequestMethod.GET)
+//    @ResponseBody
+//    public String goSearchCourseAdmin(@RequestParam("query") String query) {
+//        int numb = courseService.searchCourseForSepRole(query).size();
+//        return String.valueOf(numb);
+//    }
 
     //User
     @RequestMapping("/user/khoa-hoc/trang-chu")
@@ -252,7 +291,7 @@ public class CourseController {
 
         List<Department> listdep;
         if(checkRoleSep){
-            listdep = departmentService.getDepartmentForSepRole();
+            listdep = departmentService.getAllDepartmentForAdmin();
         }else{
             listdep = departmentService.getDepartmentForUser();
         }
@@ -261,56 +300,33 @@ public class CourseController {
         List<Department> listd = processDepartment(listdep);
         model.addAttribute("department", listd);
         model.addAttribute("numberUser", numberUser);
-        model.addAttribute("show",1);
+
         return "course/course_home";
     }
 
-
-
-    @RequestMapping("/user/khoa-hoc/tat-ca")
-    public String goAllCourse(Model model) {
+    @RequestMapping(value = "/user/khoa-hoc/{department}",method = RequestMethod.GET)
+    public String goAllCourse(@PathVariable String department, Model model) {
 
         List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
         processNotification(model,noDtoId,idUser);
 
-        List<Department> listdep;
-        if(checkRoleSep){
-            listdep = departmentService.getAllDepartmentForAdmin();
-        }else{
-            listdep = departmentService.getAllDepartmentForUser();
-        }
-
-        List<Department> listd = processDepartment(listdep);
-
-        model.addAttribute("show",0);
-        model.addAttribute("department", listd);
-        return "course/course_all";
-    }
-
-    @RequestMapping("/user/khoa-hoc/tat-ca/{id}")
-    public String goAllCourse(@PathVariable int id , Model model) {
-
-        //get in table user-notification
-        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
-
-        processNotification(model, noDtoId, idUser);
+        Department depart = departmentService.getDepartmentByName(department);
 
         List<Course> listc = new ArrayList<>();
-        for (Course c : courseService.getAllDataCourseOfDepId(id)) {
+        for (Course c : courseService.getAllDataCourseOfDepId(depart.getId())) {
             if (documentService.getAllDocByIdCou(c.getId()).size() != 0
                     || videoService.getAllVideoByIdCourse(c.getId()).size() != 0) {
                 listc.add(c);
             }
         }
 
-        model.addAttribute("show",0);
         model.addAttribute("course", listc);
-        model.addAttribute("department",  departmentService.getDepartmentById(id).getName());
+        model.addAttribute("departments",  depart.getName());
         return "course/course_a_department";
     }
 
-    @RequestMapping("/user/khoa-hoc/{id}")
-    public String goDetailCoursePage(@PathVariable int id ,Model model) {
+    @RequestMapping("/user/khoa-hoc/{departments}/{id}")
+    public String goDetailCoursePage(@PathVariable String departments, @PathVariable int id ,Model model) {
 
         boolean flag = courseService.checkHistoryIsExsit(id,idUser);
         if(!flag){
@@ -318,7 +334,6 @@ public class CourseController {
         }
 
         List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
-
         processNotification(model,noDtoId,idUser);
 
         if(documentService.getAllDocByIdCou(id).size() != 0){
@@ -332,22 +347,53 @@ public class CourseController {
         }
 
         if(videoService.getCommandOfAVideo(id).size() != 0){
-            List<Vote> listVote  = new ArrayList<>();
+            List<Comments> listVote  = new ArrayList<>();
 
-            for(Vote v : videoService.getCommandOfAVideo(id)){
-                v.setUsername(userService.getDisplayById(v.getId_user()));
-                if(v.getDate_cmt() != null && v.getMarks_vote() != 0 && v.getCmt() !=null){
+            for(Comments v : videoService.getCommandOfAVideo(id)){
+                v.setUsername(userService.getDisplayById(v.getId_u()));
                     listVote.add(v);
-                }
-
             }
-            model.addAttribute("listVote",listVote);
+            model.addAttribute("listCmt",listVote);
         }
 
         Course course = courseService.getCourseById(id);
-
-        model.addAttribute("show",0);
+        model.addAttribute("markss", videoService.getUserVote(id,idUser));
+        model.addAttribute("numberVote", videoService.getNumberVote(id));
         model.addAttribute("course",course);
+        model.addAttribute("departments",  departments);
+        return "course/course_detail";
+    }
+    @RequestMapping("/user/khoa-hoc/{departments}/{id}/{url}")
+    public String goDetailOtherCoursePage(@PathVariable String departments, @PathVariable int id, @PathVariable String url ,Model model) {
+
+        List<Integer> noDtoId = notificationService.getAllIdOfNotificationForUser(idUser);
+        processNotification(model,noDtoId,idUser);
+
+        if(documentService.getAllDocByIdCou(id).size() != 0){
+            model.addAttribute("docs", documentService.getAllDocByIdCou(id));
+        }
+
+        if(videoService.getAllVideoByIdCourse(id).size() != 0){
+            model.addAttribute("listVideo",videoService.getAllVideoByIdCourse(id));
+        }
+
+        if(videoService.getCommandOfAVideo(id).size() != 0){
+            List<Comments> listVote  = new ArrayList<>();
+
+            for(Comments v : videoService.getCommandOfAVideo(id)){
+                v.setUsername(userService.getDisplayById(v.getId_u()));
+                listVote.add(v);
+            }
+            model.addAttribute("listCmt",listVote);
+        }
+        int mark = videoService.getUserVote(id,idUser);
+
+        Course course = courseService.getCourseById(id);
+        model.addAttribute("url",url);
+        model.addAttribute("markss",mark);
+        model.addAttribute("numberVote", videoService.getNumberVote(id));
+        model.addAttribute("course",course);
+        model.addAttribute("departments",  departments);
         return "course/course_detail";
     }
 
@@ -371,7 +417,6 @@ public class CourseController {
         return result;
     }
 
-
     @RequestMapping(value = "/user/khoa-hoc/search/{query}",method = RequestMethod.GET)
     public String goSearchCousePage(@PathVariable String query , Model model) {
 
@@ -386,35 +431,43 @@ public class CourseController {
         }else{
             listc = checkCourse(courseService.searchCourseUser(query));
         }
+        for (Course c : listc){
+            String depaetname = departmentService.getDepartmentById(c.getId_depenment()).getName();
+            c.setDepartmentName(depaetname);
+        }
         model.addAttribute("course",listc);
         model.addAttribute("text",query);
-        model.addAttribute("show",0);
         return "course/course_search";
     }
 
+    @RequestMapping(value = "/user/khoa-hoc/vote",method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+    public @ResponseBody String addVote(HttpServletRequest request) {
+
+        int mark = Integer.parseInt(request.getParameter("mark"));
+        int id_c = Integer.parseInt(request.getParameter("id_c"));
+
+        videoService.addNewVote(idUser,id_c,mark);
+        return "1";
+    }
 
     @RequestMapping(value = "/user/khoa-hoc/comment",method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
     public @ResponseBody String addNewCommnet(HttpServletRequest request) {
 
-        String marks = request.getParameter("marks");
-        String comments = request.getParameter("comments");
+        String cmt = request.getParameter("comments");
         int id = Integer.parseInt(request.getParameter("id_c"));
 
-        float masksValue = Float.valueOf(marks) * 5 /100;
+        Comments comments = new Comments();
+        comments.setId_u(idUser);
+        comments.setUsername(username);
+        comments.setId_c(id);
+        comments.setCmt(cmt);
+        comments.setDayup(dtf.format(dateTime));
 
-        Vote vote = new Vote();
-        vote.setId_user(idUser);
-        vote.setUsername(userService.getDisplayById(idUser));
-        vote.setDate_cmt(dtf.format(dateTime));
-        vote.setMarks_vote(masksValue);
-        vote.setCmt(comments);
-        String test = " ve den day r, anh mog em qua hihi trang anh!!";
-
-        videoService.addNewCommandAndVote(vote,id);
+        videoService.addNewCommandAndVote(comments);
         ObjectMapper mapper = new ObjectMapper();
         String ajaxResponse = "";
         try {
-            ajaxResponse = mapper.writeValueAsString(vote);
+            ajaxResponse = mapper.writeValueAsString(comments);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -422,6 +475,19 @@ public class CourseController {
         }
 
         return ajaxResponse;
+    }
+
+
+    @RequestMapping(value = "/user/khoa-hoc/changepass",method = RequestMethod.GET)
+    public  String changePasswords(Model model) {
+        return "course/edit_account";
+    }
+
+    @RequestMapping(value = "/user/khoa-hoc/changepassed",method = RequestMethod.POST)
+    public String changePassed(@RequestParam("password") String pass, Model model) {
+        String mahoa = BCrypt.hashpw(pass ,BCrypt.gensalt(10));
+        userService.changePassOfUser(idUser, mahoa);
+        return "redirect:/user/khoa-hoc/trang-chu";
     }
 
 

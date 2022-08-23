@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -22,6 +23,13 @@ public class UserDao {
                 + "on users.id = users_roles.user INNER JOIN role on users_roles.role = role.id WHERE username = ? ";
         return jdbcTemplate.queryForObject(sql, new UserMapper(), username);
 
+    }
+
+    public List<User> getAllUserForAdmin(){
+        String sql = "SELECT users.id, users.username, users.display_name, role.id AS role,  "
+                + "users.enabled FROM users INNER JOIN users_roles "
+                + "on users.id = users_roles.user INNER JOIN role on users_roles.role = role.id";
+        return jdbcTemplate.query(sql,new UserMapper());
     }
 
     // Kiá»ƒm tra username Ä‘Ã£ tá»“n táº¡i trÃªn database chÆ°a
@@ -80,12 +88,12 @@ public class UserDao {
         String sql = "INSERT INTO users (username, password, display_name, enabled, created_at, created_by) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, users.getUsername(), users.getPassword(), users.getDisplay_name(),
-                users.getEnabled(), _now, users.getCreated_by());
+                1, _now, "system");
     }
 
     // Thêm role cho user
     public void saveRoleForUser(String username) {
-        String sql = "INSERT INTO users_roles (user, role) VALUES ((SELECT users.id FROM users WHERE users.username = ?),2)";
+        String sql = "INSERT INTO users_roles (user, role) VALUES ((SELECT users.id FROM users WHERE users.username = ?),5)";
         jdbcTemplate.update(sql, username);
     }
 
@@ -97,5 +105,15 @@ public class UserDao {
     public String getDisplayById(int id_u) {
         String sql = "SELECT display_name FROM users WHERE id = ?";
         return jdbcTemplate.queryForObject(sql,String.class,id_u);
+    }
+
+    public void ChangeEnabledOfUser(String name, int enabled) {
+        String sql = "UPDATE users SET enabled = ? WHERE username = ?";
+        jdbcTemplate.update(sql, enabled,name);
+    }
+
+    public void updatePassword(String pass, int id){
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        jdbcTemplate.update(sql, pass, id);
     }
 }

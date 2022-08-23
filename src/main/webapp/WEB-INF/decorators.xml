@@ -10,6 +10,10 @@
         <pattern>/login_user</pattern>
     </decorator>
 
+    <decorator name="register" page="login.jsp">
+        <pattern>/dang-ky</pattern>
+    </decorator>
+
     <!-- Phần khách hàng -->
     <decorator name="web" page="web.jsp">
         <pattern>/*</pattern>

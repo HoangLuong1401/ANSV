@@ -14,7 +14,6 @@
     <link href="<c:url value="/assets/user/img/logo/logo_ansv_big_new-removebg-preview.png" />" rel="icon">
     <link href="<c:url value="/assets/user/img/logo_ansv.png" />" rel="apple-touch-icon">
     <link rel="stylesheet" href="<c:url value="/assets/video/css/main.css"/>" />
-    <link rel="stylesheet" href="<c:url value="/assets/course/style/swiper.min.css"/>">
     <script src="<c:url value="/assets/course/js/jQuery-3.6.0.min.js"/>" charset="utf-8"></script>
 
     <style>
@@ -97,15 +96,14 @@
         }
     </style>
 </head>
-<body style="background: lightblue;">
+<body>
 <div id="app">
     <%@include file="/WEB-INF/views/layouts/course/header.jsp"%>
 
     <dec:body/>
 
-    <c:if test="${show == 1}">
-        <%@include file="/WEB-INF/views/layouts/course/footer.jsp"%>
-    </c:if>
+    <%@include file="/WEB-INF/views/layouts/course/footer.jsp"%>
+
 </div>
 
 <button id="myBtn" class="search-switch">
@@ -127,35 +125,7 @@
     </form>
 </div>
 <script src="<c:url value="/assets/course/js/search.js"/>" charset="utf-8"></script>
-<script src="<c:url value="/assets/course/js/swiper.min.js"/>" charset="utf-8"></script>
-
-
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-        },
-        autoplay: {
-            delay: 4500,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        loop:true,
-    });
-</script>
-<script>
-
     function doRead(id){
         jQuery(document).ready(
             function($) {
@@ -172,7 +142,6 @@
                     }});
             });
     }
-
 </script>
 
 </body>

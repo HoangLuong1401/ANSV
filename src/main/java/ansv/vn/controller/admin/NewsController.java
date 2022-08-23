@@ -58,15 +58,9 @@ public class NewsController {
             fos.close();
             System.out.println("File uploaded");
 
-            model.addAttribute("msg", "Uploaded successfully");
-            model.addAttribute("path", path);
-            model.addAttribute("filename", file.getOriginalFilename());
-
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Uploading error");
-
-            model.addAttribute("msg", "Uploading error!!!");
         }
 
         // Insert data into database

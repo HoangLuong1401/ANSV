@@ -1,166 +1,295 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <title>ANSV | ${course.name}</title>
 <link rel="stylesheet" href="<c:url value="/assets/course/style/detail.css"/>" />
 <link rel="stylesheet" href="<c:url value="/assets/course/style/comment.css"/>" />
-<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel2@2.2.2/dist/assets/owl.carousel.min.css" />
-<script src="<c:url value="/assets/course/js/swiper.min.js"/>" charset="utf-8"></script>
+<link rel="stylesheet" href="<c:url value="/assets/course/style/course_view.css"/>" />
+<style>
+
+    .flex-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .video-wrapper {
+        min-width: 40%;
+        max-width: 750px;
+        height: 100%;
+        margin:  10px 10px;
+        flex: 1 1 auto;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .video-wrapper {
+            min-width: 360px;
+        }
+    }
+
+    .ratio-keeper {
+        position: relative;
+        padding-top: 56.25%;
+        top: 60px;
+    }
+
+    .video-frame {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .star-widget input{
+        display: none;
+    }
+    .star-widget label{
+        font-size: 15px;
+        color: #444;
+        float: right;
+        transition: all 0.2s ease;
+    }
+    input:not(:checked) ~ label:hover,
+    input:not(:checked) ~ label:hover ~ label{
+        color: #fd4;
+    }
+    input:checked ~ label{
+        color: #fd4;
+    }
 
 
-<video style="min-width: 100%; min-height: 100%;position: fixed;right: 0;bottom: 0;" playsinline autoplay muted loop>
-    <source class="h-100" src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
-</video>
-<div class="container" style="margin:39px auto">
-    <div class="row">
-        <div class="col-lg-12 my-auto" style="text-align: center;
-                                                  font-size: 29px;
-                                                   padding-top: 10px;z-index: 9;">
-            <p style="color: white;padding-top: 20px;">${course.name}</p>
-            <p class="id_c" style="display: none">${course.id}</p>
-            <div class="col-lg-10 mx-auto py-4" style="padding-top: 0px !important;padding-bottom: 0px !important;">
-                <c:if test="${not empty listVideo}">
-                <div class="embed__container">
-                    <div id="player"></div>
-                </div>
-                <div class="carousel__wrap mt-3" style="text-align: -webkit-center;">
-                    <div class="owl-carousel">
-                        <c:forEach items="${listVideo}" var="video" varStatus="index">
-                        <c:if test="${index.first}">
-                        <div data-video="${video.url}" class="item video-thumb active">
-                            </c:if>
-                            <c:if test="${not index.first}">
-                            <div data-video="${video.url}" class="item video-thumb">
-                                </c:if>
-                                <img src="https://img.youtube.com/vi/${video.url}/hqdefault.jpg"/>
-                            </div>
-                            </c:forEach>
-                        </div>
-                    </div>
+</style>
+<section style="background-color: #f2f2f2;">
+    <div class="container" style="width: 80%">
+        <div class="flex-wrapper">
+            <div class="video-wrapper">
+                <div class="ratio-keeper">
+                    <c:if test="${not empty videof}">
+                        <iframe class="video-frame" src="https://www.youtube.com/embed/${videof.url}?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </c:if>
+                    <c:if test="${not empty url}">
+                        <iframe class="video-frame" src="https://www.youtube.com/embed/${url}?rel=0" frameborder="0" allowfullscreen></iframe>
                     </c:if>
                 </div>
-                <c:if test="${not empty docs}">
-                    <div class="carousel__wrap mt-3" style="text-align: -webkit-center;">
-                        <p style="color: whitesmoke">Tài liệu liên quan</p>
-                        <c:forEach items="${docs}" var="doc">
-                            <a target="_blank" href="${doc.url_doc}">${doc.name_doc}</a>
-                            <br>
-                        </c:forEach>
+            </div>
+        </div>
+        <div class="section info-play info-program">
+            <div class="section-content">
+                <div class="outside-des">
+                    <div class="box-description">
+                        <h1>
+                            <strong alt="${course.name}">${course.name}</strong>
+                        </h1>
+                        <c:if test="${not empty listVideo}">
+                            <div style="text-align: center;">
+                                <c:forEach items="${listVideo}" var="video" varStatus="index"><a href="<c:url value="/user/khoa-hoc/${departments}/${course.id}/${video.url}"/>"><img src="https://img.youtube.com/vi/${video.url}/hqdefault.jpg" style="width: 200px;height: 180px"/></a></c:forEach>
+                            </div>
+                        </c:if>
+                        <strong>Phòng ban: </strong>
+
+                        <h3><a href="<c:url value="/user/khoa-hoc/${departments}"/>" >${departments}</a></h3>
+                        <div>
+                            <c:if test="${not empty docs}">
+                                <div class="carousel__wrap mt-3" style="text-align: -webkit-center;">
+                                    <p style="color: black">Tài liệu liên quan</p>
+                                    <c:forEach items="${docs}" var="doc">
+                                        <a style="font-size: 30px" target="_blank" href="${doc.url_doc}">${doc.name_doc}</a>
+                                        <br>
+                                    </c:forEach>
+                                </div>
+                            </c:if>
+                        </div>
+                    </div><!-- END .box-description -->
+                </div><!-- END .outside-des -->
+            </div><!-- END .section-content fluid -->
+        </div>
+        <div class="section user-tool-play user-tools" style="height: 100px">
+            <div class="section-content fluid">
+                <div class="user-rate _rating " style="float: left; position: relative">
+                    <div class="star-widget" style="float: inherit">
+                        <input type="radio" name="rate" id="rate-5">
+                        <label for="rate-5" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-4">
+                        <label for="rate-4" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-3">
+                        <label for="rate-3" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-2">
+                        <label for="rate-2" class="fas fa-star"></label>
+                        <input type="radio" name="rate" id="rate-1">
+                        <label for="rate-1" class="fas fa-star"></label>
                     </div>
-                </c:if>
+                    <br>
+                    <c:if test="${not empty markss}">
+                        <strong class="user-vote _uservote">(${markss}/5)</strong>
+                    </c:if>
+                    <c:if test="${empty markss}">
+                        <strong class="user-vote _uservote">(0/5)</strong>
+                    </c:if>
+                    <c:if test="${not empty numberVote}">
+                        <strong class="vote-count _votecount" itemprop="reviewCount">${numberVote} lượt đánh giá</strong>
+                    </c:if>
+                    <c:if test="${empty numberVote}">
+                        <strong class="vote-count _votecount" itemprop="reviewCount">0 lượt đánh giá</strong>
+                    </c:if>
+                </div><!-- END .user-rate -->
+            </div><!-- END .section-content fluid -->
+        </div>
+
+        <div class="mid-wrap grid12">
+            <div class="section row126">
+                <div class="section-content fluid">
+                    <div class="block-comment">
+                        <a id="_comment" name="comment"></a>
+                                <div class="title-bar nav-comment group" style="">
+                                    <div class="head-title-comment">Bình Luận</div>
+                                </div><!-- END .title-bar group -->
+                                    <div id="_zingCommentContent" class="comment" style="">
+                                        <div id="comment_form" class="form-group">
+                                            <textarea id="comment_text" spellcheck="false" class="comment-textarea" placeholder="Hãy chia sẻ cảm nghĩ của bạn về video này."></textarea>
+                                        </div>
+
+                                        <p class="comment-noti">
+                                            <span>Nhấn Shift + Enter để xuống dòng. Bình luận phải dài hơn 50 ký tự.</span>
+                                            <a href="javascript:void(0);" id="_btnCommentSubmit"
+                                               class="button button-green" href="#">Bình luận</a>
+                                        </p>
+                                    </div>
+                                <!-- END .comment-form -->
+                            <!-- END .comment -->
+                        </div><!-- END .section-content -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div style="display: grid;height: 100%;place-items: center;text-align: center;background: #000">
-            <form id="FormComment" action="#" class="vote_card" style="z-index:99;border-radius: 5px;background-color: #f2f2f2;padding: 14px;width: auto;
-                                                                                                        margin: 0 auto;">
-                <div style="display: flex; width: 100%;">
-                    <div class="range">
-                        <div class="slideValue">
-                            <span class="spanValue">50</span>
-                        </div>
-                        <div class="file">
-                            <div class="value left">0</div>
-                            <input type="range" min = "0" max="100" value="50" name="" class="inputPenge">
-                            <div class="value right">100</div>
-                        </div>
-                    </div>
-                    <div style="padding-left:10px">
-                        <input type="number" id="inputBoxs" name="lastname" placeholder="Enter number">
-                    </div>
-                </div>
-                <div>
-                    <textarea id="subject" name="subject" placeholder="Write something.." cols="30" rows="5"></textarea>
-                </div>
-
-
-                <input id="summitCmt" class="btn" value="Post" readonly style="float:right; width: 130px;margin-top: 10px;">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-lg-8" style="z-index: 33;margin: 20px auto;">
-            <div class="course_review">
-                <c:forEach items="${listVote}" var="vote">
-                    <c:if test="${not empty vote}">
+</section>
+<section>
+    <div class="col-lg-8" style="z-index: 33;margin: 20px auto;position: relative;top: 15px">
+        <div class="course_review">
+            <c:forEach items="${listCmt}" var="vote">
+                <c:if test="${not empty vote}">
                     <div class="course_review__item">
                         <div class="course_review__item__pic">
-                            <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" />
+                            <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" style="height: 50px;width: 50px;border-radius: 50%;"/>
                         </div>
                         <div class="course_review_item_text">
-                            <h6>${vote.username} -<p class="stars" style="--rating: ${vote.marks_vote};"></p> <span style="float: right;">${vote.date_cmt}</span></h6>
-                            <p>${vote.cmt}</p>
+                            <h6 style='color: black'>${vote.username} <span style="float: right;color: black">${vote.dayup}</span></h6>
+                            <p style="color: black">${vote.cmt}</p>
                         </div>
                     </div>
-                    </c:if>
+                </c:if>
                 </c:forEach>
             </div>
         </div>
-    </div>
-</div>
-</div>
-
+</section>
 
 <button id="backBtn" onclick="window.history.back()">
     <div class="btn"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 </button>
-<!-- main scripts -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/owl.carousel2@2.2.2/dist/owl.carousel.min.js"></script>
 <script src="<c:url value="/assets/course/js/detail.js"/>"></script>
-<script src="<c:url value="/assets/video/js/main.js"/>"></script>
 <script>
-    var player;
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '315',
-            width: '560',
-            videoId: '${videof.url}',
-            playerVars: {
-                color: 'white',
-                showinfo: 0,
-                rel: 0,
-                enablejsapi: 1,
-                modestbranding: 1,
-                showinfo: 0,
-                ecver: 2,
-                autohide:1,
-            },
-            events: {
-                onStateChange: onPlayerStateChange,
-                onReady: function () {
-                 console.log("Video is really!!")
+    jQuery(document).ready(function ($) {
+        var mark = 0;
+        <c:if test="${not empty markss}">$('#rate-'+${markss}).prop("checked", true);</c:if>
+        $("#rate-1").click(function() {
+            $(".user-vote").text("(1/5)");
+            mark = 1;
+            $.ajax({
+                type: "GET",
+                url: "/ANSV/user/khoa-hoc/vote",
+                contentType : "application/json",
+                data: {id_c: ${course.id},mark : mark},
+                dataType : 'json',
+                success: function(data) {
+                    alert("Bạn đã hoàn thành đánh giá cho Khóa học")
                 },
-            },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
         });
-        function onPlayerStateChange(e) {
-            // console.log('state');
-            // console.log(e.data)
-            // // if (e.data == YT.PlayerState.ENDED) {
-            // //     console.log(YT.PlayerState.ENDED);
-            // // }
-            console.log("Video is start!!")
-            //Add function for remember time see video
-        }
-    }
-
-    try {
-        fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
-            return true;
-        }).catch(function(e) {
-            var carbonScript = document.createElement("script");
-            carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
-            carbonScript.id = "_carbonads_js";
-            document.getElementById("carbon-block").appendChild(carbonScript);
+        $("#rate-2").click(function() {
+            $(".user-vote").text("(2/5)");
+            mark = 2;
+            $.ajax({
+                type: "GET",
+                url: "/ANSV/user/khoa-hoc/vote",
+                contentType : "application/json",
+                data: {id_c: ${course.id},mark : mark},
+                dataType : 'json',
+                success: function(data) {
+                    alert("Bạn đã hoàn thành đánh giá cho Khóa học")
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
         });
-    } catch (error) {
-        console.log(error);
-    }
+        $("#rate-3").click(function() {
+            $(".user-vote").text("(3/5)");
+            mark = 3;
+            $.ajax({
+                type: "GET",
+                url: "/ANSV/user/khoa-hoc/vote",
+                contentType : "application/json",
+                data: {id_c: ${course.id},mark : mark},
+                dataType : 'json',
+                success: function(data) {
+                    alert("Bạn đã hoàn thành đánh giá cho Khóa học")
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        });
+        $("#rate-4").click(function() {
+            $(".user-vote").text("(4/5)");
+            mark = 4;
+            $.ajax({
+                type: "GET",
+                url: "/ANSV/user/khoa-hoc/vote",
+                contentType : "application/json",
+                data: {id_c: ${course.id},mark : mark},
+                dataType : 'json',
+                success: function(data) {
+                    alert("Bạn đã hoàn thành đánh giá cho Khóa học")
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        });
+        $("#rate-5").click(function() {
+            $(".user-vote").text("(5/5)");
+            mark = 5;
+            $.ajax({
+                type: "GET", url: "/ANSV/user/khoa-hoc/vote", contentType : "application/json", data: {id_c: ${course.id},mark : mark},
+                dataType : 'json',
+                success: function(data) {alert("Bạn đã hoàn thành đánh giá cho Khóa học")}, error: function(e) {console.log(e);}
+            });
+        });
 
+
+        $("#_btnCommentSubmit").click(function() {
+            if($("#comment_text").val().length > 50 ){
+                $.ajax({
+                    type: "GET",
+                    url: "/ANSV/user/khoa-hoc/comment",
+                    contentType : "application/json",
+                    data: {id_c: ${course.id}, comments : $("#comment_text").val()},
+                    dataType : 'json',
+                    success: function(data) {
+                        var result = "<div class=\"course_review__item\">\n" +
+                            "<div class=\"course_review__item__pic\">\n" +
+                            "                        <img src=\"/ANSV/assets/course/img/avatar.png\"/></div>\n" +
+                            "                    <div class=\"course_review_item_text\">\n" +
+                            "                        <h6 style='color: black'>"+data.username+"<span style=\"float: right;color: black\">"+data.dayup+"</span></h6>\n" +
+                            "                        <p style='color: black'>"+data.cmt+"</p></div></div>";
+                        $(".course_review").html(result);
+                    },
+                    error: function(e) {console.log(e);}
+                });
+            }else {alert(" Bình luận phải dài hơn 50 ký tự.")}
+        });
+    });
 </script>

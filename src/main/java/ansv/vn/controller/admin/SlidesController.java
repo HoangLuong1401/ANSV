@@ -39,7 +39,8 @@ public class SlidesController {
     //thuc hien them department vao database
     //redirect va page view slide show
     @RequestMapping(value = { "/admin/web/quan-ly/saveSlideshow" }, method = RequestMethod.POST)
-    public String doSaveSlideshow(@RequestParam("fileup") CommonsMultipartFile file, @ModelAttribute("Slideshow") SlideShow slideshow, HttpSession s, Model model) {
+    public String doSaveSlideshow(@RequestParam("fileup") CommonsMultipartFile file,
+                                  @ModelAttribute("Slideshow") SlideShow slideshow, HttpSession s) {
 
         byte[] data = file.getBytes();
         //we have to save this file to server...
@@ -49,21 +50,13 @@ public class SlidesController {
             // Tiến hành lưu file
             fos.write(data);
             fos.close();
-            System.out.println("File uploaded");
-
-            model.addAttribute("msg", "Uploaded successfully");
-            model.addAttribute("path", path);
-            model.addAttribute("filename", file.getOriginalFilename());
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Uploading error");
-            model.addAttribute("msg", "Uploading error!!!");
         }
 
         // Insert data into database
         slideshowService.save(slideshow);
-        model.addAttribute("listSlideshow", slideshowService.findAll());
         return "redirect:/admin/web/quan-ly/slideshow";
     }
 

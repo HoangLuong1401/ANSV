@@ -87,7 +87,7 @@ nav {
 }
 
 .nav__left .nav-list__item:hover a {
-    color: #000;
+    color: aqua;
 }
 
 .nav__left img {
@@ -109,7 +109,7 @@ nav {
 }
 
 .nav-list__item a {
-    color: var(--white-color);
+    color: #ffffff;
     font-weight: 700;
     line-height: 16px;
     letter-spacing: 1.1px;
@@ -180,7 +180,7 @@ nav {
 
 .nav__user-name {
     margin-left: 10px;
-    color: var(--white-color);
+    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
@@ -216,7 +216,7 @@ nav {
     top: 40px;
     left: 65%;
     background-color: #333;
-    color: var(--white-color);
+    color:#ffffff;
     white-space: nowrap;
     padding: 2px 8px;
     border-radius: 4px;

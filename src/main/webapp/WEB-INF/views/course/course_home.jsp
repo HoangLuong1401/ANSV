@@ -3,105 +3,92 @@
 
 <title>ANSV | Khóa Học</title>
 <link rel="stylesheet" href="<c:url value="/assets/course/style/style.css"/>" />
+<link rel="stylesheet" href="<c:url value="/assets/course/style/home_course.css"/>" />
+<link rel="stylesheet" href="<c:url value="/assets/course/style/course_view.css"/>" />
 
-<div class="banner">
-    <video class="banner__video" autoplay muted loop style="z-index: -1">
-        <source src="<c:url value="/assets/course/video/home-backdrop.mp4"/>" type="video/mp4" />
-    </video>
-</div>
+<script type="text/javascript" language="javascript" src="https://zingtv-static.zmdcdn.me/skins/tv_v3/js/vendor/jquery/jquery-2.1.1.1.min.js"></script>
 
-<c:forEach items="${department}" var="dep">
-    <c:if test="${not empty dep.courseList }">
-        <section id="course" class="public-course">
 
-        <div class="container">
-        <h2 class="public-course__heading">Khóa học ban ${dep.name}</h2>
-        <div class="row">
-
-        <div class="swiper-container">
-
-            <div class="swiper-wrapper">
-
-                <c:forEach var="c" items="${dep.courseList}">
-                <div class="swiper-slide">
-
-                        <div class="course-item" style="--progress: 75%">
-                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>">
-                                <div class="course-item__img" style="background-image: url(${c.url_img})"></div>
-                            </a>
-                            <div class="course-item-body">
-
-                                <div class="course-item-body__heading texth1" title="${c.name}" style="overflow: hidden;text-overflow: ellipsis;
-                                                                                                                   display: -webkit-box;
-                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */
-                                                                                                                           line-clamp: 1;
-                                                                                                                   -webkit-box-orient: vertical;">
-                                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black"> ${c.name}</a>
-                                </div>
-                                <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;
-                                                                                                                   display: -webkit-box;
-                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */
-                                                                                                                           line-clamp: 1;
-                                                                                                                   -webkit-box-orient: vertical;">
-                                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>
-                                </div>
-                                <div class="course-item-body__user">
-                                    <i class="fas fa-users"></i>${c.countUser}
-                                    <p class="stars" style="--rating: ${c.startVote};"></p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                </div>
-                </c:forEach>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-<%--        <c:forEach var="c" items="${dep.courseList}">--%>
-<%--            <div class="col-12 col-lg-4 col-sm-6">--%>
-<%--                <div class="course-item" style="--progress: 75%">--%>
-<%--                    <a href="<c:url value="/user/khoa-hoc/${c.id}"/>">--%>
-<%--                        <div class="course-item__img" style="background-image: url(${c.url_img})"></div>--%>
-<%--                    </a>--%>
-<%--                    <div class="course-item-body">--%>
-
-<%--                        <div class="course-item-body__heading texth1" title="${c.name}" style="overflow: hidden;text-overflow: ellipsis;--%>
-<%--                                                                                                                   display: -webkit-box;--%>
-<%--                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */--%>
-<%--                                                                                                                           line-clamp: 1;--%>
-<%--                                                                                                                   -webkit-box-orient: vertical;">--%>
-<%--                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black"> ${c.name}</a>--%>
-<%--                        </div>--%>
-<%--                        <div class="course-item-body__desc text" title="${c.description}" style="overflow: hidden;text-overflow: ellipsis;--%>
-<%--                                                                                                                   display: -webkit-box;--%>
-<%--                                                                                                                   -webkit-line-clamp: 1; /* number of lines to show */--%>
-<%--                                                                                                                           line-clamp: 1;--%>
-<%--                                                                                                                   -webkit-box-orient: vertical;">--%>
-<%--                            <a href="<c:url value="/user/khoa-hoc/${c.id}"/>" style="text-decoration: none; color: black">  ${c.description}</a>--%>
-<%--                        </div>--%>
-<%--                        <div class="course-item-body__user">--%>
-<%--                            <i class="fas fa-users"></i>--%>
-<%--                            ${c.countUser}--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </c:forEach>--%>
-    </c:if>
-    </div>
-    </div>
-    </section>
-
-</c:forEach>
 <section>
-    <div class="container">
-        <div class="center">
-            <button class="btn"><a style="text-decoration: none; color: whitesmoke"  href="<c:url value="/user/khoa-hoc/tat-ca"/>">Xem Thêm Khoa Học</a></button>
+    <div id="app2" class="wrapper2" v-cloak v-bind:class="{'is-previous': isPreviousSlide, 'first-load': isFirstLoad}">
+        <div class="slide-wrapper" v-for="(slide, index) in slides" v-bind:class="{ active: index === currentSlide }" v-bind:style="{ 'z-index': (slides.length - index), 'background-image': 'url(' + slide.bgImg + ')' }">
+            <div class="slide-inner">
+                <div class="slide-bg-text">
+                    <p>{{ slide.headlineFirstLine }}</p>
+                    <p>{{ slide.headlineSecondLine }}</p>
+                </div>
+                <div class="slide-rect-filter">
+                    <div class="slide-rect" v-bind:style="{'border-image-source': 'url(' + slide.rectImg + ')'}"></div>
+                </div>
+                <div class="slide-content">
+                    <h1 class="slide-content-text">
+                        <p>{{ slide.headlineFirstLine }}</p>
+                        <p>{{ slide.headlineSecondLine }}</p>
+                    </h1><a v-bind:href="slide.sublineLink" class="slide-content-cta">Bắt Đầu Trải Nhiệm</a>
+                </div>
+                <h2 class="slide-side-text"><span>{{ slide.sublineFirstLine }} / </span><span>{{ slide.sublineSecondLine }}</span></h2>
+            </div>
+        </div>
+        <div class="controls-container">
+            <button class="controls-button" v-for="(slide, index) in slides" v-bind:class="{ active: index === currentSlide }" v-on:click="updateSlide(index)">{{ slide.headlineFirstLine }} {{ slide.headlineSecondLine }}</button>
+        </div>
+        <div class="pagination-container">
+            <span class="pagination-item" v-for="(slide, index) in slides" v-bind:class="{ active: index === currentSlide }" v-on:click="updateSlide(index)"></span>
         </div>
     </div>
 </section>
+
+<c:forEach items="${department}" var="dep" >
+<div class="section row225">
+    <!-- program hightlight box-->
+    <div class="section-content non-subtitle fluid">
+        <div class="title-bar group">
+            <a href="<c:url value="/user/khoa-hoc/${dep.name}"/>">
+                <h3>${dep.full_name} - ${dep.name}</h3>
+            </a>
+        </div>
+        <div id="_page_${dep.id}" boxtype="0" total="4" class="inner-section _page">
+
+            <c:forEach var="c" items="${dep.courseList}">
+
+                <div class="subtray">
+
+                    <div class="item">
+
+                        <a class="_trackLink" trackingClick="" zTrackingClick="" tracking=""
+                           href="<c:url value="/user/khoa-hoc/${dep.name}/${c.id}"/>" >
+                            <img class="_slideimg" img_index="0" width="225" height="225"
+                                 _src="<c:url value="/assets/course/img/course/${c.url_img}"/>"
+                                 src="<c:url value="/assets/course/img/course/${c.url_img}"/>"
+                                 alt="ANSV COURSE">
+                        </a>
+
+                        <div class="description">
+                            <h4 class="title">
+                                <a class="_trackLink" trackingClick="" zTrackingClick="" tracking=""
+                                   href="<c:url value="/user/khoa-hoc/${dep.name}/${c.id}"/> "
+                                   title="${c.name}">
+                                        ${c.name}
+                                </a>
+                            </h4>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </c:forEach>
+
+        </div>
+        <!-- END .inner-section -->
+    </div>
+
+    <!-- END .section-content -->
+    <a href="#" id="prev_${dep.id}" class="prev _prev none"><i class="fas fa-chevron-left" style="top: 11px;position: relative;font-size: 36px;left: 10px;"></i></a>
+    <a href="#" id="next_${dep.id}" class="next _next"><i class="fas fa-chevron-right" style="top: 11px;position: relative;font-size: 36px;right: -22px;"></i></a>
+</div>
+</c:forEach>
+
 
 <section class="down-banner">
     <div class="down-banner__bkg"></div>
@@ -140,3 +127,84 @@
     </div>
 </section>
 <script src="<c:url value="/assets/course/js/main.js"/>"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script>
+    var app = new Vue({
+        el: "#app2",
+        data: {
+            currentSlide: 0,
+            isPreviousSlide: false,
+            isFirstLoad: true,
+            slides: [
+                {
+                    headlineFirstLine: "ANSV",
+                    headlineSecondLine: "COURSE",
+                    sublineFirstLine: "Learn for now",
+                    sublineSecondLine: "for future",
+                    sublineLink:"#start",
+                    bgImg: "https://i.postimg.cc/C5yvGSkm/slide0.jpg",
+                    rectImg: "https://i.postimg.cc/vTW0XkvM/slide-rect0.jpg"
+                }
+                <%--{--%>
+                    <%--headlineFirstLine: "Nulla",--%>
+                    <%--headlineSecondLine: "Auctor",--%>
+                    <%--sublineFirstLine: "Il n'y a rien de neuf sous",--%>
+                    <%--sublineSecondLine: "le soleil",--%>
+                    <%--sublineLink:"<c:url value="/user/khoa-hoc/tat-ca"/>",--%>
+                    <%--bgImg: "https://i.postimg.cc/Qx34VNXM/slide1.jpg",--%>
+                    <%--rectImg: "https://i.postimg.cc/ryWZ8R2b/slide-rect1.jpg"--%>
+                <%--},--%>
+                <%--{--%>
+                    <%--headlineFirstLine: "Nullam",--%>
+                    <%--headlineSecondLine: "Ultricies",--%>
+                    <%--sublineFirstLine: "Τίποτα καινούργιο κάτω από",--%>
+                    <%--sublineSecondLine: "τον ήλιο",--%>
+                    <%--sublineLink:"<c:url value="/user/khoa-hoc/tat-ca"/>",--%>
+                    <%--bgImg: "https://i.postimg.cc/t4RBtrnQ/slide2.jpg",--%>
+                    <%--rectImg: "https://i.postimg.cc/3JFLGMRF/slide-rect2.jpg"--%>
+                <%--},--%>
+            ]
+        },
+        mounted: function () {
+            var productRotatorSlide = document.getElementById("app2");
+            var startX = 0;
+            var endX = 0;
+
+            productRotatorSlide.addEventListener(
+                "touchstart",
+                (event) => (startX = event.touches[0].pageX)
+            );
+
+            productRotatorSlide.addEventListener(
+                "touchmove",
+                (event) => (endX = event.touches[0].pageX)
+            );
+
+            productRotatorSlide.addEventListener(
+                "touchend",
+                function (event) {
+                    var threshold = startX - endX;
+
+                    if (threshold < 150 && 0 < this.currentSlide) {
+                        this.currentSlide--;
+                    }
+                    if (threshold > -150 && this.currentSlide < this.slides.length - 1) {
+                        this.currentSlide++;
+                    }
+                }.bind(this)
+            );
+        },
+        methods: {
+            updateSlide(index) {
+                index < this.currentSlide
+                    ? (this.isPreviousSlide = true)
+                    : (this.isPreviousSlide = false);
+                this.currentSlide = index;
+                this.isFirstLoad = false;
+            }
+        }
+    });
+
+</script>

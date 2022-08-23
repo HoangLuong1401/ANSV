@@ -16,8 +16,6 @@ public class NotificationMapper implements RowMapper<Notification> {
         notifi.setContent(rs.getString("contents"));
         notifi.setCreate_by(rs.getString("created_by"));
         notifi.setCreate_date(rs.getString("created_date"));
-        notifi.setIsshow(rs.getInt("ishow"));
-
         return notifi;
     }
 }

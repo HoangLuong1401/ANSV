@@ -10,8 +10,6 @@ public class VoteMapper implements RowMapper<Vote> {
     public Vote mapRow(ResultSet resultSet, int i) throws SQLException {
         Vote vote = new Vote();
         vote.setId_user(resultSet.getInt("id_u"));
-        vote.setDate_cmt(resultSet.getString("vote_time"));
-        vote.setCmt(resultSet.getString("vote_cmt"));
         vote.setMarks_vote(resultSet.getFloat("vote_mark"));
         return vote;
     }

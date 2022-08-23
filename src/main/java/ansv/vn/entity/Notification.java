@@ -7,7 +7,7 @@ public class Notification {
     private String content;
     private String create_date;
     private String create_by;
-    private int isshow;
+
 
     public Notification() {
     }
@@ -50,14 +50,6 @@ public class Notification {
 
     public void setCreate_by(String create_by) {
         this.create_by = create_by;
-    }
-
-    public int getIsshow() {
-        return isshow;
-    }
-
-    public void setIsshow(int isshow) {
-        this.isshow = isshow;
     }
 
 }

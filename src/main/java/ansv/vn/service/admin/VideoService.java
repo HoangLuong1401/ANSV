@@ -1,6 +1,8 @@
 package ansv.vn.service.admin;
 
+import ansv.vn.dao.CommentDao;
 import ansv.vn.dao.VideoDao;
+import ansv.vn.dto.Comments;
 import ansv.vn.dto.Vote;
 import ansv.vn.entity.Video;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ public class VideoService {
 
     @Autowired
     private VideoDao videoDao;
+
+    @Autowired
+    private CommentDao commentDao;
 
     public List<Video> getAllVideoByIdCourse(int id){
         return videoDao.getAllVideoByIdCourse(id);
@@ -34,11 +39,29 @@ public class VideoService {
         videoDao.deleteByIdCourse(id);
     }
 
-    public List<Vote> getCommandOfAVideo(int id){
-        return videoDao.getCommentOfACourse(id);
+    public List<Comments> getCommandOfAVideo(int id){
+        return commentDao.getCommentOfACourseById(id);
     }
 
-    public void addNewCommandAndVote(Vote v,int id_c){
-        videoDao.addNewCommandAndVote(v,id_c);
+    public void addNewCommandAndVote(Comments v){
+        commentDao.addAComment(v);
+    }
+
+    public void addNewVote(int id_u, int id_c, int mark){
+        videoDao.addNewVote(mark,id_c,id_u);
+    }
+
+    public int getNumberVote(int id_c){
+        return videoDao.getNumberVote(id_c);
+    }
+
+    public int getUserVote(int id_c, int id_u){
+        int mark;
+        try{
+            mark = videoDao.getUserVote(id_c, id_u);
+        }catch (Exception e){
+            mark = 0;
+        }
+        return mark;
     }
 }

@@ -5,6 +5,8 @@ import ansv.vn.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -13,6 +15,9 @@ public class UserService {
 
     public User getByUser(String username) {
         return userDao.getByUser(username);
+    }
+    public List<User> getAllUser(){
+        return userDao.getAllUserForAdmin();
     }
 
     public String getDisplayById(int id_u){
@@ -53,6 +58,14 @@ public class UserService {
 
     public int count(){
         return userDao.count();
+    }
+
+    public void changeEnableOfUser(String name, int enable){
+        userDao.ChangeEnabledOfUser(name,enable);
+    }
+
+    public void changePassOfUser(int name, String pass){
+        userDao.updatePassword(pass, name);
     }
 
 }

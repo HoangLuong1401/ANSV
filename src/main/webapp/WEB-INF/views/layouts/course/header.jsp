@@ -11,17 +11,15 @@
                     <div class="nav-list__item">
                         <a href="<c:url value="/user/khoa-hoc/trang-chu"/>">Trang chủ</a>
                     </div>
-                    <div class="nav-list__item">
-                        <a href="<c:url value="/user/khoa-hoc/tat-ca"/>">Khóa học</a>
-                    </div>
-<%--                    <div class="nav-list__item">--%>
-<%--                        <a href="<c:url value="/user/sach-noi"/>">Sách nói</a>--%>
-<%--                    </div>--%>
+                    <c:if test="${not empty departments}">
+                        <div class="nav-list__item">
+                            <a href="<c:url value="/user/khoa-hoc/${departments}"/>"><i class="fas fa-chevron-right" style="color: #fc9404"></i>${departments}</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 
             <div class="nav__right">
-
                 <div class="nav__avt">
                     <img src="<c:url value="/assets/course/img/avatar.png"/>" alt="avatar" />
                 </div>
@@ -30,11 +28,7 @@
                 <span class="nav_separate"></span>
                 <div class="nav-notify">
                     <div class="nav-notify-btn js-progress">
-                        <i class="
-                                            nav-notify-btn__icon
-                                            fas
-                                            fa-bookmark
-                                        "></i>
+                        <i class="nav-notify-btn__icon fas fa-bookmark"></i>
                         <div class="nav-notify-btn__tooltip">
                             Khóa học của tôi
                         </div>
@@ -50,20 +44,10 @@
                             <div class="nav-right-dropdown__scroll">
 
                                 <c:forEach items="${history}" var="h">
-                                <li class="course">
-                                    <div class="course__img">
-                                        <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" />
-                                    </div>
-                                    <div class="course-desc">
-                                               <div class="course-desc__title">
-                                                   ${h.name}
-                                               </div>
-<%--                                               <div class="--%>
-<%--                                                            course-desc__time--%>
-<%--                                                        ">--%>
-<%--                                                   ${h.name}--%>
-<%--                                               </div>--%>
-                                           </div>
+                                <li class="course"><div class="course__img">
+                                        <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" /></div>
+                                    <div class="course-desc"><div class="course-desc__title">${h.name}
+                                               </div><%--div class="course-desc__time">${h.name}</div>--%></div>
                                 </li>
                                 </c:forEach>
                             </div>
@@ -71,20 +55,16 @@
                         </c:if>
                         <c:if test="${empty history}">
                             <ul class="nav-right-dropdown">
-                                <h6 class="nav-right-dropdown__heading">
-                                    Khóa học của tôi
-                                </h6>
+                                <h6 class="nav-right-dropdown__heading">Khóa học của tôi</h6>
                                 <div class="nav-mobile btn__close">
                                     <img src="<c:url value="/assets/course/img/close-black.svg"/>" alt="avatar" />
                                 </div>
-
                                 <div class="nav-right-dropdown__scroll">
                                     <li class="course">
 <%--                                        <div class="course__img">--%>
 <%--                                            <img src="<c:url value="/assets/course/img/courses.png"/>" alt="avatar" />--%>
 <%--                                        </div>--%>
-                                        <div class="course-desc">
-                                            <div class="course-desc__title">
+                                        <div class="course-desc"><div class="course-desc__title">
                                                     Hiện bạn chưa tham gia khóa học nào !!
                                             </div>
                                         </div>
@@ -142,9 +122,7 @@
                     <i class=""></i>
                     <div class="nav-notify-btn js-user">
                         <i class="nav-notify-btn__icon--hide-on-mobile nav-notify-btn__icon
-                                            fas
-                                            fa-sign-out-alt
-                                        "></i>
+                                            fas fa-sign-out-alt"></i>
                         <i class="nav-mobile nav-notify-btn__icon fas fa-bars"></i>
                         <!-- <div class="nav-notify-btn__tooltip">
                             Đăng xuất
@@ -173,11 +151,15 @@
                                         <span>Liên hệ</span></a>
                                 </li>
                                 <li>
+                                    <a href="<c:url value="/user/khoa-hoc/changepass" />"><i class="fas fa-user"></i><span style="background: none; border: none; padding: 0px 16px">Đổi mật khẩu</span></a>
+                                </li>
+                                <li>
                                     <form style="padding: 5px 0px 0px 0px" action="<c:url value="/j_spring_security_logout" />" method="post">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                         <i class="fas fa-sign-out-alt"></i><input style="background: none; border: none; padding: 0px 16px" type="submit" value="Đăng xuất" />
                                     </form>
                                 </li>
+
                             </ul>
                         </div>
                     </div>

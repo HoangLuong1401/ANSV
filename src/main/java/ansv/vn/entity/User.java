@@ -9,6 +9,7 @@ public class User {
     private String display_name;
     private String password;
     private int role;
+
     private int enabled;
     private Date created_at;
     private String created_by;
@@ -60,16 +61,8 @@ public class User {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
     public String getCreated_by() {
         return created_by;
-    }
-
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
     }
 
     public int getRole() {
@@ -79,4 +72,5 @@ public class User {
     public void setRole(int role) {
         this.role = role;
     }
+
 }

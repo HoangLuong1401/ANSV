@@ -17,11 +17,11 @@ public class DepartmentService {
 
     public List<Department> getAllDepartmentForUser(){ return deparDao.getAllDepartmentForUser();}
 
-    public List<Department> getDepartmentForSepRole(){ return deparDao.getDepartmentForSepRole();}
-
     public List<Department> getDepartmentForUser(){ return deparDao.getDepartmentForUser();}
 
     public Department getDepartmentById(int id){ return  deparDao.getDepartmentById(id); }
+
+    public Department getDepartmentByName(String name){ return  deparDao.getDepartmentByName(name); }
 
     public void insertDepartment(Department departments){ deparDao.saveDepartment(departments); }
 

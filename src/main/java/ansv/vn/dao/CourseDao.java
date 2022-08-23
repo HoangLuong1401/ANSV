@@ -21,32 +21,32 @@ public class CourseDao {
 
 
     public List<Course> getDataCouseById(int id) {
-        String sql = "SELECT * FROM cousera WHERE id_dep = ? LIMIT 3";
+        String sql = "SELECT * FROM course WHERE id_dep = ? LIMIT 7";
         return jdbcTemplate.query(sql, new CourseMapper(),id);
     }
 
     public List<Course> getAllDataCouseById(int id) {
-        String sql = "SELECT * FROM cousera WHERE id_dep = ?";
+        String sql = "SELECT * FROM course WHERE id_dep = ?";
         return jdbcTemplate.query(sql, new CourseMapper(),id);
     }
 
     public Course getCourseByName(String name) {
-        String sql = "SELECT * FROM cousera WHERE name = ?;";
+        String sql = "SELECT * FROM course WHERE name = ?;";
         return jdbcTemplate.queryForObject(sql, new CourseMapper() ,name);
     }
 
     public Course getCourseById(int id) {
-        String sql = "SELECT * FROM cousera WHERE id= ?;";
+        String sql = "SELECT * FROM course WHERE id= ?;";
         return jdbcTemplate.queryForObject(sql, new CourseMapper() ,id);
     }
 
     public List<Course> getAllDataCouse() {
-        String sql = "SELECT * FROM cousera";
+        String sql = "SELECT * FROM course";
         return jdbcTemplate.query(sql, new CourseMapper());
     }
 
     public void deleteCoursebByIdDep(int id) {
-        String sql = "DELETE FROM cousera WHERE id_dep = ?";
+        String sql = "DELETE FROM course WHERE id_dep = ?";
         jdbcTemplate.update(sql,id);
     }
 
@@ -61,7 +61,7 @@ public class CourseDao {
     }
 
     public void insertCourse(Course course,String text){
-        String sql = "INSERT INTO cousera (name, contents, id_dep, id_type, img_url, created_date, created_by, search_text) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO course (name, contents, id_dep, id_type, img_url, created_date, created_by, search_text) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         jdbcTemplate.update(sql,course.getName(),
                 course.getDescription(),
                 course.getId_depenment(),
@@ -73,17 +73,18 @@ public class CourseDao {
     }
 
     public void deleteCoursebByIdCourse(int id) {
-        String sql = "DELETE FROM cousera WHERE id = ?";
+        String sql = "DELETE FROM course WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 
     public void updateCoursebByIdCourse(Course course, String text) {
-        String sql = "UPDATE cousera SET name = ?, contents = ?, id_dep = ?, id_type = ?, search_text = ?WHERE id = ?";
+        String sql = "UPDATE course SET name = ?, contents = ?, id_dep = ?, id_type = ?, search_text = ?, img_url = ? WHERE id = ?";
         jdbcTemplate.update(sql,course.getName(),
                 course.getDescription(),
                 course.getId_depenment(),
                 course.getId_type(),
                 text,
+                course.getUrl_img(),
                 course.getId());
     }
 
@@ -104,27 +105,27 @@ public class CourseDao {
 
     //Get number video of type
     public int getCourseByTypeId(int id) {
-        String sql = "SELECT COUNT(*) FROM cousera WHERE id_type = ?;";
+        String sql = "SELECT COUNT(*) FROM course WHERE id_type = ?;";
         int result = jdbcTemplate.queryForObject(sql, Integer.class ,id);
         return result;
     }
 
     //Tim kiem khoa hoc
     public List<Course> searchCourse(String text){
-        String sql = "SELECT * FROM cousera WHERE search_text LIKE '%"+text+"%' AND id_dep <> 3 ORDER BY created_date DESC;";
+        String sql = "SELECT * FROM course WHERE search_text LIKE '%"+text+"%' AND id_dep <> 3 ORDER BY created_date DESC;";
         return jdbcTemplate.query(sql, new CourseMapper());
     }
 
     //Tim kiem khoa hoc
     public List<Course> searchCourse(){
-        String sql = "SELECT * FROM cousera WHERE id_dep <> 3 ORDER BY created_date DESC;";
+        String sql = "SELECT * FROM course WHERE id_dep <> 3 ORDER BY created_date DESC;";
         return jdbcTemplate.query(sql, new CourseMapper());
     }
 
 
     //Tim kiem khoa hoc for Admin
     public List<Course> searchCourseForSepRole(String text){
-        String sql = "SELECT * FROM cousera WHERE search_text LIKE '%"+text+"%' ORDER BY created_date DESC;";
+        String sql = "SELECT * FROM course WHERE search_text LIKE '%"+text+"%' ORDER BY created_date DESC;";
         return jdbcTemplate.query(sql, new CourseMapper());
     }
 
@@ -153,4 +154,5 @@ public class CourseDao {
         String sql = "SELECT AVG(vote_mark) FROM history WHERE id_c = ?";
         return jdbcTemplate.queryForObject(sql,Float.class,id_c);
     }
+
 }

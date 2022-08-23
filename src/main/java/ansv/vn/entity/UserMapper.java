@@ -16,6 +16,7 @@ public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         user.setUsername(rs.getString("username"));
         user.setDisplay_name(rs.getString("display_name"));
         user.setRole(rs.getInt("role"));
+        user.setEnabled(rs.getInt("enabled"));
 
     return user;
     }
