@@ -66,7 +66,7 @@
 													<a>${item_news1.classify}</a>
 												</span> 
 												<span class="pd-r-l-6">|</span>
-												<span class="p-n-date">${item_news1.updated_at}</span>
+												<%--<span class="p-n-date">${item_news1.updated_at}</span>--%>
 											</div>
 											<h2 class="p-n-title">
 												<a href="<c:url value='/detail_${item_news1.id}' />">${item_news1.title}</a>
@@ -93,7 +93,7 @@
 													<a>${item_news2.classify}</a> 
 												</span> 
 												<span class="pd-r-l-6">|</span>
-												<span class="p-n-date">${item_news2.updated_at}</span>
+												<%--<span class="p-n-date">${item_news2.updated_at}</span>--%>
 											</div>
 											<h2 class="p-n-title">
 												<a href="<c:url value='/detail_${item_news2.id}' />">${item_news2.title}</a>
@@ -120,7 +120,7 @@
 													<a>${item_news3.classify}</a>
 												</span> 
 												<span class="pd-r-l-6">|</span>
-												<span class="p-n-date">${item_news3.updated_at}</span>
+												<%--<span class="p-n-date">${item_news3.updated_at}</span>--%>
 											</div>
 											<h2 class="p-n-title">
 												<a href="<c:url value='/detail_${item_news3.id}' />">${item_news3.title}</a>
@@ -147,7 +147,7 @@
 														<a href="javascript:void(0)">${item_news1.classify}</a>
 													</span>
 													<span class="pd-r-l-6">|</span>
-													<span class="p-n-date">${item_news1.updated_at}</span>
+													<%--<span class="p-n-date">${item_news1.updated_at}</span>--%>
 												</div>
 												<h2 class="p-n-title">
 													<a href="<c:url value='/detail_${item_news1.id}' />">${item_news1.title}</a>
@@ -168,7 +168,7 @@
 														<a href="javascript:void(0)">${item_news2.classify}</a>
 													</span>
 													<span class="pd-r-l-6">|</span>
-													<span class="p-n-date">${item_news2.updated_at}</span>
+													<%--<span class="p-n-date">${item_news2.updated_at}</span>--%>
 												</div>
 												<h2 class="p-n-title">
 													<a href="<c:url value='/detail_${item_news2.id}' />">${item_news2.title}</a>
@@ -179,22 +179,22 @@
 									</c:if>
 								</c:forEach>
 								
-								<%-- Loại tin tức thứ ba --%>
-								<div class="post-news">
-									<div class="p-n-info">
-										<div class="mb-2">
-											<span class="p-n-cat">
-												<a href="javascript:void(0)">Tin tức</a>
-											</span>
-											<span class="pd-r-l-6">|</span>
-											<span class="p-n-date">2022-03-08</span>
-										</div>
-										<h2 class="p-n-title">
-											<a href="<c:url value='/chao-gia' />">THÔNG BÁO MỜI CHÀO GIÁ</a>
-										</h2>
-										<div class="p-n-desc justify">Công ty Trách Nhiệm Hữu Hạn Thiết Bị Viễn Thông ANSV – Về việc “Cung cấp dịch vụ vận chuyển hàng hóa năm 2022”</div>
-									</div>
-								</div>
+								<%--&lt;%&ndash; Loại tin tức thứ ba &ndash;%&gt;--%>
+								<%--<div class="post-news">--%>
+									<%--<div class="p-n-info">--%>
+										<%--<div class="mb-2">--%>
+											<%--<span class="p-n-cat">--%>
+												<%--<a href="javascript:void(0)">Tin tức</a>--%>
+											<%--</span>--%>
+											<%--<span class="pd-r-l-6">|</span>--%>
+											<%--<span class="p-n-date">2022-03-08</span>--%>
+										<%--</div>--%>
+										<%--<h2 class="p-n-title">--%>
+											<%--<a href="<c:url value='/chao-gia' />">THÔNG BÁO MỜI CHÀO GIÁ</a>--%>
+										<%--</h2>--%>
+										<%--<div class="p-n-desc justify">Công ty Trách Nhiệm Hữu Hạn Thiết Bị Viễn Thông ANSV – Về việc “Cung cấp dịch vụ vận chuyển hàng hóa năm 2022”</div>--%>
+									<%--</div>--%>
+								<%--</div>--%>
 								<c:forEach var="item_news3" items="${news3}" varStatus="index_news3">
 									<c:if test="${(not index_news3.first) && item_news3.classify == item_news_type.name}">
 										<div class="post-news">
@@ -204,7 +204,7 @@
 														<a href="javascript:void(0)">${item_news3.classify}</a>
 													</span>
 													<span class="pd-r-l-6">|</span>
-													<span class="p-n-date">${item_news3.updated_at}</span>
+													<%--<span class="p-n-date">${item_news3.updated_at}</span>--%>
 												</div>
 												<h2 class="p-n-title">
 													<a href="<c:url value='/detail_${item_news3.id}' />">${item_news3.title}</a>

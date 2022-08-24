@@ -75,20 +75,15 @@
             </div>
         </div>
         </c:if>
-        <div class="section info-play info-program">
-            <div class="section-content">
-                <div class="outside-des">
-                    <div class="box-description">
-                        <h1>
-                            <strong alt="${course.name}">${course.name}</strong>
-                        </h1>
+        <div class="section info-play info-program" style="margin-top: 50px;">
+            <div class="section-content"><div class="outside-des"><div class="box-description">
+                        <h1><strong alt="${course.name}">${course.name}</strong></h1><br>
                         <c:if test="${not empty listVideo}">
                             <div style="text-align: center;">
                                 <c:forEach items="${listVideo}" var="video" varStatus="index"><a href="<c:url value="/user/khoa-hoc/${departments}/${course.id}/${video.url}"/>"><img src="https://img.youtube.com/vi/${video.url}/hqdefault.jpg" style="width: 200px;height: 180px"/></a></c:forEach>
                             </div>
                         </c:if>
                         <strong style="font-size: 25px;">Phòng ban: </strong>
-
                         <h3 style="font-size: 25px;"><a href="<c:url value="/user/khoa-hoc/${departments}"/>" >${departments}</a></h3>
                         <div>
                             <c:if test="${not empty docs}">
@@ -149,7 +144,6 @@
                                         <div id="comment_form" class="form-group">
                                             <textarea id="comment_text" spellcheck="false" class="comment-textarea" placeholder="Hãy chia sẻ cảm nghĩ của bạn về video này."></textarea>
                                         </div>
-
                                         <p class="comment-noti">
                                             <span>Nhấn Shift + Enter để xuống dòng. Bình luận phải dài hơn 50 ký tự.</span>
                                             <a href="javascript:void(0);" id="_btnCommentSubmit"
